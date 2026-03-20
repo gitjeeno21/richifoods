@@ -38,6 +38,7 @@ const products = [
   { name: 'Cola', category: 'Carbonated', img: '/images/products/cola.png', gradient: '#1e293b, #0f172a, #020617', color: '#475569' },
   { name: 'Jeera Masala', category: 'Carbonated', img: '/images/products/jeera_masala.png', gradient: '#fed7aa, #fb923c, #f97316', color: '#F97316' },
   { name: 'Mango 2', category: 'Juice', img: '/images/products/mango_2.png', gradient: '#fbbf24, #fb923c, #f97316', color: '#F97316' },
+  { name: 'Pineapple', category: 'Juice', img: '/images/products/pine_apple.png', gradient: '#fcd34d, #fbbf24, #fb923c', color: '#fbbf24' },
 ]
 
 const filters = ['All', 'Juice', 'Carbonated']
@@ -119,7 +120,7 @@ export default function Products() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6 lg:gap-7"
             >
               {filtered.map((product, i) => (
                 <ProductCard key={product.name} {...product} index={i} />

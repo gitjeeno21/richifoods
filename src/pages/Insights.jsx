@@ -1,15 +1,9 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Calendar, Tag, Search } from 'lucide-react'
+import { X } from 'lucide-react'
 import PageWrapper from '../components/PageWrapper'
-import SectionHeading from '../components/SectionHeading'
 
-/* ══════════════════════════════════════════════════════════
-   HELPER COMPONENTS
-══════════════════════════════════════════════════════════ */
-
-// Disable Orbs on low-end / small-screen devices
 const shouldDisableOrbs = () => {
   if (typeof navigator !== 'undefined' && navigator.deviceMemory) {
     return navigator.deviceMemory <= 4
@@ -31,114 +25,43 @@ const Orb = ({ className, delay = 0 }) => {
   )
 }
 
-/* ══════════════════════════════════════════════════════════
-   DATA
-══════════════════════════════════════════════════════════ */
-
-const articles = [
+const events = [
   {
     id: 1,
-    title: 'Ayudha Pooja Celebrations Across Daily Fresh Plants in Tamil Nadu',
-    excerpt: 'Celebrating the spirit of Ayudha Pooja with our entire team across all manufacturing facilities in Tamil Nadu.',
-    date: 'Oct 1, 2025',
-    category: 'Events',
-    image: '/images/insights/ayudha-pooja.jpg',
+    title: 'Pongal 2025',
+    date: 'Jan 14-15, 2025',
+    image: '/images/insights/pongal-2025.jpg',
+    description: 'Celebrating the harvest festival with our community and team. Pongal symbolizes prosperity, gratitude, and the bounty of nature. Richi Food Products joins in the festivities with traditional celebrations across Tamil Nadu.',
+    details: 'Experience the warmth of Pongal celebrations with Richi. From traditional Pongal rangoli to community gatherings, we honor this harvest festival that brings families together. Our beverages add sweetness to your Pongal celebrations!'
   },
   {
     id: 2,
-    title: 'Unveils New Community Park at Reliance Mall, Nagercoil',
-    excerpt: 'Richi Food Products inaugurates a new community park dedicated to environmental conservation and public wellness.',
-    date: 'Sep 19, 2025',
-    category: 'CSR',
-    image: '/images/insights/community-park.jpg',
+    title: 'Diwali 2025',
+    date: 'Oct 29-Nov 2, 2025 ',
+    image: '/images/insights/diwali-2025.jpg',
+    description: 'Festival of Lights celebrating victory of good over evil. Richi Food Products illuminates your Diwali celebrations with premium beverages and community joy. Share moments of togetherness and brightness with loved ones.',
+    details: 'Diwali is the festival of lights, joy, and togetherness. At Richi, we celebrate by bringing people together with refreshing beverages that complement every festive moment. Light up your Diwali with Richi!'
   },
   {
     id: 3,
-    title: 'Precision & Innovation: PET Division in PET Beverage Bottle Production',
-    excerpt: 'Exploring how our advanced PET division revolutionizes beverage bottle production with cutting-edge technology.',
-    date: 'Dec 13, 2024',
-    category: 'Innovation',
-    image: '/images/insights/pet-division.jpg',
-  },
-  {
-    id: 4,
-    title: 'The Power of Teamwork: The Daily Fresh Family in Action',
-    excerpt: 'See how collaboration and dedication drive excellence across every department of our organization.',
-    date: 'Aug 20, 2024',
-    category: 'Culture',
-    image: '/images/insights/teamwork.jpg',
-  },
-  {
-    id: 5,
-    title: 'Commitment to Purity: Meriba Packaged Drinking Water Plants',
-    excerpt: 'Understanding the rigorous quality standards that make Meriba water the choice of thousands.',
-    date: 'Sep 11, 2024',
-    category: 'Products',
-    image: '/images/insights/meriba-water.jpg',
-  },
-  {
-    id: 6,
-    title: 'What Makes Richi Food Products Stand Out?',
-    excerpt: 'A deep dive into what sets us apart in the competitive beverage industry of South India.',
-    date: 'Feb 11, 2025',
-    category: 'Company',
-    image: '/images/insights/why-richi.jpg',
-  },
-  {
-    id: 7,
-    title: 'Why Richi? A Revolution in India\'s Beverage Market',
-    excerpt: 'Discover how we\'re changing the way India thinks about quality beverages and sustainable practices.',
-    date: 'Oct 29, 2024',
-    category: 'Market',
-    image: '/images/insights/revolution.jpg',
-  },
-  {
-    id: 8,
-    title: 'The Taste of Tradition, Reimagined',
-    excerpt: 'Blending centuries of Tamil tradition with modern innovation in every bottle we produce.',
-    date: 'Oct 20, 2024',
-    category: 'Heritage',
-    image: '/images/insights/tradition.jpg',
-  },
-  {
-    id: 9,
-    title: 'Our Growth Story',
-    excerpt: 'From humble beginnings in 2008 to becoming a leading beverage manufacturer in South India.',
-    date: 'Sep 13, 2024',
-    category: 'Company',
-    image: '/images/insights/growth-story.jpg',
-  },
-  {
-    id: 10,
-    title: 'A Proud Moment: Richi Wins Modern Plastics Award 2024',
-    excerpt: 'Recognition for our excellence in sustainable packaging and innovative PET solutions.',
-    date: 'Jun 11, 2024',
-    category: 'Awards',
-    image: '/images/insights/plastics-award.jpg',
-  },
+    title: 'Tamil New Year 2025',
+    date: 'April 14, 2025',
+    image: '/images/insights/tamil-new-year-2025.jpg',
+    description: 'Celebrating Tamil heritage and the beginning of new beginnings. Tamil New Year (Chithirai) marks the arrival of spring and prosperity. Richi Food Products honors this significant cultural milestone with community engagement.',
+    details: 'Tamil New Year or Chithirai Pirappu welcomes spring and new possibilities. It\'s a time of renewal, hope, and new beginnings. Richi Food Products celebrates Tamil culture and tradition with special events, while refreshing communities with our quality beverages throughout this auspicious period.'
+  }
 ]
 
-const categories = ['All', 'Events', 'CSR', 'Innovation', 'Culture', 'Products', 'Company', 'Market', 'Heritage', 'Awards']
-
 export default function Insights() {
-  const [selectedCategory, setSelectedCategory] = useState('All')
-  const [searchTerm, setSearchTerm] = useState('')
-
-  const filteredArticles = articles.filter(article => {
-    const matchCategory = selectedCategory === 'All' || article.category === selectedCategory
-    const matchSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                       article.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
-    return matchCategory && matchSearch
-  })
+  const [selectedEvent, setSelectedEvent] = useState(null)
 
   return (
     <PageWrapper>
-      {/* ══════════ 1. HERO ══════════ */}
+      {/* ══════════ HERO ══════════ */}
       <section
         className="relative pt-32 pb-20 overflow-hidden"
         style={{ background: 'linear-gradient(155deg, white 0%, #f9fafb 30%, white 70%, #f3f4f6 100%)' }}
       >
-        {/* Leaf texture */}
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.05]"
           style={{
@@ -158,7 +81,7 @@ export default function Insights() {
           >
             <Link to="/" className="hover:text-[#7A4A2A]">Home</Link>
             <span>/</span>
-            <span className="text-[#7A4A2A]">Insights</span>
+            <span className="text-[#7A4A2A]">Events</span>
           </motion.div>
 
           {/* Centre text */}
@@ -170,179 +93,173 @@ export default function Insights() {
             >
               <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/70 backdrop-blur border border-[#FFD9A8] text-[#7A4A2A] text-xs font-bold mb-6 shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-[#FB923C] animate-pulse" />
-                News & Stories
+                Celebrations & Events
               </span>
               <h1
                 className="font-black leading-tight text-[#1A0C04] mb-6"
                 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 'clamp(2.5rem, 6vw, 4.5rem)' }}
               >
-                Latest Insights &<br />
-                <span className="text-[#F97316]">Industry Updates</span>
+                Festive<br />
+                <span className="text-[#F97316]">Celebrations 2025</span>
               </h1>
               <p className="text-[#4A2800]/60 max-w-2xl mx-auto leading-relaxed text-lg">
-                Stay updated with our latest news, blog articles, events, and industry insights from Richi Food Products.
+                Join us in celebrating Tamil culture and traditions with Richi Food Products throughout 2025.
               </p>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* ══════════ 2. SEARCH & FILTER ══════════ */}
-      <section className="py-12 px-6 md:px-12 lg:px-20 bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto">
-          {/* Search bar */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-8"
-          >
-            <div className="relative">
-              <Search className="absolute left-4 top-3.5 text-gray-400" size={20} />
-              <input
-                type="text"
-                placeholder="Search articles..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-[#F97316] focus:border-transparent"
-              />
-            </div>
-          </motion.div>
-
-          {/* Category filter */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-wrap gap-2"
-          >
-            {categories.map((cat, idx) => (
-              <button
-                key={idx}
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
-                  selectedCategory === cat
-                    ? 'bg-[#F97316] text-white shadow-lg shadow-[#F97316]/20'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ══════════ 3. ARTICLES GRID ══════════ */}
+      {/* ══════════ EVENTS GRID ══════════ */}
       <section className="relative py-20 px-6 md:px-12 lg:px-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, white 0%, #f9fafb 40%, white 65%, #f3f4f6 100%)' }}>
         <Orb className="w-80 h-80 bg-[#F97316]/15 top-10 -left-40" delay={1} />
         <Orb className="w-96 h-96 bg-[#F97316]/10 bottom-0 -right-32" delay={3} />
         <div className="absolute inset-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='180' height='180' viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M90 15 Q120 50 90 95 Q60 50 90 15Z' fill='%237A4A2A'/%3E%3C/svg%3E")`, backgroundSize: '200px 200px' }} />
+        
         <div className="relative z-10 max-w-7xl mx-auto">
-          {filteredArticles.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredArticles.map((article, idx) => (
-                <motion.article
-                  key={article.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                  whileHover={{ y: -12, scale: 1.02 }}
-                  className="group rounded-3xl overflow-hidden border-2 border-gray-200 hover:border-[#F97316] hover:shadow-2xl transition-all duration-300 bg-white flex flex-col"
-                >
-                  {/* Image */}
-                  <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
-                    <img
-                      src={article.image}
-                      alt={article.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      onError={(e) => { e.target.style.display = 'none' }}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {events.map((event, idx) => (
+              <motion.div
+                key={event.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -12, scale: 1.05 }}
+                onClick={() => setSelectedEvent(event)}
+                className="group cursor-pointer rounded-3xl overflow-hidden border-2 border-gray-200 hover:border-[#F97316] hover:shadow-2xl transition-all duration-300 bg-white flex flex-col"
+              >
+                {/* Image Container */}
+                <div className="relative h-56 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    onError={(e) => { e.target.style.display = 'none' }}
+                  />
+                  {!event.image && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="text-6xl opacity-30">🎉</div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Content */}
+                <div className="p-6 flex flex-col flex-1">
+                  {/* Date */}
+                  <div className="text-sm text-[#F97316] font-semibold mb-3 uppercase tracking-widest">
+                    {event.date}
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-2xl font-black text-gray-900 mb-3" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                    {event.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-gray-600 text-sm flex-1 line-clamp-3">
+                    {event.description}
+                  </p>
+
+                  {/* Click hint */}
+                  <div className="mt-4 pt-4 border-t border-gray-100 flex items-center gap-2">
+                    <motion.div
+                      animate={{ scale: [1, 1.1, 1] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                      className="w-2 h-2 rounded-full bg-[#F97316]"
                     />
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F97316" strokeWidth="1.5">
-                        <rect x="3" y="3" width="18" height="18" rx="2" />
-                        <circle cx="8.5" cy="8.5" r="1.5" />
-                        <path d="M21 15l-5-5L5 21" />
-                      </svg>
-                    </div>
-                    {/* Category badge */}
-                    <div className="absolute top-3 right-3">
-                      <span className="inline-block px-3 py-1 bg-[#F97316] text-white text-xs font-bold rounded-full">
-                        {article.category}
-                      </span>
-                    </div>
+                    <span className="text-xs font-semibold text-[#F97316]">Tap to see more</span>
                   </div>
-
-                  {/* Content */}
-                  <div className="p-6 flex-1 flex flex-col">
-                    {/* Date */}
-                    <div className="flex items-center gap-2 text-gray-500 text-sm mb-3">
-                      <Calendar size={14} />
-                      <span>{article.date}</span>
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-lg font-black text-gray-900 mb-3 line-clamp-2 leading-tight">
-                      {article.title}
-                    </h3>
-
-                    {/* Excerpt */}
-                    <p className="text-gray-600 text-sm mb-4 flex-1 line-clamp-2">
-                      {article.excerpt}
-                    </p>
-
-                    {/* Read more */}
-                    <Link
-                      to="#"
-                      className="inline-flex items-center gap-2 text-[#F97316] font-bold text-sm hover:gap-4 transition-all"
-                    >
-                      Read More <ArrowRight size={14} />
-                    </Link>
-                  </div>
-                </motion.article>
-              ))}
-            </div>
-          ) : (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-20"
-            >
-              <p className="text-gray-500 text-lg">No articles found matching your search.</p>
-            </motion.div>
-          )}
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ══════════ 4. CTA ══════════ */}
-      <section className="relative py-20 px-6 md:px-12 lg:px-20 bg-gradient-to-br from-[#2D1608] to-[#8B5A2B] overflow-hidden">
-        <Orb className="w-96 h-96 bg-white/5 top-1/2 -right-20 -translate-y-1/2" />
-
-        <div className="relative max-w-4xl mx-auto text-center z-10">
+      {/* ══════════ MODAL POPUP ══════════ */}
+      <AnimatePresence>
+        {selectedEvent && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedEvent(null)}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
           >
-            <h2
-              className="text-3xl md:text-4xl font-black text-white mb-4"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+            <motion.div
+              initial={{ scale: 0.8, y: 50, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.8, y: 50, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white rounded-3xl overflow-hidden max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
             >
-              Have a Story to Share?
-            </h2>
-            <p className="text-white/70 text-lg mb-6 leading-relaxed">
-              Do you have insights, news, or a success story related to Richi Food Products? We'd love to hear from you.
-            </p>
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#7A4A2A] font-black rounded-full hover:bg-[#FFF8EE] transition-colors duration-300 shadow-xl shadow-black/20"
-            >
-              Get in Touch <ArrowRight size={16} />
-            </Link>
+              {/* Close button */}
+              <div className="sticky top-0 flex justify-end p-6 bg-gradient-to-r from-[#F97316] to-[#A8430F] z-10">
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setSelectedEvent(null)}
+                  className="w-10 h-10 rounded-full bg-white/20 backdrop-blur flex items-center justify-center hover:bg-white/30 transition-all"
+                >
+                  <X size={24} className="text-white" />
+                </motion.button>
+              </div>
+
+              {/* Image */}
+              <div className="relative h-80 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
+                <img
+                  src={selectedEvent.image}
+                  alt={selectedEvent.title}
+                  className="w-full h-full object-cover"
+                  onError={(e) => { e.target.style.display = 'none' }}
+                />
+                {!selectedEvent.image && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-8xl opacity-20">🎉</div>
+                  </div>
+                )}
+              </div>
+
+              {/* Content */}
+              <div className="p-8">
+                {/* Date */}
+                <div className="text-sm text-[#F97316] font-semibold mb-4 uppercase tracking-widest">
+                  📅 {selectedEvent.date}
+                </div>
+
+                {/* Title */}
+                <h2 className="text-4xl font-black text-gray-900 mb-6" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                  {selectedEvent.title}
+                </h2>
+
+                {/* Description */}
+                <p className="text-gray-600 text-lg mb-6 leading-relaxed">
+                  {selectedEvent.description}
+                </p>
+
+                {/* Full details */}
+                <div className="bg-gradient-to-br from-[#FFF8EE] to-[#FFE8D1] rounded-2xl p-6 mb-6 border-2 border-[#FFD9A8]">
+                  <p className="text-[#7A4A2A] leading-relaxed">
+                    {selectedEvent.details}
+                  </p>
+                </div>
+
+                {/* CTA */}
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setSelectedEvent(null)}
+                  className="w-full py-4 bg-gradient-to-r from-[#F97316] to-[#A8430F] text-white font-bold rounded-full hover:shadow-xl transition-all"
+                >
+                  Close
+                </motion.button>
+              </div>
+            </motion.div>
           </motion.div>
-        </div>
-      </section>
+        )}
+      </AnimatePresence>
     </PageWrapper>
   )
 }

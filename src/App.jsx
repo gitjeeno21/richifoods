@@ -8,7 +8,6 @@ import About from './pages/About'
 import Products from './pages/Products'
 import Investors from './pages/Investors'
 import Contact from './pages/Contact'
-import CSR from './pages/CSR'
 import Insights from './pages/Insights'
 import Dealership from './pages/Dealership'
 
@@ -30,7 +29,6 @@ export default function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/investors" element={<Investors />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/csr" element={<CSR />} />
           <Route path="/insights" element={<Insights />} />
           <Route path="/dealership" element={<Dealership />} />
         </Routes>

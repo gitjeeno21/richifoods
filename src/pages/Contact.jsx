@@ -2,7 +2,11 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Phone, MapPin, Send, CheckCircle, Clock, Building, Link as LinkIcon, Globe } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import emailjs from 'emailjs-com'
 import PageWrapper from '../components/PageWrapper'
+
+// Initialize EmailJS - Replace YOUR_PUBLIC_KEY_HERE with your key from emailjs.com
+emailjs.init('YOUR_PUBLIC_KEY_HERE')
 
 /* ══════════════════════════════════════════════════════════
    HELPER COMPONENTS
@@ -36,40 +40,40 @@ const Orb = ({ className, delay = 0 }) => {
 
 const contactChannels = [
   {
-    icon: Phone,
-    label: 'Toll-Free',
-    value: '1800-889-9070',
-    desc: 'Call us anytime',
-    link: 'tel:1800-889-9070',
-  },
-  {
     icon: Mail,
     label: 'Email',
-    value: 'customercare@richifood.com',
+    value: 'richifoodproduct@gmail.com',
     desc: 'Response within 24 hours',
-    link: 'mailto:customercare@richifood.com',
+    link: 'mailto:richifoodproduct@gmail.com',
+  },
+  {
+    icon: Phone,
+    label: 'Mr. Velmurukan',
+    value: '+91 94435 18521',
+    desc: 'Founder & Director',
+    link: 'tel:+919443518521',
+  },
+  {
+    icon: Phone,
+    label: 'Mr. Bharath',
+    value: '+91 99443 66592',
+    desc: 'Operations & Marketing',
+    link: 'tel:+919944366592',
   },
   {
     icon: MapPin,
-    label: 'Headquarters',
-    value: 'Krishnagiri, Tamil Nadu',
-    desc: 'India',
+    label: 'Head Office',
+    value: 'Krishnagiri District, TN',
+    desc: 'Tamil Nadu, India',
     link: 'https://maps.google.com/?q=Krishnagiri,Tamil+Nadu',
-  },
-  {
-    icon: Globe,
-    label: 'Website',
-    value: 'www.richifoodproducts.com',
-    desc: 'Online inquiry',
-    link: '#',
   },
 ]
 
 const reasons = [
   { icon: Building, text: 'Schedule a Plant Visit or Virtual Tour' },
   { icon: Clock, text: 'Discuss Contract Manufacturing Terms' },
-  { icon: CheckCircle, text: 'Distribution & Dealership Opportunity' },
-  { icon: Mail, text: 'Request Samples or Product Information' },
+  { icon: CheckCircle, text: 'White-label & Distribution Inquiry' },
+  { icon: Mail, text: 'Request Samples or Pricing' },
 ]
 
 export default function Contact() {
@@ -81,6 +85,7 @@ export default function Contact() {
     message: '',
   })
   const [submitted, setSubmitted] = useState(false)
+  const [sending, setSending] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -89,12 +94,33 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
-    setSubmitted(true)
-    setTimeout(() => {
-      setSubmitted(false)
-      setFormData({ name: '', email: '', phone: '', state: '', message: '' })
-    }, 5000)
+    setSending(true)
+
+    const templateParams = {
+      to_email: 'richifoodproduct@gmail.com',
+      from_name: formData.name,
+      from_email: formData.email,
+      phone: formData.phone,
+      state: formData.state,
+      message: formData.message,
+    }
+
+    // Send email using EmailJS
+    emailjs.send('SERVICE_ID', 'TEMPLATE_ID', templateParams)
+      .then((response) => {
+        console.log('Email sent successfully!', response)
+        setSubmitted(true)
+        setSending(false)
+        setTimeout(() => {
+          setSubmitted(false)
+          setFormData({ name: '', email: '', phone: '', state: '', message: '' })
+        }, 5000)
+      })
+      .catch((error) => {
+        console.error('Failed to send email:', error)
+        setSending(false)
+        alert('Failed to send message. Please try again.')
+      })
   }
 
   return (
@@ -245,8 +271,12 @@ export default function Contact() {
                 <div>
                   <div className="font-black text-gray-900 text-base mb-2">Head Office</div>
                   <div className="text-gray-700 text-sm leading-relaxed font-semibold">
-                    Krishnagiri District<br />
-                    Tamil Nadu, India
+                    489/1, Karagur Village<br />
+                    Piyur-2 – 635112<br />
+                    Krishnagiri District, Tamil Nadu, India<br />
+                    <br />
+                    <span className="text-xs text-gray-500 font-normal">GST: 33ABJFR2254F1ZD</span><br />
+                    <span className="text-xs text-gray-500 font-normal">FSSAI: 12424011000549</span>
                   </div>
                 </div>
               </div>
@@ -353,10 +383,11 @@ export default function Contact() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     type="submit"
-                    className="w-full py-4 bg-[#F97316] text-white font-black rounded-full hover:bg-[#A8430F] transition-colors duration-300 flex items-center justify-center gap-2 shadow-xl shadow-[#F97316]/20"
+                    disabled={sending}
+                    className="w-full py-4 bg-[#F97316] text-white font-black rounded-full hover:bg-[#A8430F] transition-colors duration-300 flex items-center justify-center gap-2 shadow-xl shadow-[#F97316]/20 disabled:opacity-70 disabled:cursor-not-allowed"
                   >
                     <Send size={18} />
-                    Send Message
+                    {sending ? 'Sending...' : 'Send Message'}
                   </motion.button>
                 </div>
               </form>

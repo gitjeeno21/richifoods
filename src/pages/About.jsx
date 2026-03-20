@@ -1,10 +1,10 @@
-import { useState, useRef, useEffect, memo } from 'react'
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import { useState, useEffect, memo } from 'react'
+import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import {
-  Users, Target, Eye, Shield, Zap, Globe, Leaf, Star, Award,
-  ChevronLeft, ChevronRight, ArrowRight, Phone, Mail, MapPin,
-  FlaskConical, Truck, HeartHandshake, BadgeCheck
+  Users, Target, Eye, Shield, Zap, Globe,
+  ChevronLeft, ChevronRight, ArrowRight, Phone,
+  HeartHandshake, BadgeCheck
 } from 'lucide-react'
 import PageWrapper from '../components/PageWrapper'
 
@@ -14,169 +14,95 @@ import PageWrapper from '../components/PageWrapper'
 
 const timeline = [
   {
-    year: '2008',
-    title: 'The Beginning',
-    desc: 'Richi Food Products was founded with a vision to deliver premium quality beverages to consumers. First manufacturing facility established in Tamil Nadu. Production began with fruit drinks — mango, apple, and guava. Started with just 10 employees.',
-    img: '/images/about/timeline/2008.jpg',   // 🔁 replace
+    year: '2020',
+    title: 'Founded',
+    desc: 'Richi Food Products founded in Krishnagiri, Tamil Nadu.',
+    img: '/images/about/timeline/2020.jpg',
     tag: 'Founded',
     color: 'bg-[#C2641F]',
   },
   {
-    year: '2010',
-    title: 'First Machines',
-    desc: 'Introduced an automatic labeling machine and an injection molding machine, enabling in-house preform and bottle production for greater quality control.',
-    img: '/images/about/timeline/2010.jpg',   // 🔁 replace
-    tag: 'Automation',
-    color: 'bg-[#FB923C]',
-  },
-  {
-    year: '2011',
-    title: 'Carbonated Drinks',
-    desc: 'Introduced a manual carbonated beverages filling machine, expanding into carbonated soft drinks (CSD) alongside fruit beverages.',
-    img: '/images/about/timeline/2011.jpg',   // 🔁 replace
-    tag: 'Expansion',
+    year: '2021',
+    title: 'FSSAI License',
+    desc: 'FSSAI license obtained, first product lines launched.',
+    img: '/images/about/timeline/2021.jpg',
+    tag: 'Compliance',
     color: 'bg-sky-500',
   },
   {
-    year: '2012',
-    title: 'Jinthaaa & Jeera',
-    desc: 'Launched Jinthaaa — inspired by Tamil Nadu\'s traditional grape flavour — and Jeera Masala Soda. Introduced bottle blowing machine for full in-house production.',
-    img: '/images/about/timeline/2012.jpg',   // 🔁 replace
-    tag: 'New Products',
+    year: '2022',
+    title: 'Karnataka Expansion',
+    desc: 'Expanded to 10+ drink variants, entered Karnataka market.',
+    img: '/images/about/timeline/2022.jpg',
+    tag: 'Expansion',
     color: 'bg-purple-500',
   },
   {
-    year: '2016',
-    title: 'Full Automation',
-    desc: 'Upgraded to a fully automated high-speed production line for fruit & carbonated drinks. Introduced aseptic packs in mango, apple, guava, pomegranate, and lychee. Entered hospitality with Hotel Aradhana Inn, Yercaud.',
-    img: '/images/about/timeline/2016.jpg',   // 🔁 replace
+    year: '2023',
+    title: 'Plant Upgrade',
+    desc: 'Scaled to 100 KL/day capacity with new plant upgrades.',
+    img: '/images/about/timeline/2023.jpg',
     tag: 'Scale-up',
     color: 'bg-[#FB923C]',
   },
   {
-    year: '2017',
-    title: 'Meriba Paneer Soda + Wind Energy',
-    desc: 'Launched Meriba Paneer Soda, capturing Tamil Nadu\'s traditions. Invested in wind energy projects across Panankudi, Tenkasi, and Uthumalai.',
-    img: '/images/about/timeline/2017.jpg',   // 🔁 replace
-    tag: 'Sustainability',
-    color: 'bg-[#C2641F]',
-  },
-  {
-    year: '2018',
-    title: 'Second Plant & Hospitality',
-    desc: 'Opened second manufacturing unit in Sappanipatti, Krishnagiri. Advanced preform design for high-speed injection molding. Acquired Kolaahalam Mainland Resorts and Spa, Yercaud.',
-    img: '/images/about/timeline/2018.jpg',   // 🔁 replace
-    tag: 'Growth',
-    color: 'bg-rose-500',
-  },
-  {
-    year: '2019',
-    title: 'Third Plant',
-    desc: 'Established a third beverage plant in Pothapuram, Krishnagiri, to meet rapidly growing product demand across multiple regions.',
-    img: '/images/about/timeline/2019.jpg',   // 🔁 replace
-    tag: 'Expansion',
-    color: 'bg-indigo-500',
-  },
-  {
-    year: '2020',
-    title: 'Solar Energy',
-    desc: 'Established a solar power plant in Kadambur, integrating clean energy into manufacturing and reducing dependence on conventional power.',
-    img: '/images/about/timeline/2020.jpg',   // 🔁 replace
-    tag: 'Green Energy',
-    color: 'bg-[#F97316]',
-  },
-  {
-    year: '2021',
-    title: 'MERIBA Water Launch',
-    desc: 'Ventured into packaged drinking water with the MERIBA brand. Set up a state-of-the-art water packaging plant in Gangaikondan, Tirunelveli. Commissioned solar plant in Kangarakottai and began selling surplus energy.',
-    img: '/images/about/timeline/2021.jpg',   // 🔁 replace
-    tag: 'New Category',
-    color: 'bg-cyan-500',
-  },
-  {
-    year: '2022',
-    title: 'AGNEE & PAALMAN',
-    desc: 'Launched AGNEE Energy Drink, entering the energy segment. Introduced PAALMAN flavoured milk — Badam, Chocolate, Vanilla, Rose Milk, and Pista variants.',
-    img: '/images/about/timeline/2022.jpg',   // 🔁 replace
-    tag: 'New Products',
-    color: 'bg-red-500',
-  },
-  {
     year: '2024',
-    title: 'Ponneri Plant & Trichy Water',
-    desc: 'Launched a new beverage plant in Ponneri, Tiruvallur. Expanded packaged drinking water operations in Manaparai, Trichy.',
-    img: '/images/about/timeline/2024.jpg',   // 🔁 replace
+    title: 'Contract Manufacturing',
+    desc: 'White-label & contract manufacturing partnerships launched.',
+    img: '/images/about/timeline/2024.jpg',
     tag: 'Latest',
     color: 'bg-[#F97316]',
   },
 ]
 
 const commitments = [
-  { icon: Star,          title: 'Excellence',              desc: 'Dedicated to producing beverages that meet the highest quality standards, improving processes continuously.' },
-  { icon: Zap,           title: 'Innovation',              desc: 'Continuously evolving with new beverages and cutting-edge production technologies.' },
-  { icon: Leaf,          title: 'Sustainability',          desc: 'Significant investments in wind and solar power to minimise our environmental impact.' },
-  { icon: Shield,        title: 'Responsibility',          desc: 'Fair labour practices, community support, and minimising our ecological footprint.' },
-  { icon: HeartHandshake,title: 'Corporate Social Responsibility', desc: 'Supporting education, healthcare, and environmental sustainability in communities we serve.' },
-  { icon: Users,         title: 'Community Engagement',   desc: 'Donations to local schools, special schools, and public health initiatives.' },
+  { icon: Shield, title: 'Quality First', desc: 'Every bottle passes rigorous QC checks before leaving our facility.' },
+  { icon: Zap, title: 'Innovation', desc: 'Continuously developing new flavors and healthier formulations.' },
+  { icon: Globe, title: 'Sustainability', desc: 'Eco-friendly packaging and responsible water management practices.' },
+  { icon: HeartHandshake, title: 'Partnership', desc: 'Long-term relationships with distributors, retailers, and farmers.' },
 ]
 
 const strengths = [
-  { icon: '🏭', title: 'Modern Facilities',   desc: 'Automated facilities ensure precision, hygiene, and consistency without human interference.' },
-  { icon: '💡', title: 'Innovation',           desc: 'Constantly refining products through R&D while maintaining traditional flavours.' },
-  { icon: '🌿', title: 'Sustainability',        desc: 'Renewable energy and reduced plastic to improve quality and protect the environment.' },
-  { icon: '✅', title: 'Quality',               desc: 'Superior taste and high production standards across all our products.' },
-  { icon: '💰', title: 'Affordable Price',      desc: 'Premium quality beverages at prices that are accessible to all.' },
-  { icon: '🏆', title: 'Market Leadership',     desc: 'A trusted name in South India with a strong distribution network.' },
-  { icon: '🥤', title: 'Wide Product Range',    desc: 'Fruit drinks, carbonated beverages, flavored milk, energy drinks, and packaged water.' },
-  { icon: '🤝', title: 'Ethical Values',        desc: 'We believe in fairness, integrity, and community support.' },
+  { icon: '🏭', title: 'Modern Facilities', desc: 'Automated facilities ensure precision, hygiene, and consistency.' },
+  { icon: '💡', title: 'Innovation', desc: 'Constantly refining products through R&D while meeting market demands.' },
+  { icon: '🌿', title: 'Sustainability', desc: 'Eco-friendly packaging and responsible water management.' },
+  { icon: '✅', title: 'Quality', desc: 'Every bottle passes rigorous QC before leaving our facility.' },
+  { icon: '💰', title: 'Affordable Price', desc: 'Premium quality beverages at prices accessible to all.' },
+  { icon: '🏆', title: 'Market Leadership', desc: 'A trusted name in South India with a growing distribution network.' },
+  { icon: '🥤', title: 'Wide Product Range', desc: 'Fruit juices and carbonated beverages for every consumer.' },
+  { icon: '🤝', title: 'Ethical Values', desc: 'We believe in fairness, integrity, and community support.' },
 ]
 
 const services = [
-  { icon: Truck,         title: 'Reliable Distribution',    desc: 'Extensive network across South India ensures timely deliveries and efficient supply chain management.' },
-  { icon: Users,         title: 'Customer Focus',           desc: 'Prioritising consumer preferences and feedback to meet diverse tastes with precision.' },
-  { icon: HeartHandshake,title: 'Supportive Partnerships',  desc: 'Collaborating with distributors, wholesalers, retailers, and vendors for mutual growth.' },
+  { icon: Users, title: 'Contract Manufacturing', desc: 'Full-scale contract manufacturing for B2B partners with 100 KL/day capacity.' },
+  { icon: HeartHandshake, title: 'White-Label Solutions', desc: 'Custom white-label beverages crafted to your brand specifications.' },
+  { icon: Globe, title: 'Distribution Network', desc: 'Growing presence across Tamil Nadu and Karnataka with reliable supply chain.' },
 ]
 
 const labPoints = [
-  'Cutting-Edge Technology: Advanced tools for microbiological, physicochemical, and packaging integrity testing.',
-  'Expert Team: Skilled microbiologists, chemists, and quality analysts conducting thorough quality checks.',
-  'End-to-End Testing: Continuous monitoring of raw materials, in-process samples, and finished products.',
-  'R&D Innovation: Drives creation of new flavours and formulations to meet changing consumer preferences.',
-  'Regulatory Compliance: Meets both national and international safety and quality standards.',
-  'Sustainability Focus: Eco-friendly lab practices that reduce waste while ensuring precise results.',
+  'RO Water Treatment for pure, consistent water quality.',
+  'Blending & Mixing Units for precise formulation.',
+  'Pasteurization System ensuring product safety.',
+  'CO₂ Carbonation for consistent carbonated beverages.',
+  'PET Bottle Filling Line with automated quality checks.',
+  'Dedicated QC Laboratory monitoring every batch.',
+  'Cold Storage Facility preserving freshness.',
 ]
 
-// Pillars of Strength — team directory
-// Replace img paths and fill in real names/roles
 const pillars = [
-  { name: 'Issac Bright',         role: 'Managing Director',              img: '/images/about/team/issac.jpg' },
-  { name: 'Jayabharathi R',       role: 'Director',                       img: '/images/about/team/jayabharathi.jpg' },
-  { name: 'Balamurugan R',        role: 'Financial Advisor',              img: '/images/about/team/balamurugan.jpg' },
-  { name: 'Sandira Bose G',       role: 'General Manager',                img: '/images/about/team/sandira.jpg' },
-  { name: 'Thennarasu S',         role: 'Administrative Officer',         img: '/images/about/team/thennarasu.jpg' },
-  { name: 'Sulaiman A',           role: 'Accounts Manager',               img: '/images/about/team/sulaiman.jpg' },
-  { name: 'Kanakaraju N',         role: 'Asst. Manager Accounts',         img: '/images/about/team/kanakaraju.jpg' },
-  { name: 'Tamilmani E',          role: 'Asst. Manager Accounts',         img: '/images/about/team/tamilmani.jpg' },
-  { name: 'Raja T',               role: 'HR Incharge',                    img: '/images/about/team/raja.jpg' },
-  { name: 'Sekar G D',            role: 'Production Manager',             img: '/images/about/team/sekar.jpg' },
-  { name: 'Sakthivel P',          role: 'Production Manager',             img: '/images/about/team/sakthivel.jpg' },
-  { name: 'Dhayalan R',           role: 'Regional Sales Manager, TN',     img: '/images/about/team/dhayalan.jpg' },
-  { name: 'Lawrence M',           role: 'Regional Sales Manager, KA',     img: '/images/about/team/lawrence.jpg' },
-  { name: 'Benil Isac Bright',    role: 'Marketing & Sales Coordinator',  img: '/images/about/team/benil.jpg' },
-  { name: 'Uma E',                role: 'Sales & Production Coordinator', img: '/images/about/team/uma.jpg' },
+  { name: 'Mr. Velmurukan', role: 'Founder & Director', phone: '9443518521', img: '/images/about/team/velmurukan.jpg' },
+  { name: 'Mr. Bharath', role: 'Operations & Marketing', phone: '9944366592', img: '/images/about/team/bharath.jpg' },
 ]
 
 /* ══════════════════════════════════════════════════════════
-   HELPERS
+   HELPERS  (unchanged from original)
 ══════════════════════════════════════════════════════════ */
 
-// Check for reduced motion preference
 const prefersReducedMotion = () => {
   if (typeof window === 'undefined') return false
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
-// Disable Orbs on low-end / small-screen devices
 const shouldDisableOrbs = () => {
   if (typeof navigator !== 'undefined' && navigator.deviceMemory) {
     return navigator.deviceMemory <= 4
@@ -199,7 +125,6 @@ const Orb = memo(({ className, delay = 0 }) => {
   )
 })
 
-// Dashed image placeholder — shown when src is empty/broken
 function ImgBox({ src, alt = '', className = '', objectFit = 'object-cover', label = 'Add Image', rounded = 'rounded-2xl', aspect }) {
   return (
     <div className={`relative overflow-hidden ${rounded} ${aspect} ${className} bg-gradient-to-br from-white to-gray-50 border-2 border-dashed border-gray-200`}>
@@ -221,32 +146,11 @@ function ImgBox({ src, alt = '', className = '', objectFit = 'object-cover', lab
   )
 }
 
-// Team photo placeholder
-function TeamPhoto({ src, alt, size = 'w-20 h-20' }) {
-  return (
-    <div className={`relative ${size} rounded-full overflow-hidden bg-white border-2 border-gray-200 shrink-0`}>
-      <img
-        src={src}
-        alt={alt}
-        className="w-full h-full object-cover"
-        onError={(e) => { e.target.style.display = 'none' }}
-      />
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FBBB74" strokeWidth="1.5">
-          <circle cx="12" cy="8" r="4" />
-          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-        </svg>
-      </div>
-    </div>
-  )
-}
-
 /* ══════════════════════════════════════════════════════════
    ABOUT PAGE
 ══════════════════════════════════════════════════════════ */
 export default function About() {
 
-  // Responsive carousel sizing
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 1200
   )
@@ -263,8 +167,8 @@ export default function About() {
   const prevCommit = () => setCommitIdx(i => Math.max(0, i - 1))
   const nextCommit = () => setCommitIdx(i => Math.min(commitMax, i + 1))
 
-  // Pillars carousel — 2 on mobile, 3 on sm, 5 on md+
-  const pillarVisible = windowWidth < 640 ? 2 : windowWidth < 1024 ? 3 : 5
+  // Pillars — always show both (only 2 members)
+  const pillarVisible = windowWidth < 640 ? 2 : 2
   const [pillarIdx, setPillarIdx] = useState(0)
   const pillarMax = Math.max(0, pillars.length - pillarVisible)
   const prevPillar = () => setPillarIdx(i => Math.max(0, i - 1))
@@ -273,16 +177,11 @@ export default function About() {
   return (
     <PageWrapper>
 
-      {/* ══════════ 1. HERO ══════════
-          Soft green gradient background
-          Two headline lines + floating product bottle images on left & right
-          Matches dffipl.com's company overview section appearance
-      */}
+      {/* ══════════ 1. HERO ══════════ */}
       <section
         className="relative pt-32 pb-0 overflow-hidden"
         style={{ background: 'linear-gradient(155deg, white 0%, #f9fafb 30%, white 70%, #f3f4f6 100%)' }}
       >
-        {/* Leaf texture */}
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.05]"
           style={{
@@ -294,7 +193,6 @@ export default function About() {
         <Orb className="w-64 h-64 bg-yellow-200/20 top-20 -left-16" delay={2} />
 
         <div className="relative max-w-7xl mx-auto px-6 md:px-12">
-          {/* Breadcrumb */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -305,23 +203,29 @@ export default function About() {
             <span className="text-[#7A4A2A]">About</span>
           </motion.div>
 
-        {/* Hero layout — product images float left & right on desktop, hidden on mobile */}
-          {/* Mobile: just centre text. Desktop: 3-col grid with tilted product cards. */}
+          {/* Desktop 3-col */}
           <div className="hidden md:grid grid-cols-[220px_1fr_220px] gap-4 items-end">
 
-            {/* Left floating product card */}
             <motion.div
-              initial={{ opacity: 0, rotate: -8 }}
-              animate={{ opacity: 1, rotate: -8 }}
-              transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ opacity: 0, x: -40, y: 40, rotate: -12 }}
+              animate={{ 
+                opacity: 1, 
+                x: 0, 
+                y: [0, -10, 0], 
+                rotate: -8 
+              }}
+              transition={{ 
+                opacity: { duration: 0.9, delay: 0.4 },
+                x: { duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] },
+                y: { duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1.4 },
+                rotate: { duration: 1, delay: 0.4 }
+              }}
               className="self-end mb-8"
             >
-              {/* 🔁 Replace with your product image — e.g. Mango bottle on yellow card */}
-              <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl"
-                style={{ background: '#F5C518' }}>
+              <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl" style={{ background: '#F5C518' }}>
                 <img
-                  src="/images/about/hero-product-left.png"   // 🔁 e.g. mango bottle
-                  alt="Richi Mango"
+                  src="/images/about/hero-product-left.png"
+                  alt="Richi Product"
                   className="w-full h-full object-contain px-4 pt-4 drop-shadow-xl"
                   onError={(e) => { e.target.style.display = 'none' }}
                 />
@@ -331,7 +235,6 @@ export default function About() {
               </div>
             </motion.div>
 
-            {/* Centre text — desktop version inside the 3-col grid */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -340,7 +243,7 @@ export default function About() {
             >
               <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/70 backdrop-blur border border-[#FFD9A8] text-[#7A4A2A] text-xs font-bold mb-6 shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-[#FB923C] animate-pulse" />
-                Since 2008
+                Since 2020
               </span>
               <h1
                 className="font-black leading-tight text-[#1A0C04] mb-6"
@@ -351,28 +254,35 @@ export default function About() {
                 <span className="text-[#F97316]">Private Limited</span>
               </h1>
               <p className="text-[#4A2800]/60 max-w-xl mx-auto leading-relaxed text-lg mb-4">
-                Founded in 2008, we have built a reputation as a leading provider of high-quality
-                beverages and packaged drinking water across South India.
+                Born in Krishnagiri, Tamil Nadu — a modern beverage manufacturer specialising in
+                high-quality fruit juices and carbonated drinks for B2B partners across South India.
               </p>
               <p className="text-[#4A2800]/50 max-w-xl mx-auto leading-relaxed">
-                Our journey is driven by a commitment to excellence, innovation, and sustainability —
-                transforming from a local player into an industry leader.
+                From contract manufacturing to white-label solutions — driven by quality, innovation,
+                and sustainability.
               </p>
             </motion.div>
 
-            {/* Right floating product card */}
             <motion.div
-              initial={{ opacity: 0, rotate: 8 }}
-              animate={{ opacity: 1, rotate: 8 }}
-              transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ opacity: 0, x: 40, y: 40, rotate: 12 }}
+              animate={{ 
+                opacity: 1, 
+                x: 0, 
+                y: [0, -10, 0], 
+                rotate: 8 
+              }}
+              transition={{ 
+                opacity: { duration: 0.9, delay: 0.4 },
+                x: { duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] },
+                y: { duration: 4.2, repeat: Infinity, ease: 'easeInOut', delay: 1.6 },
+                rotate: { duration: 1, delay: 0.4 }
+              }}
               className="self-end mb-8"
             >
-              {/* 🔁 Replace with your product image — e.g. Meriba bottle on pink card */}
-              <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl"
-                style={{ background: '#F7A8B0' }}>
+              <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl" style={{ background: '#F7A8B0' }}>
                 <img
-                  src="/images/about/hero-product-right.png"  // 🔁 e.g. meriba bottle
-                  alt="Richi Meriba"
+                  src="/images/about/hero-product-right.png"
+                  alt="Richi Product"
                   className="w-full h-full object-contain px-4 pt-4 drop-shadow-xl"
                   onError={(e) => { e.target.style.display = 'none' }}
                 />
@@ -383,7 +293,7 @@ export default function About() {
             </motion.div>
           </div>
 
-          {/* Mobile: stacked centre text only (no tilted cards — saves layout space) */}
+          {/* Mobile */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -392,7 +302,7 @@ export default function About() {
           >
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/70 backdrop-blur border border-[#FFD9A8] text-[#7A4A2A] text-xs font-bold mb-6 shadow-sm">
               <span className="w-2 h-2 rounded-full bg-[#FB923C] animate-pulse" />
-              Since 2008
+              Since 2020
             </span>
             <h1
               className="font-black leading-tight text-[#1A0C04] mb-5"
@@ -403,15 +313,14 @@ export default function About() {
               <span className="text-[#F97316]">Private Limited</span>
             </h1>
             <p className="text-[#4A2800]/60 leading-relaxed text-base mb-3">
-              Founded in 2008, a leading provider of high-quality beverages across South India.
+              Born in Krishnagiri, Tamil Nadu — a modern beverage manufacturer for B2B partners across South India.
             </p>
             <p className="text-[#4A2800]/50 leading-relaxed text-sm">
-              Driven by excellence, innovation, and sustainability.
+              Quality, innovation, and sustainability at our core.
             </p>
           </motion.div>
         </div>
 
-        {/* Wave divider */}
         <div className="w-full overflow-hidden leading-none mt-4">
           <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" className="w-full" preserveAspectRatio="none">
             <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="white" />
@@ -419,34 +328,84 @@ export default function About() {
         </div>
       </section>
 
-      {/* ══════════ 2. CORPORATE FILM ══════════ */}
-      <section className="py-20 px-6 md:px-12 lg:px-20 bg-white">
-        <div className="max-w-4xl mx-auto text-center">
+      {/* ══════════ 2. COMPANY INFO ══════════ */}
+      <section className="py-24 px-6 md:px-12 lg:px-20 bg-white">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
           >
-            <span className="inline-block px-4 py-1.5 bg-[#FFF8EE] text-[#7A4A2A] rounded-full text-xs font-bold uppercase tracking-widest mb-4 border border-[#FFD9A8]">
-              Our Corporate Film
+            <span className="inline-block px-4 py-1.5 bg-[#FFF8EE] text-[#7A4A2A] rounded-full text-xs font-bold uppercase tracking-widest mb-6 border border-[#FFD9A8]">
+              Company Profile
             </span>
-            {/* 🔁 Replace src with your YouTube embed URL */}
-            <div className="relative rounded-3xl overflow-hidden aspect-video bg-gray-900 shadow-2xl border border-gray-200 group">
-              <iframe
-                src=""   // 🔁 e.g. "https://www.youtube.com/embed/mJfvmFeiHu0"
-                title="Richi Corporate Film"
-                className="w-full h-full"
-                allowFullScreen
-              />
-              {/* Placeholder when no embed */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-gray-900 pointer-events-none">
-                <div className="w-20 h-20 rounded-full bg-[#F97316]/20 flex items-center justify-center">
-                  <svg width="36" height="36" viewBox="0 0 24 24" fill="#FBBB74" stroke="none">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
+            <h2
+              className="text-3xl md:text-4xl font-black text-gray-900 mb-6"
+              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+            >
+              Crafting Beverages That <span className="text-[#F97316]">Delight Every Sip</span>
+            </h2>
+            <p className="text-gray-600 text-lg leading-relaxed mb-4">
+              Richi Food Products is a modern beverage manufacturer located in Krishnagiri, Tamil Nadu.
+              We specialise in high-quality fruit juices and carbonated drinks for B2B partners — from
+              contract manufacturing to white-label solutions.
+            </p>
+            <p className="text-gray-500 leading-relaxed mb-8">
+              Our state-of-the-art facility equipped with RO Water systems, Blending, Filtration,
+              Pasteurisation, CO₂ Carbonation, Bottling, QC Lab, and Cold Storage ensures every
+              product meets the highest standards.
+            </p>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { label: 'GST No.', value: '33ABJFR2254F1ZD' },
+                { label: 'FSSAI License', value: '12424011000549' },
+                { label: 'Location', value: 'Krishnagiri, TN' },
+                { label: 'Capacity', value: '100 KL/Day' },
+              ].map((item) => (
+                <div key={item.label} className="bg-[#FFF8EE] rounded-2xl p-4 border border-[#FFD9A8]">
+                  <div className="text-xs text-[#7A4A2A]/60 uppercase tracking-wider mb-1 font-semibold">{item.label}</div>
+                  <div className="font-black text-gray-900 text-sm">{item.value}</div>
                 </div>
-                <p className="text-white/40 text-sm font-bold uppercase tracking-widest">Corporate Film</p>
-                <p className="text-white/25 text-xs">Paste YouTube embed URL in src above</p>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Plant card */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="bg-[#2D1608] rounded-3xl p-8 text-white relative overflow-hidden shadow-2xl">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-[#F97316]/10 rounded-full blur-2xl" />
+              <div className="text-5xl mb-4">🏭</div>
+              <h3
+                className="font-black text-2xl mb-6"
+                style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+              >
+                Our Plant Infrastructure
+              </h3>
+              <ul className="space-y-3">
+                {labPoints.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-sm text-white/80">
+                    <div className="w-5 h-5 rounded-full bg-[#F97316]/20 flex items-center justify-center shrink-0 mt-0.5">
+                      <BadgeCheck size={12} className="text-[#FBBB74]" />
+                    </div>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-6 pt-6 border-t border-white/10 flex items-center justify-between">
+                <div>
+                  <div className="font-black text-3xl text-[#FBBB74]">100 KL</div>
+                  <div className="text-white/50 text-xs">Daily Production</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-white/50 text-xs">Location</div>
+                  <div className="font-semibold text-white text-sm">Krishnagiri District, TN</div>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -474,13 +433,11 @@ export default function About() {
               className="text-4xl md:text-5xl font-black text-gray-900"
               style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
             >
-              16 Years of <span className="text-[#F97316]">Growth</span>
+              5 Years of <span className="text-[#F97316]">Growth</span>
             </h2>
           </motion.div>
 
-          {/* Vertical timeline */}
           <div className="relative">
-            {/* Centre line */}
             <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 -translate-x-1/2 hidden md:block" />
 
             <div className="space-y-16">
@@ -495,7 +452,6 @@ export default function About() {
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     className={`relative grid md:grid-cols-2 gap-8 items-center ${isLeft ? '' : 'md:[&>*:first-child]:order-last'}`}
                   >
-                    {/* Content side */}
                     <div className={`${isLeft ? 'md:text-right md:pr-12' : 'md:pl-12'}`}>
                       <div className={`flex items-center gap-3 mb-3 ${isLeft ? 'md:justify-end' : ''}`}>
                         <span className={`px-3 py-1 rounded-full text-white text-xs font-bold uppercase tracking-widest ${item.color}`}>
@@ -512,13 +468,10 @@ export default function About() {
                       <p className="text-gray-500 leading-relaxed text-sm">{item.desc}</p>
                     </div>
 
-                    {/* Centre dot */}
                     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex">
                       <div className={`w-5 h-5 rounded-full ${item.color} border-4 border-white shadow-lg`} />
                     </div>
 
-                    {/* Image side */}
-                    {/* 🔁 Replace item.img with your milestone image path */}
                     <ImgBox
                       src={item.img}
                       alt={item.title}
@@ -540,7 +493,7 @@ export default function About() {
       <section className="py-32 px-6 md:px-12 lg:px-20 bg-white relative overflow-hidden">
         <Orb className="w-[500px] h-[500px] bg-[#F97316]/6 -top-48 -right-32" delay={0} />
         <Orb className="w-[400px] h-[400px] bg-[#F97316]/4 bottom-20 -left-40" delay={2} />
-        
+
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -584,7 +537,6 @@ export default function About() {
             </p>
           </motion.div>
 
-          {/* Cards — slide window */}
           <div className="overflow-hidden">
             <motion.div
               animate={{ x: `calc(-${commitIdx} * (100% / ${commitVisible} + 16px))` }}
@@ -602,10 +554,8 @@ export default function About() {
                   className="bg-gradient-to-br from-white to-gray-50 rounded-3xl border-2 border-gray-200 p-10 shadow-lg hover:shadow-2xl hover:border-[#F97316] transition-all duration-500 shrink-0 group relative overflow-hidden"
                   style={{ width: `calc((100% - ${(commitVisible - 1) * 16}px) / ${commitVisible})` }}
                 >
-                  {/* Hover glow */}
                   <div className="absolute inset-0 bg-gradient-to-br from-[#F97316]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
-                  <motion.div 
+                  <motion.div
                     className="w-16 h-16 rounded-2xl bg-[#FFF8EE] flex items-center justify-center mb-6 group-hover:shadow-lg transition-all duration-300 relative z-10"
                     whileHover={{ scale: 1.1, rotate: 8 }}
                   >
@@ -624,8 +574,6 @@ export default function About() {
       <section className="py-0">
         {/* Mission */}
         <div className="grid md:grid-cols-2 min-h-[400px]">
-          {/* Image */}
-          {/* 🔁 Replace with your mission image */}
           <div className="relative overflow-hidden">
             <img
               src="/images/about/mission.jpg"
@@ -640,7 +588,6 @@ export default function About() {
               <span className="text-white/40 text-xs font-bold uppercase tracking-widest">Mission Image</span>
             </div>
           </div>
-          {/* Text */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -657,20 +604,26 @@ export default function About() {
               >
                 Quality for Every Consumer
               </h2>
-              <p className="text-white/70 leading-relaxed text-base">
-                Our mission is to produce high-quality beverages and packaged drinking water that cater to diverse
-                consumer preferences while remaining affordable. We integrate sustainability at the core of our
-                operations by adopting renewable energy solutions and reducing our environmental impact.
-                We foster innovation through cutting-edge technology and deep consumer insights, enriching
-                lives with every product we offer.
-              </p>
+              <ul className="space-y-4">
+                {[
+                  'Deliver hygienic, affordable, and tasty drinks.',
+                  'Maintain best-in-class manufacturing standards.',
+                  'Build long-term partnerships with distributors & retailers.',
+                ].map((m, i) => (
+                  <li key={i} className="flex items-start gap-3 text-white/70 text-base leading-relaxed">
+                    <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
+                      <div className="w-2 h-2 rounded-full bg-[#FBBB74]" />
+                    </div>
+                    {m}
+                  </li>
+                ))}
+              </ul>
             </div>
           </motion.div>
         </div>
 
         {/* Vision */}
         <div className="grid md:grid-cols-2 min-h-[400px]">
-          {/* Text */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -685,19 +638,15 @@ export default function About() {
                 className="text-3xl md:text-4xl font-black text-white mb-6"
                 style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
               >
-                Growth with Environmental Stewardship
+                Leading South India in Beverages
               </h2>
               <p className="text-white/70 leading-relaxed text-base">
-                At Richi, we aspire to create a future where business growth is seamlessly intertwined
-                with environmental stewardship. Our goal is to build a legacy defined by trust, quality,
-                and sustainability — values that resonate with our consumers, partners, and the planet.
-                We are committed to driving continuous innovation, leading the industry with sustainable
-                practices, and consistently exceeding customer expectations.
+                To be a leading manufacturer of high-quality fruit juices and carbonated beverages,
+                recognised across South India for unmatched taste and standards — with business growth
+                seamlessly intertwined with environmental stewardship.
               </p>
             </div>
           </motion.div>
-          {/* Image */}
-          {/* 🔁 Replace with your vision image */}
           <div className="relative overflow-hidden">
             <img
               src="/images/about/vision.jpg"
@@ -715,65 +664,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ══════════ 6. ADVANCED LABORATORY ══════════ */}
-      <section className="py-28 px-6 md:px-12 lg:px-20 bg-white">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            <span className="inline-block px-4 py-1.5 bg-[#FFF8EE] text-[#7A4A2A] rounded-full text-xs font-bold uppercase tracking-widest mb-6 border border-[#FFD9A8]">
-              Quality Assurance
-            </span>
-            <h2
-              className="text-3xl md:text-4xl font-black text-gray-900 mb-8"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-            >
-              Advanced <span className="text-[#F97316]">Laboratory</span>
-            </h2>
-            <ul className="space-y-4">
-              {labPoints.map((point, i) => (
-                <motion.li
-                  key={i}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
-                  className="flex items-start gap-3"
-                >
-                  <div className="w-6 h-6 rounded-full bg-[#FFE9C8] flex items-center justify-center shrink-0 mt-0.5">
-                    <BadgeCheck size={14} className="text-[#F97316]" />
-                  </div>
-                  <p className="text-gray-600 text-sm leading-relaxed">{point}</p>
-                </motion.li>
-              ))}
-            </ul>
-            <p className="mt-8 text-[#7A4A2A] font-semibold italic text-sm border-l-4 border-[#FBBB74] pl-4">
-              "Our laboratory is key to delivering safe, consistent, and high-quality beverages."
-            </p>
-          </motion.div>
-
-          {/* Lab image box */}
-          {/* 🔁 Replace with your laboratory image */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            <ImgBox
-              src="/images/about/laboratory.jpg"
-              alt="Advanced Laboratory"
-              label="Laboratory Image"
-              aspect="aspect-[4/3]"
-              rounded="rounded-3xl"
-              className="shadow-2xl"
-            />
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ══════════ 7. OUR STRENGTHS ══════════ */}
+      {/* ══════════ 6. OUR STRENGTHS ══════════ */}
       <section
         className="py-28 px-6 md:px-12 lg:px-20 relative overflow-hidden"
         style={{ background: 'linear-gradient(160deg, #FFF8EE 0%, #FFF1DC 100%)' }}
@@ -807,7 +698,6 @@ export default function About() {
                 whileHover={{ y: -8, scale: 1.02 }}
                 className="bg-white rounded-3xl p-6 text-center shadow-sm hover:shadow-xl transition-all duration-300 border border-[#FFF8EE]"
               >
-                {/* 🔁 Optionally replace emoji with an <img> of your strength icons */}
                 <div className="text-4xl mb-4">{s.icon}</div>
                 <h3 className="font-black text-gray-900 text-base mb-2">{s.title}</h3>
                 <p className="text-gray-500 text-xs leading-relaxed">{s.desc}</p>
@@ -817,7 +707,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ══════════ 8. OUR SERVICES ══════════ */}
+      {/* ══════════ 7. OUR SERVICES ══════════ */}
       <section className="py-28 px-6 md:px-12 lg:px-20 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -837,7 +727,7 @@ export default function About() {
             </h2>
             <p className="text-gray-500 max-w-xl mx-auto mb-16">
               At Richi Food Products, we prioritise exceptional service with a customer-focused approach,
-              exceeding expectations and fostering lasting relationships.
+              exceeding expectations and fostering lasting B2B relationships.
             </p>
           </motion.div>
 
@@ -852,7 +742,6 @@ export default function About() {
                 whileHover={{ y: -8 }}
                 className="border border-[#FFD9A8] rounded-3xl p-8 hover:shadow-xl transition-all duration-300 group"
               >
-                {/* Service icon box — 🔁 optionally replace with an <img> */}
                 <div className="w-16 h-16 rounded-2xl bg-[#FFF8EE] flex items-center justify-center mb-6 group-hover:bg-[#F97316] transition-colors duration-300">
                   <s.icon size={28} className="text-[#F97316] group-hover:text-white transition-colors duration-300" />
                 </div>
@@ -864,7 +753,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ══════════ 9. LOOKING AHEAD ══════════ */}
+      {/* ══════════ 8. LOOKING AHEAD ══════════ */}
       <section className="py-20 px-6 md:px-12 lg:px-20 bg-gradient-to-r from-[#2D1608] to-[#4A2800] relative overflow-hidden">
         <Orb className="w-96 h-96 bg-white/5 top-1/2 -right-20 -translate-y-1/2" />
         <div className="max-w-4xl mx-auto relative z-10 text-center">
@@ -883,14 +772,14 @@ export default function About() {
               The Next Chapter
             </h2>
             <p className="text-white/80 leading-relaxed text-lg mb-4">
-              As we continue to grow, Richi Food Products remains committed to upholding our core values of
+              As we continue to grow, Richi Food Products remains committed to our core values of
               <strong className="text-white"> integrity</strong>,
               <strong className="text-white"> quality</strong>, and
-              <strong className="text-white"> social responsibility</strong>.
+              <strong className="text-white"> sustainability</strong>.
             </p>
             <p className="text-white/70 leading-relaxed mb-10">
-              We are excited about the opportunities ahead as we expand our operations, develop new products,
-              and make a positive contribution to society and the environment.
+              We are excited about expanding our operations, developing new products, and building
+              stronger partnerships across South India and beyond.
             </p>
             <Link
               to="/products"
@@ -902,154 +791,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ══════════ 10. OUR TEAM PHOTO STRIP ══════════ */}
-      <section className="py-28 px-6 md:px-12 lg:px-20 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <span className="inline-block px-4 py-1.5 bg-[#FFF8EE] text-[#7A4A2A] rounded-full text-xs font-bold uppercase tracking-widest mb-4 border border-[#FFD9A8]">
-              Our People
-            </span>
-            <h2
-              className="text-4xl md:text-5xl font-black text-gray-900"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-            >
-              Our <span className="text-[#F97316]">Team</span>
-            </h2>
-          </motion.div>
-
-          {/* Auto-scrolling team photo strip */}
-          {/* 🔁 Replace src paths in teamPhotos array below with your team photos */}
-          <div className="overflow-hidden">
-            <motion.div
-              animate={{ x: ['0%', '-50%'] }}
-              transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-              className="flex gap-4 w-max"
-            >
-              {[
-                '/images/about/team-photos/photo1.jpg',
-                '/images/about/team-photos/photo2.jpg',
-                '/images/about/team-photos/photo3.jpg',
-                '/images/about/team-photos/photo4.jpg',
-                '/images/about/team-photos/photo5.jpg',
-                '/images/about/team-photos/photo6.jpg',
-                '/images/about/team-photos/photo7.jpg',
-                '/images/about/team-photos/photo8.jpg',
-                '/images/about/team-photos/photo9.jpg',
-                // duplicated for seamless loop
-                '/images/about/team-photos/photo1.jpg',
-                '/images/about/team-photos/photo2.jpg',
-                '/images/about/team-photos/photo3.jpg',
-                '/images/about/team-photos/photo4.jpg',
-                '/images/about/team-photos/photo5.jpg',
-                '/images/about/team-photos/photo6.jpg',
-                '/images/about/team-photos/photo7.jpg',
-                '/images/about/team-photos/photo8.jpg',
-                '/images/about/team-photos/photo9.jpg',
-              ].map((src, i) => (
-                <div key={i} className="relative w-64 h-48 rounded-2xl overflow-hidden shrink-0 bg-[#FFF8EE] border border-[#FFD9A8]">
-                  <img
-                    src={src}
-                    alt={`Team photo ${(i % 9) + 1}`}
-                    className="w-full h-full object-cover"
-                    onError={(e) => { e.target.style.display = 'none' }}
-                  />
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 pointer-events-none">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FBBB74" strokeWidth="1.5">
-                      <rect x="3" y="3" width="18" height="18" rx="2" />
-                      <circle cx="8.5" cy="8.5" r="1.5" />
-                      <path d="M21 15l-5-5L5 21" />
-                    </svg>
-                    <span className="text-[#F5B49A] text-[9px] font-bold uppercase tracking-widest">Team Photo {(i % 9) + 1}</span>
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════ 11. LEADING THOUGHTS — FOUNDER ══════════ */}
-      <section
-        className="py-28 px-6 md:px-12 lg:px-20 relative overflow-hidden"
-        style={{ background: 'linear-gradient(160deg, #FFF8EE 0%, #FFF1DC 100%)' }}
-      >
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <span className="inline-block px-4 py-1.5 bg-white text-[#7A4A2A] rounded-full text-xs font-bold uppercase tracking-widest mb-4 border border-[#FFD9A8] shadow-sm">
-              Leading Thoughts
-            </span>
-            <h2
-              className="text-4xl md:text-5xl font-black text-gray-900"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-            >
-              A Message from Our <span className="text-[#F97316]">Founder</span>
-            </h2>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-16 items-center max-w-5xl mx-auto">
-            {/* Founder letter */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="bg-white rounded-3xl p-10 shadow-xl border border-[#FFD9A8] relative"
-            >
-              <div className="text-6xl text-[#FFE9C8] font-black leading-none mb-4" style={{ fontFamily: 'Georgia, serif' }}>"</div>
-              <p className="text-gray-600 leading-relaxed mb-5">
-                When we began this journey in 2008, our vision was simple yet ambitious: to deliver high quality,
-                refreshing beverages that resonate with the taste and values of our consumers. From a modest start
-                with just 12 employees and a single manufacturing facility, our journey has been one of passion,
-                resilience, and a commitment to excellence.
-              </p>
-              <p className="text-gray-600 leading-relaxed mb-5">
-                Over the years, we have grown into a trusted name in the beverage industry, offering a diverse
-                portfolio that includes fruit drinks, carbonated beverages, flavored milk, energy drinks, and
-                packaged drinking water.
-              </p>
-              <p className="text-gray-600 leading-relaxed mb-8">
-                As we look ahead, we remain committed to expanding our product range, improving our operations,
-                and delivering exceptional experiences to our consumers.
-              </p>
-              <div className="border-t border-[#FFD9A8] pt-6">
-                <p className="text-gray-400 text-sm mb-1">Warm regards,</p>
-                <p className="font-black text-gray-900 text-lg">Shri. T. Issac Bright</p>
-                <p className="text-[#F97316] text-sm font-semibold">Founder & Managing Director</p>
-                <p className="text-gray-400 text-xs">Richi Food Products</p>
-              </div>
-            </motion.div>
-
-            {/* Founder photo */}
-            {/* 🔁 Replace with founder portrait image */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-            >
-              <ImgBox
-                src="/images/about/founder.jpg"
-                alt="Shri. T. Issac Bright"
-                label="Founder Photo"
-                aspect="aspect-[3/4]"
-                rounded="rounded-3xl"
-                objectFit="object-cover"
-                className="shadow-2xl max-w-xs mx-auto"
-              />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════ 12. PILLARS OF STRENGTH — TEAM DIRECTORY ══════════ */}
+      {/* ══════════ 9. PILLARS OF STRENGTH — LEADERSHIP ══════════ */}
       <section className="py-28 px-6 md:px-12 lg:px-20 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -1087,45 +829,43 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* Sliding carousel */}
-          <div className="overflow-hidden mt-10">
-            <motion.div
-              animate={{ x: `calc(-${pillarIdx} * (100% / ${pillarVisible} + 16px))` }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="flex gap-4"
-            >
-              {pillars.map((p, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.05 }}
-                  whileHover={{ y: -6 }}
-                  className="shrink-0 flex flex-col items-center text-center group cursor-pointer"
-                  style={{ width: `calc((100% - ${(pillarVisible - 1) * 16}px) / ${pillarVisible})` }}
-                >
-                  {/* Profile photo */}
-                  {/* 🔁 Replace p.img with your team member photo path */}
-                  <div className="relative w-24 h-24 rounded-full overflow-hidden bg-[#FFF8EE] border-4 border-[#FFD9A8] group-hover:border-[#FBBB74] transition-colors duration-300 mb-4 shadow-lg">
-                    <img
-                      src={p.img}
-                      alt={p.name}
-                      className="w-full h-full object-cover"
-                      onError={(e) => { e.target.style.display = 'none' }}
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FBBB74" strokeWidth="1.5">
-                        <circle cx="12" cy="8" r="4" />
-                        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-                      </svg>
-                    </div>
+          {/* Team cards — richer layout for just 2 members */}
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+            {pillars.map((p, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                whileHover={{ y: -6 }}
+                className="bg-white rounded-3xl border-2 border-[#FFD9A8] p-8 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col items-center text-center"
+              >
+                {/* Profile photo */}
+                <div className="relative w-24 h-24 rounded-full overflow-hidden bg-[#FFF8EE] border-4 border-[#FFD9A8] group-hover:border-[#FBBB74] transition-colors duration-300 mb-4 shadow-lg">
+                  <img
+                    src={p.img}
+                    alt={p.name}
+                    className="w-full h-full object-cover"
+                    onError={(e) => { e.target.style.display = 'none' }}
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FBBB74" strokeWidth="1.5">
+                      <circle cx="12" cy="8" r="4" />
+                      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+                    </svg>
                   </div>
-                  <h3 className="font-black text-gray-900 text-sm leading-tight mb-1">{p.name}</h3>
-                  <p className="text-[#F97316] text-xs font-semibold">{p.role}</p>
-                </motion.div>
-              ))}
-            </motion.div>
+                </div>
+                <h3 className="font-black text-gray-900 text-lg mb-1">{p.name}</h3>
+                <p className="text-[#F97316] text-sm font-semibold mb-4">{p.role}</p>
+                <a
+                  href={`tel:${p.phone}`}
+                  className="inline-flex items-center gap-2 text-[#7A4A2A] font-semibold text-sm hover:text-[#F97316] transition-colors"
+                >
+                  <Phone size={14} /> +91 {p.phone}
+                </a>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
