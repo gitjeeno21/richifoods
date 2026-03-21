@@ -7,18 +7,10 @@ import {
   HeartHandshake, BadgeCheck
 } from 'lucide-react'
 import PageWrapper from '../components/PageWrapper'
-import heroPicFlavours1 from '../../pic assets/FLAVOURS 1.png'
-import heroPicFlavours2 from '../../pic assets/flavours 2.png'
 
 /* ══════════════════════════════════════════════════════════
-   DATA
+   DATA  (unchanged)
 ══════════════════════════════════════════════════════════ */
-
-// Hero flavour images — real product lineup shots
-const heroFlavours = [
-  { img: heroPicFlavours1, alt: 'Cilo carbonated and soda lineup' },
-  { img: heroPicFlavours2, alt: 'Cilo juice and beverage lineup'  },
-]
 
 const timeline = [
   { year: '2020', title: 'Founded',                desc: 'Richi Food Products founded in Krishnagiri, Tamil Nadu.',                          img: '/images/about/timeline/2020.jpg', tag: 'Founded',    color: 'bg-[#C2641F]'  },
@@ -151,8 +143,8 @@ function ImgBox({ src, alt = '', className = '', objectFit = 'object-cover', lab
    ABOUT PAGE
 ══════════════════════════════════════════════════════════ */
 export default function About() {
-  const [heroFlavour1, heroFlavour2] = heroFlavours
 
+  // FIX: single debounced width — replaces the original instant-setState on every resize pixel
   const windowWidth = useWindowWidth()
   const isMobile    = windowWidth < 768
   const reduced     = prefersReducedMotion()
@@ -227,15 +219,18 @@ export default function About() {
               // Pure CSS float — compositor thread, no JS per frame
               style={reduced ? {} : { animation: 'float-card 4s ease-in-out infinite', animationDelay: '1.4s', willChange: 'transform' }}
             >
-              <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl bg-stone-200">
+              <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl" style={{ background: '#F5C518' }}>
                 <img
-                  src={heroFlavour1.img}
-                  alt={heroFlavour1.alt}
-                  className="absolute inset-0 h-full w-full object-cover"
+                  src="/images/about/hero-product-left.png"
+                  alt="Richi Product"
+                  className="w-full h-full object-contain px-4 pt-4 drop-shadow-xl"
                   onError={e => { e.target.style.display = 'none' }}
                   loading="eager"
                   decoding="async"
                 />
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <span className="text-yellow-200/50 text-[10px] font-bold uppercase tracking-widest">Product Image</span>
+                </div>
               </div>
             </motion.div>
 
@@ -274,15 +269,18 @@ export default function About() {
               className="self-end mb-8"
               style={reduced ? {} : { animation: 'float-card 4.2s ease-in-out infinite', animationDelay: '1.6s', willChange: 'transform' }}
             >
-              <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl bg-stone-200">
+              <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl" style={{ background: '#F7A8B0' }}>
                 <img
-                  src={heroFlavour2.img}
-                  alt={heroFlavour2.alt}
-                  className="absolute inset-0 h-full w-full object-cover"
+                  src="/images/about/hero-product-right.png"
+                  alt="Richi Product"
+                  className="w-full h-full object-contain px-4 pt-4 drop-shadow-xl"
                   onError={e => { e.target.style.display = 'none' }}
                   loading="eager"
                   decoding="async"
                 />
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <span className="text-pink-200/50 text-[10px] font-bold uppercase tracking-widest">Product Image</span>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -309,27 +307,9 @@ export default function About() {
             <p className="text-[#4A2800]/60 leading-relaxed text-base mb-3">
               Born in Krishnagiri, Tamil Nadu — a modern beverage manufacturer for B2B partners across South India.
             </p>
-            <p className="text-[#4A2800]/50 leading-relaxed text-sm mb-8">
+            <p className="text-[#4A2800]/50 leading-relaxed text-sm">
               Quality, innovation, and sustainability at our core.
             </p>
-            {/* Two flavour thumbnails side-by-side on mobile */}
-            <div className="flex justify-center gap-4 max-w-sm mx-auto">
-              {heroFlavours.map((f) => (
-                <div
-                  key={f.alt}
-                  className="relative flex-1 max-w-[140px] aspect-[3/4] rounded-2xl overflow-hidden shadow-lg bg-stone-200"
-                >
-                  <img
-                    src={f.img}
-                    alt={f.alt}
-                    className="absolute inset-0 h-full w-full object-cover"
-                    onError={e => { e.target.style.display = 'none' }}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-              ))}
-            </div>
           </motion.div>
         </div>
 

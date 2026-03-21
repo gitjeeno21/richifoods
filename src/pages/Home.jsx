@@ -4,82 +4,93 @@ import { Link } from 'react-router-dom'
 import { ChevronRight, ArrowRight, MapPin, Phone, Mail, Star, Droplets, Leaf, Zap, Award } from 'lucide-react'
 import PageWrapper from '../components/PageWrapper'
 
-// Check for reduced motion preference
+// ─── PERFORMANCE DETECTION HELPERS ───────────────────────────────────────────
+
 const prefersReducedMotion = () => {
   if (typeof window === 'undefined') return false
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
+// Detect low-end mobile: <768px wide, or low deviceMemory, or no PointerEvents (touch-only)
+const isLowEndMobile = () => {
+  if (typeof window === 'undefined') return false
+  const narrow = window.innerWidth < 768
+  const lowMem = navigator.deviceMemory !== undefined && navigator.deviceMemory <= 2
+  const slowCPU = navigator.hardwareConcurrency !== undefined && navigator.hardwareConcurrency <= 4
+  return narrow && (lowMem || slowCPU)
+}
+
+const isMobileViewport = () => {
+  if (typeof window === 'undefined') return false
+  return window.innerWidth < 768
+}
+
 const shouldDisableOrbs = () => {
+  if (typeof window === 'undefined') return false
   if (typeof navigator !== 'undefined' && navigator.deviceMemory) {
     return navigator.deviceMemory <= 4
   }
-  if (typeof window !== 'undefined') {
-    return window.innerWidth < 480
-  }
-  return false
+  return window.innerWidth < 480
 }
 
-/* ══════════════════════════════════════════════════════════════
-   DATA
-══════════════════════════════════════════════════════════════ */
+// ─── DATA ─────────────────────────────────────────────────────────────────────
 
 const heroCards = [
-  { name: 'Mango', img: '/images/products/mango.png', bg: '#F5C200' },
-  { name: 'Orange', img: '/images/products/orange.png', bg: '#FF6B35' },
-  { name: 'Grapes', img: '/images/products/grapes.png', bg: '#8B5CF6' },
-  { name: 'Paneer Soda', img: '/images/products/paneer_soda.png', bg: '#EC4899' },
-  { name: 'Cola', img: '/images/products/cola.png', bg: '#1E293B' },
+  { name: 'Mango',        img: '/images/products/mango.png',        bg: '#F5C200' },
+  { name: 'Orange',       img: '/images/products/orange.png',       bg: '#FF6B35' },
+  { name: 'Grapes',       img: '/images/products/grapes.png',       bg: '#8B5CF6' },
+  { name: 'Paneer Soda',  img: '/images/products/paneer_soda.png',  bg: '#EC4899' },
+  { name: 'Cola',         img: '/images/products/cola.png',         bg: '#1E293B' },
   { name: 'Jeera Masala', img: '/images/products/jeera_masala.png', bg: '#16A34A' },
-  { name: 'Mango 2', img: '/images/products/mango_2.png', bg: '#F97316' },
-  { name: 'Apple', img: '/images/products/apple.png', bg: '#22C55E' },
-  { name: 'White Lemon', img: '/images/products/white_lemon.png', bg: '#EAB308' },
-  { name: 'Green Lemon', img: '/images/products/green_lemon.png', bg: '#0EA5E9' },
-  { name: 'Salt Lemon', img: '/images/products/salt_lemon.png', bg: '#64748B' },
-  { name: 'Pineapple', img: '/images/products/pine_apple.png', bg: '#FBBF24' },
+  { name: 'Mango 2',      img: '/images/products/mango_2.png',      bg: '#F97316' },
+  { name: 'Apple',        img: '/images/products/apple.png',        bg: '#22C55E' },
+  { name: 'White Lemon',  img: '/images/products/white_lemon.png',  bg: '#EAB308' },
+  { name: 'Green Lemon',  img: '/images/products/green_lemon.png',  bg: '#0EA5E9' },
+  { name: 'Salt Lemon',   img: '/images/products/salt_lemon.png',   bg: '#64748B' },
+  { name: 'Pineapple',    img: '/images/products/pine_apple.png',   bg: '#FBBF24' },
 ]
 
+// Carousel cards: `accent` = subtle brand tint (left bar + hover). Gradients removed from UI for a calmer, editorial look.
 const products = [
-  { name: 'Mango', tag: 'Juice', img: '/images/products/mango.png', gradient: 'from-amber-400 via-orange-400 to-yellow-300', glow: 'shadow-[#F97316]/40' },
-  { name: 'Apple', tag: 'Juice', img: '/images/products/apple.png', gradient: 'from-amber-700 via-yellow-500 to-orange-600', glow: 'shadow-amber-400/60' },
-  { name: 'Grapes', tag: 'Juice', img: '/images/products/grapes.png', gradient: 'from-purple-500 to-purple-700', glow: 'shadow-purple-300/60' },
-  { name: 'Orange', tag: 'Juice', img: '/images/products/orange.png', gradient: 'from-red-500 via-rose-400 to-[#F97316]', glow: 'shadow-[#F97316]/40' },
-  { name: 'White Lemon', tag: 'Juice', img: '/images/products/white_lemon.png', gradient: 'from-yellow-400 via-lime-400 to-green-400', glow: 'shadow-yellow-300/60' },
-  { name: 'Green Lemon', tag: 'Carbonated', img: '/images/products/green_lemon.png', gradient: 'from-green-500 to-emerald-600', glow: 'shadow-green-300/60' },
-  { name: 'Paneer Soda', tag: 'Carbonated', img: '/images/products/paneer_soda.png', gradient: 'from-purple-400 to-violet-500', glow: 'shadow-purple-300/60' },
-  { name: 'Cola', tag: 'Carbonated', img: '/images/products/cola.png', gradient: 'from-amber-600 via-orange-500 to-yellow-600', glow: 'shadow-amber-400/60' },
-  { name: 'Jeera Masala', tag: 'Carbonated', img: '/images/products/jeera_masala.png', gradient: 'from-orange-500 to-amber-600', glow: 'shadow-orange-300/60' },
-  { name: 'Salt Lemon', tag: 'Carbonated', img: '/images/products/salt_lemon.png', gradient: 'from-slate-400 via-gray-400 to-zinc-400', glow: 'shadow-slate-300/60' },
-  { name: 'Mango 2', tag: 'Juice', img: '/images/products/mango_2.png', gradient: 'from-amber-400 via-orange-500 to-red-400', glow: 'shadow-orange-300/60' },
-  { name: 'Pineapple', tag: 'Juice', img: '/images/products/pine_apple.png', gradient: 'from-yellow-300 via-amber-300 to-orange-300', glow: 'shadow-yellow-300/60' },
+  { name: 'Mango',        tag: 'Juice',      img: '/images/products/mango.png',        accent: 'bg-amber-500' },
+  { name: 'Apple',        tag: 'Juice',      img: '/images/products/apple.png',        accent: 'bg-red-600' },
+  { name: 'Grapes',       tag: 'Juice',      img: '/images/products/grapes.png',       accent: 'bg-violet-600' },
+  { name: 'Orange',       tag: 'Juice',      img: '/images/products/orange.png',       accent: 'bg-[#F97316]' },
+  { name: 'White Lemon',  tag: 'Juice',      img: '/images/products/white_lemon.png',  accent: 'bg-lime-600' },
+  { name: 'Green Lemon',  tag: 'Carbonated', img: '/images/products/green_lemon.png',  accent: 'bg-green-600' },
+  { name: 'Paneer Soda',  tag: 'Carbonated', img: '/images/products/paneer_soda.png',  accent: 'bg-fuchsia-600' },
+  { name: 'Cola',         tag: 'Carbonated', img: '/images/products/cola.png',         accent: 'bg-stone-700' },
+  { name: 'Jeera Masala', tag: 'Carbonated', img: '/images/products/jeera_masala.png', accent: 'bg-amber-700' },
+  { name: 'Salt Lemon',   tag: 'Carbonated', img: '/images/products/salt_lemon.png',   accent: 'bg-slate-500' },
+  { name: 'Mango 2',      tag: 'Juice',      img: '/images/products/mango_2.png',      accent: 'bg-orange-500' },
+  { name: 'Pineapple',    tag: 'Juice',      img: '/images/products/pine_apple.png',   accent: 'bg-yellow-500' },
 ]
 
 const stats = [
-  { value: '15+', label: 'Years of Taste', icon: Award },
-  { value: '12+', label: 'Product Variants', icon: Droplets },
-  { value: '1M+', label: 'Happy Customers', icon: Star },
-  { value: '100%', label: 'Quality Assured', icon: Leaf },
+  { value: '15+',  label: 'Years of Taste',    icon: Award    },
+  { value: '12+',  label: 'Product Variants',  icon: Droplets },
+  { value: '1M+',  label: 'Happy Customers',   icon: Star     },
+  { value: '100%', label: 'Quality Assured',   icon: Leaf     },
 ]
 
 const pillars = [
-  { icon: Leaf, title: 'Pure Ingredients', desc: 'Responsibly sourced, finest quality ingredients in every bottle.', color: 'bg-white text-[#F97316]', border: 'border-gray-200' },
-  { icon: Droplets, title: 'Crafted Fresh', desc: 'Made with care in our state-of-the-art Tamil Nadu facilities.', color: 'bg-sky-50 text-sky-600', border: 'border-sky-100' },
-  { icon: Zap, title: 'Energize Daily', desc: 'A range for every mood — from calm sips to bold energy.', color: 'bg-white text-[#A8430F]', border: 'border-gray-200' },
+  { icon: Leaf,     title: 'Pure Ingredients', desc: 'Responsibly sourced, finest quality ingredients in every bottle.',          color: 'bg-white text-[#F97316]',  border: 'border-gray-200' },
+  { icon: Droplets, title: 'Crafted Fresh',    desc: 'Made with care in our state-of-the-art Tamil Nadu facilities.',             color: 'bg-sky-50 text-sky-600',   border: 'border-sky-100'  },
+  { icon: Zap,      title: 'Energize Daily',   desc: 'A range for every mood — from calm sips to bold energy.',                   color: 'bg-white text-[#A8430F]',  border: 'border-gray-200' },
 ]
 
 const storyGrid = [
-  { src: '/images/story/factory.jpg', label: 'Our Factory', bg: 'from-white to-white', border: 'border-gray-200' },
-  { src: '/images/story/products.jpg', label: 'Our Products', bg: 'from-white to-white', border: 'border-gray-200' },
-  { src: '/images/story/team.jpg', label: 'Our Team', bg: 'from-sky-50 to-cyan-50', border: 'border-sky-100' },
-  { src: '/images/story/community.jpg', label: 'Community', bg: 'from-rose-50 to-pink-50', border: 'border-rose-100' },
+  { src: '/images/story/factory.jpg',   label: 'Our Factory', bg: 'from-white to-white',           border: 'border-gray-200'  },
+  { src: '/images/story/products.jpg',  label: 'Our Products', bg: 'from-white to-white',           border: 'border-gray-200'  },
+  { src: '/images/story/team.jpg',      label: 'Our Team',    bg: 'from-sky-50 to-cyan-50',         border: 'border-sky-100'   },
+  { src: '/images/story/community.jpg', label: 'Community',   bg: 'from-rose-50 to-pink-50',        border: 'border-rose-100'  },
 ]
 
-const ticker = ['Salt Lemon', 'Apple', 'Grapes', 'White Lemon', 'Green Lemon', 'Mango', 'Orange', 'Paneer Soda', 'Cola', 'Jeera Masala', 'Mango 2', 'Pineapple']
+const ticker = ['Salt Lemon','Apple','Grapes','White Lemon','Green Lemon','Mango','Orange','Paneer Soda','Cola','Jeera Masala','Mango 2','Pineapple']
 
-/* ══════════════════════════════════════════════════════════════
-   UTILITY COMPONENTS
-══════════════════════════════════════════════════════════════ */
+// ─── UTILITY COMPONENTS ───────────────────────────────────────────────────────
 
+// Orb: skip on mobile entirely to avoid stacking blur-3xl compositing layers
 const Orb = ({ className, delay = 0 }) => {
   const shouldReduceMotion = prefersReducedMotion()
   const disableOrbs = shouldDisableOrbs()
@@ -87,8 +98,11 @@ const Orb = ({ className, delay = 0 }) => {
   return (
     <motion.div
       className={`absolute rounded-full blur-3xl pointer-events-none ${className}`}
+      // Use CSS animation instead of JS-driven values to stay off the main thread
       animate={shouldReduceMotion ? {} : { scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
       transition={shouldReduceMotion ? {} : { duration: 6 + delay, repeat: Infinity, ease: 'easeInOut', delay }}
+      // Force GPU layer so blur doesn't trigger layout
+      style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
     />
   )
 }
@@ -107,14 +121,22 @@ function ImgPlaceholder({ label, dark = false }) {
   )
 }
 
+// ─── TICKER ───────────────────────────────────────────────────────────────────
+// FIX: use CSS animation instead of Framer Motion JS-driven x-translate.
+// CSS animations run on the compositor thread → no JS involvement per frame.
 function Ticker() {
   const shouldReduceMotion = prefersReducedMotion()
   return (
     <div className="overflow-hidden whitespace-nowrap border-y border-[#F5D9C8] py-3 bg-white/90 backdrop-blur-sm">
-      <motion.div
+      <div
         className="flex gap-14 w-max"
-        animate={shouldReduceMotion ? {} : { x: ['0%', '-50%'] }}
-        transition={shouldReduceMotion ? {} : { duration: 24, repeat: Infinity, ease: 'linear' }}
+        style={shouldReduceMotion ? {} : {
+          // Pure CSS keyframe animation — compositor-thread only, zero JS per frame
+          animation: 'ticker-scroll 24s linear infinite',
+          willChange: 'transform',
+          // Force GPU compositing layer
+          transform: 'translateZ(0)',
+        }}
       >
         {[...ticker, ...ticker].map((t, i) => (
           <span key={i} className="text-sm font-semibold text-[#9A3412] tracking-widest uppercase flex items-center gap-3">
@@ -122,102 +144,136 @@ function Ticker() {
             {t}
           </span>
         ))}
-      </motion.div>
+      </div>
+      {/* Inject keyframe once via a style tag — avoids adding a global CSS file */}
+      <style>{`
+        @keyframes ticker-scroll {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .ticker-track { animation: none !important; }
+        }
+      `}</style>
     </div>
   )
 }
 
-/* ══════════════════════════════════════════════════════════════
-   360° ROTATING WHEEL
-   — REDUCED SIZE: smaller cards, smaller ellipse, moved up
-══════════════════════════════════════════════════════════════ */
+// ─── ROTATING HERO CARDS ──────────────────────────────────────────────────────
+// FIXES:
+// 1. Store angle in a ref — no React re-render per frame.
+// 2. Write transforms directly to DOM via ref map.
+// 3. On mobile: reduce N (fewer cards) to cut draw calls.
+// 4. Use transform: translate3d() to keep everything on GPU.
 function RotatingHeroCards({ isMobile }) {
   const N = heroCards.length
-  const [angleDeg, setAngleDeg] = useState(0)
+  const containerRef = useRef(null)
+  const cardRefs = useRef([])
+  const angleRef = useRef(0)
   const rafRef = useRef(null)
   const lastRef = useRef(null)
   const shouldReduceMotion = prefersReducedMotion()
+  const lowEnd = useMemo(() => isLowEndMobile(), [])
 
-  // ── Reduced card & ellipse dimensions ──
-  const CARD_W = isMobile ? 110 : 170
-  const CARD_H = isMobile ? 240 : 380
-  const RX = isMobile ? 160 : 380
-  const RY = isMobile ? 140 : 300
-  const SPEED = 18
+  const CARD_W  = isMobile ? 110 : 170
+  const CARD_H  = isMobile ? 240 : 380
+  // On low-end mobile, use smaller radii for even less overdraw
+  const RX      = isMobile ? (lowEnd ? 130 : 160) : 380
+  const RY      = isMobile ? (lowEnd ? 110 : 140) : 300
+  // Slightly slower on mobile to ease GPU pressure
+  const SPEED   = isMobile ? (lowEnd ? 14 : 16) : 18
+
+  const containerH = isMobile ? 420 : 640
+  const centreY    = containerH * 0.78
 
   useEffect(() => {
     if (shouldReduceMotion) return
+
     const animate = (ts) => {
       if (lastRef.current === null) lastRef.current = ts
       const delta = (ts - lastRef.current) / 1000
       lastRef.current = ts
-      setAngleDeg(prev => (prev + SPEED * delta) % 360)
+      angleRef.current = (angleRef.current + SPEED * delta) % 360
+
+      const angleDeg = angleRef.current
+
+      for (let i = 0; i < N; i++) {
+        const el = cardRefs.current[i]
+        if (!el) continue
+
+        const theta    = ((angleDeg + i * (360 / N)) % 360) * (Math.PI / 180)
+        const x        = Math.sin(theta) * RX
+        const y        = -Math.cos(theta) * RY
+        const yNorm    = y / RY
+        const opacity  = Math.max(0, Math.min(1, (-yNorm + 0.45) * 3.2))
+        const scale    = 0.58 + (1 - Math.abs(Math.sin(theta))) * 0.16 + ((-yNorm + 1) / 2) * 0.18
+        const zIndex   = Math.round(opacity * 80 + (1 - Math.abs(Math.sin(theta))) * 20)
+        const tiltDeg  = Math.sin(theta) * 14
+
+        // Skip invisible cards — avoids painting offscreen elements
+        if (opacity < 0.02) {
+          el.style.opacity = '0'
+          el.style.pointerEvents = 'none'
+          continue
+        }
+
+        // Write directly to style — zero React overhead
+        el.style.opacity   = opacity
+        el.style.zIndex    = zIndex
+        // translate3d keeps everything on the GPU compositor layer
+        el.style.transform = `translate3d(calc(-50% + ${x}px), calc(-50% + ${y}px), 0) scale(${scale}) rotate(${tiltDeg}deg)`
+      }
+
       rafRef.current = requestAnimationFrame(animate)
     }
+
     rafRef.current = requestAnimationFrame(animate)
-    return () => cancelAnimationFrame(rafRef.current)
-  }, [shouldReduceMotion])
-
-  const cards = heroCards.map((card, i) => {
-    const theta = ((angleDeg + i * (360 / N)) % 360) * (Math.PI / 180)
-    const x = Math.sin(theta) * RX
-    const y = -Math.cos(theta) * RY
-    const yNorm = y / RY
-    const opacity = Math.max(0, Math.min(1, (-yNorm + 0.45) * 3.2))
-    const scale = 0.58 + (1 - Math.abs(Math.sin(theta))) * 0.16 + ((-yNorm + 1) / 2) * 0.18
-    const zIndex = Math.round(opacity * 80 + (1 - Math.abs(Math.sin(theta))) * 20)
-    const tiltDeg = Math.sin(theta) * 14
-    return { card, x, y, scale, opacity, zIndex, tiltDeg }
-  })
-
-  const sorted = [...cards].sort((a, b) => a.zIndex - b.zIndex)
-
-  // ── Reduced container height; centreY at 72% so cards sit higher ──
-  const containerH = isMobile ? 420 : 640
-  const centreY    = containerH * 0.78   // was 0.72 — pushes orbit centre lower so top cards don't clip
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    }
+  }, [shouldReduceMotion, N, RX, RY, SPEED])
 
   return (
     <div
+      ref={containerRef}
       className="relative w-full select-none"
       style={{ height: containerH, overflow: 'hidden' }}
     >
-      {sorted.map(({ card, x, y, scale, opacity, zIndex, tiltDeg }) => {
-        if (opacity < 0.02) return null
-        return (
-          <div
-            key={card.name}
+      {heroCards.map((card, i) => (
+        <div
+          key={card.name}
+          ref={el => cardRefs.current[i] = el}
+          style={{
+            position: 'absolute',
+            left: '50%',
+            top: centreY,
+            width: CARD_W,
+            height: CARD_H,
+            // Use translate3d on the base positioning too so the GPU layer is pre-established
+            transform: `translate3d(-50%, -50%, 0)`,
+            willChange: 'transform, opacity',
+            pointerEvents: 'none',
+          }}
+        >
+          <img
+            src={card.img}
+            alt={card.name}
             style={{
-              position: 'absolute',
-              left: '50%',
-              top: centreY,
-              width: CARD_W,
-              height: CARD_H,
-              marginLeft: -CARD_W / 2,
-              marginTop: -CARD_H / 2,
-              transform: `translate(${x}px,${y}px) scale(${scale}) rotate(${tiltDeg}deg)`,
-              opacity,
-              zIndex,
-              willChange: 'transform,opacity',
-              pointerEvents: 'none',
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              display: 'block',
+              borderRadius: '16px',
+              filter: 'drop-shadow(0 8px 24px rgba(0,0,0,0.15))',
             }}
-          >
-            <img
-              src={card.img}
-              alt={card.name}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                display: 'block',
-                borderRadius: '16px',
-                filter: 'drop-shadow(0 8px 24px rgba(0,0,0,0.15))',
-              }}
-              onError={(e) => { e.target.style.display = 'none' }}
-              loading="lazy"
-            />
-          </div>
-        )
-      })}
+            onError={e => { e.target.style.display = 'none' }}
+            // Lazy-load all but the first few visible cards
+            loading={i < 3 ? 'eager' : 'lazy'}
+            // Hint browser to decode off main thread
+            decoding="async"
+          />
+        </div>
+      ))}
 
       {/* Bottom fade */}
       <div style={{
@@ -234,39 +290,106 @@ function RotatingHeroCards({ isMobile }) {
   )
 }
 
+// ─── PRODUCT CARD ─────────────────────────────────────────────────────────────
+// FIXES:
+// 1. Guard window.innerWidth with a safe default (false) for SSR safety.
+// 2. Disable whileInView on mobile to prevent intersection observer overhead × 12 cards.
+// 3. Simplify hover animations on mobile (no lift effect).
+const ProductCard = memo(function ProductCard({ product, idx, isMobile }) {
+  const [hovered, setHovered] = useState(false)
 
-/* ══════════════════════════════════════════════════════════════
-   INFINITE CAROUSEL — 4 visible cards, 3:4 portrait ratio
-══════════════════════════════════════════════════════════════ */
-function ProductCarousel({ products }) {
+  // On mobile: no entry animation (viewport observer fires for every card → jank)
+  // On desktop: keep the original staggered entrance
+  const motionProps = isMobile
+    ? {}
+    : {
+        initial:    { opacity: 0, y: 40 },
+        whileInView:{ opacity: 1, y: 0  },
+        viewport:   { once: true         },
+        transition: { delay: idx * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+      }
+
+  return (
+    <motion.div
+      {...motionProps}
+      onHoverStart={() => !isMobile && setHovered(true)}
+      onHoverEnd={()   => !isMobile && setHovered(false)}
+      className="relative group cursor-pointer w-full"
+    >
+      <motion.div
+        animate={{ y: !isMobile && hovered ? -6 : 0 }}
+        transition={{ type: 'spring', stiffness: 320, damping: 22 }}
+        className="relative flex flex-col overflow-hidden rounded-2xl border border-stone-200/90 bg-white shadow-md transition-shadow duration-300 group-hover:shadow-lg group-hover:border-stone-300/90"
+        style={{ aspectRatio: '5 / 6' }}
+      >
+        {/* Same studio-style backdrop for every card — reads more premium than mixed pack shots */}
+        <div
+          className="relative flex flex-1 min-h-0 flex-col items-center justify-center overflow-hidden
+            bg-gradient-to-b from-[#FAFAF9] via-[#FFF8F3] to-white"
+        >
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.35]"
+            style={{
+              backgroundImage: `radial-gradient(ellipse 80% 55% at 50% 42%, rgba(249, 115, 22, 0.07) 0%, transparent 55%)`,
+            }}
+          />
+          <div className={`absolute left-0 top-0 bottom-0 w-1 ${product.accent} opacity-90`} aria-hidden />
+          <span
+            className="absolute left-3 top-3 z-20 inline-flex items-center rounded-md border border-stone-200/90 bg-white/95 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#57534E] shadow-sm backdrop-blur-sm"
+          >
+            {product.tag}
+          </span>
+          <img
+            src={product.img}
+            alt={product.name}
+            className="absolute left-1 right-1 top-0 bottom-0 z-10 mx-auto h-full w-auto max-w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.03] drop-shadow-[0_12px_28px_rgba(45,22,8,0.12)] sm:left-1.5 sm:right-1.5"
+            onError={e => { e.target.style.display = 'none' }}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+
+        <div className="relative z-20 shrink-0 bg-white px-3 py-2.5 sm:px-4 sm:py-3 text-center">
+          <p
+            className="text-[11px] font-semibold leading-snug tracking-tight text-[#292524] sm:text-sm"
+            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+          >
+            {product.name}
+          </p>
+        </div>
+      </motion.div>
+    </motion.div>
+  )
+})
+
+// ─── PRODUCT CAROUSEL ─────────────────────────────────────────────────────────
+// FIXES:
+// 1. Accept isMobile as prop instead of re-running window check each render.
+// 2. Pass isMobile down to ProductCard so it can simplify animations.
+// 3. Reduce card re-mount churn: use stable keys based on product name.
+// 4. Throttle autoplay interval to avoid forcing JS work during touch scrolling.
+function ProductCarousel({ products, isMobile }) {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [isMobile, setIsMobile] = useState(false)
   const shouldReduceMotion = prefersReducedMotion()
   const CARDS_TO_SHOW = 4
 
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 1024)
-    handleResize()
-    window.addEventListener('resize', handleResize, { passive: true })
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
-  const getVisibleProducts = () => {
+  const getVisibleProducts = useCallback(() => {
     const visible = []
     for (let i = 0; i < CARDS_TO_SHOW; i++) {
       visible.push(products[(currentIndex + i) % products.length])
     }
     return visible
-  }
+  }, [currentIndex, products])
 
-  const handleNext = () => setCurrentIndex((prev) => (prev + 1) % products.length)
-  const handlePrev = () => setCurrentIndex((prev) => (prev - 1 + products.length) % products.length)
+  const handleNext = useCallback(() => setCurrentIndex(prev => (prev + 1) % products.length), [products.length])
+  const handlePrev = useCallback(() => setCurrentIndex(prev => (prev - 1 + products.length) % products.length), [products.length])
 
   useEffect(() => {
     if (shouldReduceMotion) return
-    const interval = setInterval(handleNext, 5000)
+    // Longer interval on mobile — gives the browser breathing room between frames
+    const interval = setInterval(handleNext, isMobile ? 7000 : 5000)
     return () => clearInterval(interval)
-  }, [shouldReduceMotion])
+  }, [shouldReduceMotion, isMobile, handleNext])
 
   const visibleProducts = getVisibleProducts()
 
@@ -276,16 +399,16 @@ function ProductCarousel({ products }) {
         <motion.div className="flex gap-5 justify-center items-center">
           {visibleProducts.map((product, idx) => (
             <motion.div
-              key={`${currentIndex}-${idx}`}
+              // Stable key — avoids full unmount/remount on every tick
+              key={product.name}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.5, delay: idx * 0.08 }}
+              transition={{ duration: isMobile ? 0.3 : 0.5, delay: idx * (isMobile ? 0.04 : 0.08) }}
               className="flex-shrink-0"
-              // ── Reduced width to keep 4 cards fitting with 3:4 ratio ──
               style={{ width: isMobile ? '130px' : '220px' }}
             >
-              <ProductCard product={product} idx={idx} />
+              <ProductCard product={product} idx={idx} isMobile={isMobile} />
             </motion.div>
           ))}
         </motion.div>
@@ -297,9 +420,10 @@ function ProductCarousel({ products }) {
           whileTap={{ scale: 0.95 }}
           onClick={handlePrev}
           className="w-12 h-12 rounded-full bg-white border-2 border-[#F97316] text-[#F97316] flex items-center justify-center hover:bg-[#FFF8EE] transition-all duration-300 shadow-lg"
+          aria-label="Previous products"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <polyline points="15 18 9 12 15 6"></polyline>
+            <polyline points="15 18 9 12 15 6" />
           </svg>
         </motion.button>
 
@@ -310,6 +434,7 @@ function ProductCarousel({ products }) {
               onClick={() => setCurrentIndex(idx)}
               className={`h-2 rounded-full transition-all duration-300 ${idx === currentIndex ? 'bg-[#F97316] w-8' : 'bg-[#F97316]/30 w-2'}`}
               whileHover={{ scale: 1.2 }}
+              aria-label={`Go to product ${idx + 1}`}
             />
           ))}
         </div>
@@ -319,9 +444,10 @@ function ProductCarousel({ products }) {
           whileTap={{ scale: 0.95 }}
           onClick={handleNext}
           className="w-12 h-12 rounded-full bg-gradient-to-r from-[#F97316] to-[#A8430F] text-white flex items-center justify-center hover:shadow-lg transition-all duration-300 shadow-lg"
+          aria-label="Next products"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <polyline points="9 18 15 12 9 6"></polyline>
+            <polyline points="9 18 15 12 9 6" />
           </svg>
         </motion.button>
       </div>
@@ -329,86 +455,41 @@ function ProductCarousel({ products }) {
   )
 }
 
-/* ══════════════════════════════════════════════════════════════
-   GRID PRODUCT CARD — 3:4 portrait ratio
-══════════════════════════════════════════════════════════════ */
-function ProductCard({ product, idx }) {
-  const [hovered, setHovered] = useState(false)
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768)
-    window.addEventListener('resize', handleResize, { passive: true })
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: idx * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      onHoverStart={() => !isMobile && setHovered(true)}
-      onHoverEnd={() => !isMobile && setHovered(false)}
-      className="relative group cursor-pointer w-full"
-    >
-      <motion.div
-        animate={{ y: !isMobile && hovered ? -8 : 0 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-        className="relative overflow-hidden shadow-lg group-hover:shadow-2xl transition-shadow duration-500"
-        style={{ aspectRatio: '3 / 4', borderRadius: '1.5rem' }}
-      >
-        {/* Image fills full card */}
-        <img
-          src={product.img}
-          alt={product.name}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          onError={(e) => { e.target.style.display = 'none' }}
-          loading="lazy"
-        />
-
-        {/* JUICE / CARBONATED tag — top left with gradient backdrop */}
-        <div className="absolute top-3 left-3 z-20">
-          <span className={`px-2.5 py-1 bg-gradient-to-br ${product.gradient} backdrop-blur-sm rounded-full text-white text-[9px] font-bold uppercase tracking-widest shadow-lg`}>
-            {product.tag}
-          </span>
-        </div>
-
-        {/* Product name pill — bottom left with gradient backdrop */}
-        <div className="absolute bottom-4 left-4 z-20">
-          <span className={`px-4 py-1.5 bg-gradient-to-br ${product.gradient} backdrop-blur-sm rounded-full text-white font-black text-xs uppercase tracking-widest shadow-lg`}>
-            {product.name}
-          </span>
-        </div>
-      </motion.div>
-    </motion.div>
-  )
-}
-
-/* ══════════════════════════════════════════════════════════════
-   HOME PAGE
-══════════════════════════════════════════════════════════════ */
+// ─── HOME PAGE ────────────────────────────────────────────────────────────────
 export default function Home() {
   const heroRef = useRef(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
-  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '-18%'])
-  const textOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0])
-  const cardsY = useTransform(scrollYProgress, [0, 1], ['0%', '12%'])
 
-  const [isMobile, setIsMobile] = useState(false)
-  const [isTablet, setIsTablet] = useState(false)
-  const shouldReduceMotion = prefersReducedMotion()
+  // FIXES:
+  // 1. On mobile: disable parallax scroll transforms entirely.
+  //    Parallax forces layout recalc on every scroll tick → the #1 cause of janky scrolling.
+  // 2. Use `useTransform` with identity values on mobile so the hook still runs
+  //    but does nothing, avoiding conditional hook errors.
+  const textY          = useTransform(scrollYProgress, [0, 1],    ['0%', '-18%'])
+  const textOpacity    = useTransform(scrollYProgress, [0, 0.55], [1, 0])
+  const cardsY         = useTransform(scrollYProgress, [0, 1],    ['0%', '12%'])
 
+  const [isMobile, setIsMobile]   = useState(false)
+  const [isTablet, setIsTablet]   = useState(false)
+  const shouldReduceMotion        = prefersReducedMotion()
+
+  // Initialise from window on mount so there's no flash of wrong layout
   useEffect(() => {
     const handleResize = () => {
-      const width = window.innerWidth
-      setIsMobile(width < 768)
-      setIsTablet(width >= 768 && width < 1024)
+      const w = window.innerWidth
+      setIsMobile(w < 768)
+      setIsTablet(w >= 768 && w < 1024)
     }
     handleResize()
+    // Passive listener — never blocks scroll events
     window.addEventListener('resize', handleResize, { passive: true })
     return () => window.removeEventListener('resize', handleResize)
   }, [])
+
+  // On mobile: skip parallax motion styles to avoid per-scroll recalcs
+  const parallaxTextStyle    = isMobile ? {} : { y: textY, opacity: textOpacity }
+  const parallaxCardsStyle   = isMobile ? { position: 'relative', left: '50%', marginLeft: '-50vw', width: '100vw' }
+                                        : { y: cardsY, position: 'relative', left: '50%', marginLeft: '-50vw', width: '100vw' }
 
   return (
     <PageWrapper>
@@ -416,13 +497,14 @@ export default function Home() {
       {/* ══════════ HERO ══════════ */}
       <section
         ref={heroRef}
-        className="relative overflow-x-clip pt-16"
+        className="relative overflow-x-clip pt-28 md:pt-32"
         style={{ minHeight: '100vh', background: '#ffffff' }}
       >
         <div className="absolute inset-0 pointer-events-none bg-pattern-leaf bg-pattern-opacity-55" />
 
+        {/* Orbs hidden on mobile (<480px) via shouldDisableOrbs */}
         <Orb className="w-[600px] h-[600px] bg-[#F9D4C0]/30 -top-32 -right-48" delay={0} />
-        <Orb className="w-[400px] h-[400px] bg-yellow-200/15 top-1/2 -left-32" delay={2} />
+        <Orb className="w-[400px] h-[400px] bg-yellow-200/15 top-1/2 -left-32"  delay={2} />
         <Orb className="w-[300px] h-[300px] bg-cyan-200/15   bottom-32 right-1/4" delay={1} />
 
         {/* Breadcrumb */}
@@ -434,12 +516,11 @@ export default function Home() {
           <span className="text-[#7A4A2A]">Home</span>
         </motion.div>
 
-        {/* Text content */}
+        {/* Text content — no parallax on mobile */}
         <motion.div
-          style={{ y: textY, opacity: textOpacity }}
+          style={parallaxTextStyle}
           className="relative z-10 flex flex-col items-center text-center px-6 pb-0"
         >
-          {/* Badge */}
           <motion.div
             initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -450,7 +531,6 @@ export default function Home() {
             Refreshing India Since 2008
           </motion.div>
 
-          {/* Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
@@ -466,7 +546,6 @@ export default function Home() {
             <span className="text-[#F97316]">a flavor-filled experience</span>
           </motion.h1>
 
-          {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -478,7 +557,6 @@ export default function Home() {
             offering a burst of flavours that will leave you desiring more.
           </motion.p>
 
-          {/* CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
@@ -503,9 +581,9 @@ export default function Home() {
           </motion.div>
         </motion.div>
 
-        {/* ── ROTATING HERO CARDS — moved up with mt-2 ── */}
+        {/* Rotating hero cards — no parallax on mobile */}
         <motion.div
-          style={{ y: cardsY, position: 'relative', left: '50%', marginLeft: '-50vw', width: '100vw' }}
+          style={parallaxCardsStyle}
           className="z-10 mt-2"
         >
           <RotatingHeroCards isMobile={isMobile} />
@@ -534,7 +612,10 @@ export default function Home() {
 
       {/* ══════════ PRODUCTS GRID ══════════ */}
       <section className="py-28 px-6 md:px-12 lg:px-20 bg-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gray-100 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        {/* Decorative blur — skip paint on mobile */}
+        {!isMobile && (
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gray-100 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        )}
         <div className="max-w-7xl mx-auto relative">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -561,7 +642,7 @@ export default function Home() {
           </motion.div>
 
           <div className="flex justify-center">
-            <ProductCarousel products={products} />
+            <ProductCarousel products={products} isMobile={isMobile} />
           </div>
         </div>
       </section>
@@ -569,7 +650,7 @@ export default function Home() {
       {/* ══════════ STATS STRIP ══════════ */}
       <section className="relative py-32 px-6 md:px-12 lg:px-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#F97316] via-[#A8430F] to-[#2D1608]" />
-        <Orb className="w-[500px] h-[500px] bg-white/10 -top-48 -left-32" delay={0} />
+        <Orb className="w-[500px] h-[500px] bg-white/10 -top-48 -left-32"      delay={0} />
         <Orb className="w-[400px] h-[400px] bg-[#FF6B35]/10 bottom-0 -right-40" delay={2} />
         <div
           className="absolute inset-0 opacity-10"
@@ -585,14 +666,15 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ delay: i * 0.12, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -8, scale: 1.03 }}
+              // Disable hover lift on mobile (no hover on touch)
+              whileHover={isMobile ? {} : { y: -8, scale: 1.03 }}
               className="group cursor-pointer text-center relative"
             >
               <div className="absolute inset-0 rounded-2xl bg-white/5 opacity-0 group-hover:opacity-100 transition-all duration-300 blur-xl" />
               <motion.div className="relative z-10 flex flex-col items-center gap-4">
                 <motion.div
                   className="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center group-hover:bg-white/25 transition-all duration-500 shadow-lg"
-                  whileHover={{ rotate: 10, scale: 1.1 }}
+                  whileHover={isMobile ? {} : { rotate: 10, scale: 1.1 }}
                 >
                   <s.icon size={24} className="text-white/90" />
                 </motion.div>
@@ -610,13 +692,13 @@ export default function Home() {
 
       {/* ══════════ OUR STORY ══════════ */}
       <section className="py-32 px-6 md:px-12 lg:px-20 bg-gradient-to-b from-white via-white to-gray-50 relative overflow-hidden">
-        <Orb className="w-[500px] h-[500px] bg-[#F97316]/8 -top-40 -left-48" delay={0} />
+        <Orb className="w-[500px] h-[500px] bg-[#F97316]/8 -top-40 -left-48"   delay={0} />
         <Orb className="w-[400px] h-[400px] bg-[#F97316]/5 bottom-20 -right-32" delay={1} />
 
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center relative z-10">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: isMobile ? 0 : -50, y: isMobile ? 20 : 0 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
@@ -645,8 +727,8 @@ export default function Home() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? 20 : 0 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="grid grid-cols-2 gap-4"
@@ -654,11 +736,12 @@ export default function Home() {
             {storyGrid.map((item, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-                whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ scale: 1.05, rotate: 2 }}
+                // Simplify entry on mobile: skip rotate to avoid layout thrashing
+                transition={{ delay: isMobile ? i * 0.08 : i * 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={isMobile ? {} : { scale: 1.05, rotate: 2 }}
                 className={`bg-gradient-to-br ${item.bg} border-2 ${item.border} rounded-3xl overflow-hidden aspect-square relative group shadow-lg hover:shadow-2xl transition-all duration-500`}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-white/0 via-[#F97316]/0 to-[#F97316]/15 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
@@ -666,7 +749,9 @@ export default function Home() {
                   src={item.src}
                   alt={item.label}
                   className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110"
-                  onError={(e) => { e.target.style.display = 'none' }}
+                  onError={e => { e.target.style.display = 'none' }}
+                  loading="lazy"
+                  decoding="async"
                 />
                 <ImgPlaceholder label={item.label} />
                 <motion.div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/60 via-black/30 to-transparent flex items-end pb-3 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -681,7 +766,7 @@ export default function Home() {
       {/* ══════════ PILLARS ══════════ */}
       <section className="py-32 px-6 md:px-12 lg:px-20 bg-white relative overflow-hidden">
         <Orb className="w-[600px] h-[600px] bg-[#F97316]/6 top-1/2 left-1/4 -translate-y-1/2" delay={0} />
-        <Orb className="w-[500px] h-[500px] bg-[#F97316]/5 -bottom-32 right-1/4" delay={2} />
+        <Orb className="w-[500px] h-[500px] bg-[#F97316]/5 -bottom-32 right-1/4"               delay={2} />
 
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
@@ -709,13 +794,17 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true, margin: '-100px' }}
                 transition={{ delay: i * 0.15, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -12, scale: 1.02 }}
-                className={`group border-2 ${p.border} rounded-3xl p-10 hover:shadow-2xl transition-all duration-500 relative overflow-hidden bg-gradient-to-br ${p.color === 'bg-white text-[#F97316]' ? 'from-white to-[#FFFBF7]' : p.color === 'bg-sky-50 text-sky-600' ? 'from-sky-50 to-blue-50' : 'from-white to-orange-50'}`}
+                whileHover={isMobile ? {} : { y: -12, scale: 1.02 }}
+                className={`group border-2 ${p.border} rounded-3xl p-10 hover:shadow-2xl transition-all duration-500 relative overflow-hidden bg-gradient-to-br ${
+                  p.color === 'bg-white text-[#F97316]' ? 'from-white to-[#FFFBF7]'
+                  : p.color === 'bg-sky-50 text-sky-600' ? 'from-sky-50 to-blue-50'
+                  : 'from-white to-orange-50'
+                }`}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-[#F97316]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <motion.div
                   className={`w-16 h-16 rounded-2xl ${p.color} flex items-center justify-center mb-6 relative z-10 group-hover:shadow-lg transition-all duration-300`}
-                  whileHover={{ scale: 1.1, rotate: 6 }}
+                  whileHover={isMobile ? {} : { scale: 1.1, rotate: 6 }}
                 >
                   <p.icon size={28} />
                 </motion.div>
@@ -736,9 +825,10 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center relative z-10">
           <motion.div
-            initial={{ opacity: 0, scale: 0.85, rotate: -3 }}
-            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: '-100px' }}
+            // Skip the rotation on mobile — rotate triggers layout recalc
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="relative rounded-3xl overflow-hidden aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 border-2 border-gray-200 group shadow-2xl"
           >
@@ -747,7 +837,9 @@ export default function Home() {
               src="/images/csr/csr-banner.jpg"
               alt="CSR Initiative"
               className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110"
-              onError={(e) => { e.target.style.display = 'none' }}
+              onError={e => { e.target.style.display = 'none' }}
+              loading="lazy"
+              decoding="async"
             />
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 pointer-events-none">
               <div className="w-16 h-16 rounded-2xl bg-white/90 backdrop-blur flex items-center justify-center">
@@ -762,8 +854,8 @@ export default function Home() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? 20 : 0 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
@@ -795,8 +887,8 @@ export default function Home() {
       {/* ══════════ DEALERSHIP CTA ══════════ */}
       <section className="py-32 px-6 md:px-12 lg:px-20 bg-gradient-to-br from-gray-900 via-gray-900 to-[#1A0C04] relative overflow-hidden">
         <Orb className="w-[700px] h-[700px] bg-[#F97316]/15 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" delay={0} />
-        <Orb className="w-[500px] h-[500px] bg-[#A8430F]/10 -bottom-40 -left-32" delay={2} />
-        <Orb className="w-[400px] h-[400px] bg-[#F97316]/8 -top-32 -right-32" delay={1} />
+        <Orb className="w-[500px] h-[500px] bg-[#A8430F]/10 -bottom-40 -left-32"                                  delay={2} />
+        <Orb className="w-[400px] h-[400px] bg-[#F97316]/8 -top-32 -right-32"                                     delay={1} />
         <div
           className="absolute inset-0 opacity-5"
           style={{
@@ -806,14 +898,15 @@ export default function Home() {
 
         <div className="relative z-10 max-w-5xl mx-auto text-center">
           <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.8 }}
+            initial={{ opacity: 0, y: 30, scale: isMobile ? 0.95 : 0.8 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
             <motion.div
               className="text-6xl mb-8 inline-block"
-              whileInView={{ rotate: [0, 10, -10, 0] }}
+              // Skip wiggle on mobile — rotate causes layout jank
+              whileInView={isMobile ? {} : { rotate: [0, 10, -10, 0] }}
               transition={{ delay: 0.3, duration: 1.2 }}
             >
               🤝

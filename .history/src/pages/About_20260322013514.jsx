@@ -11,14 +11,8 @@ import heroPicFlavours1 from '../../pic assets/FLAVOURS 1.png'
 import heroPicFlavours2 from '../../pic assets/flavours 2.png'
 
 /* ══════════════════════════════════════════════════════════
-   DATA
+   DATA  (unchanged)
 ══════════════════════════════════════════════════════════ */
-
-// Hero flavour images — real product lineup shots
-const heroFlavours = [
-  { img: heroPicFlavours1, alt: 'Cilo carbonated and soda lineup' },
-  { img: heroPicFlavours2, alt: 'Cilo juice and beverage lineup'  },
-]
 
 const timeline = [
   { year: '2020', title: 'Founded',                desc: 'Richi Food Products founded in Krishnagiri, Tamil Nadu.',                          img: '/images/about/timeline/2020.jpg', tag: 'Founded',    color: 'bg-[#C2641F]'  },
@@ -65,6 +59,12 @@ const labPoints = [
 const pillars = [
   { name: 'Mr. Velmurukan', role: 'Founder & Director',    phone: '9443518521', img: '/images/about/team/velmurukan.jpg' },
   { name: 'Mr. Bharath',    role: 'Operations & Marketing', phone: '9944366592', img: '/images/about/team/bharath.jpg'    },
+]
+
+// Hero — pic assets FLAVOURS 1.png & flavours 2.png (full-bleed, no captions)
+const heroFlavours = [
+  { img: heroPicFlavours1, alt: 'Cilo carbonated and soda lineup' },
+  { img: heroPicFlavours2, alt: 'Cilo juice and beverage lineup' },
 ]
 
 /* ══════════════════════════════════════════════════════════
@@ -153,6 +153,7 @@ function ImgBox({ src, alt = '', className = '', objectFit = 'object-cover', lab
 export default function About() {
   const [heroFlavour1, heroFlavour2] = heroFlavours
 
+  // FIX: single debounced width — replaces the original instant-setState on every resize pixel
   const windowWidth = useWindowWidth()
   const isMobile    = windowWidth < 768
   const reduced     = prefersReducedMotion()
@@ -312,7 +313,6 @@ export default function About() {
             <p className="text-[#4A2800]/50 leading-relaxed text-sm mb-8">
               Quality, innovation, and sustainability at our core.
             </p>
-            {/* Two flavour thumbnails side-by-side on mobile */}
             <div className="flex justify-center gap-4 max-w-sm mx-auto">
               {heroFlavours.map((f) => (
                 <div
@@ -323,7 +323,7 @@ export default function About() {
                     src={f.img}
                     alt={f.alt}
                     className="absolute inset-0 h-full w-full object-cover"
-                    onError={e => { e.target.style.display = 'none' }}
+                    onError={(e) => { e.target.style.display = 'none' }}
                     loading="lazy"
                     decoding="async"
                   />
