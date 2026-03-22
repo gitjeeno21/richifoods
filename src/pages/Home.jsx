@@ -371,7 +371,8 @@ const ProductCard = memo(function ProductCard({ product, idx, isMobile }) {
 function ProductCarousel({ products, isMobile }) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const shouldReduceMotion = prefersReducedMotion()
-  const CARDS_TO_SHOW = 4
+  // Show 2 cards on mobile so each is legible; 4 on desktop
+  const CARDS_TO_SHOW = isMobile ? 2 : 4
 
   const getVisibleProducts = useCallback(() => {
     const visible = []
@@ -379,34 +380,36 @@ function ProductCarousel({ products, isMobile }) {
       visible.push(products[(currentIndex + i) % products.length])
     }
     return visible
-  }, [currentIndex, products])
+  }, [currentIndex, products, CARDS_TO_SHOW])
 
   const handleNext = useCallback(() => setCurrentIndex(prev => (prev + 1) % products.length), [products.length])
   const handlePrev = useCallback(() => setCurrentIndex(prev => (prev - 1 + products.length) % products.length), [products.length])
 
   useEffect(() => {
     if (shouldReduceMotion) return
-    // Longer interval on mobile — gives the browser breathing room between frames
     const interval = setInterval(handleNext, isMobile ? 7000 : 5000)
     return () => clearInterval(interval)
   }, [shouldReduceMotion, isMobile, handleNext])
 
   const visibleProducts = getVisibleProducts()
 
+  // On mobile: show compact page-style dots (prev • current • next) instead of 12 individual dots
+  const totalPages = Math.ceil(products.length / CARDS_TO_SHOW)
+  const currentPage = Math.floor(currentIndex / CARDS_TO_SHOW)
+
   return (
     <div className="relative w-full">
       <div className="relative overflow-hidden py-8">
-        <motion.div className="flex gap-5 justify-center items-center">
+        <motion.div className="flex gap-3 sm:gap-5 justify-center items-center">
           {visibleProducts.map((product, idx) => (
             <motion.div
-              // Stable key — avoids full unmount/remount on every tick
               key={product.name}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: isMobile ? 0.3 : 0.5, delay: idx * (isMobile ? 0.04 : 0.08) }}
               className="flex-shrink-0"
-              style={{ width: isMobile ? '130px' : '220px' }}
+              style={{ width: isMobile ? 'calc(50% - 6px)' : '220px', maxWidth: isMobile ? '160px' : '220px' }}
             >
               <ProductCard product={product} idx={idx} isMobile={isMobile} />
             </motion.div>
@@ -414,39 +417,50 @@ function ProductCarousel({ products, isMobile }) {
         </motion.div>
       </div>
 
-      <div className="flex justify-center items-center gap-6 mt-8">
+      <div className="flex justify-center items-center gap-4 sm:gap-6 mt-6 sm:mt-8">
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           onClick={handlePrev}
-          className="w-12 h-12 rounded-full bg-white border-2 border-[#F97316] text-[#F97316] flex items-center justify-center hover:bg-[#FFF8EE] transition-all duration-300 shadow-lg"
+          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white border-2 border-[#F97316] text-[#F97316] flex items-center justify-center hover:bg-[#FFF8EE] transition-all duration-300 shadow-lg"
           aria-label="Previous products"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <polyline points="15 18 9 12 15 6" />
           </svg>
         </motion.button>
 
+        {/* Mobile: page-style dots. Desktop: individual dots */}
         <div className="flex gap-2">
-          {products.map((_, idx) => (
-            <motion.button
-              key={idx}
-              onClick={() => setCurrentIndex(idx)}
-              className={`h-2 rounded-full transition-all duration-300 ${idx === currentIndex ? 'bg-[#F97316] w-8' : 'bg-[#F97316]/30 w-2'}`}
-              whileHover={{ scale: 1.2 }}
-              aria-label={`Go to product ${idx + 1}`}
-            />
-          ))}
+          {isMobile
+            ? Array.from({ length: totalPages }).map((_, idx) => (
+                <motion.button
+                  key={idx}
+                  onClick={() => setCurrentIndex(idx * CARDS_TO_SHOW)}
+                  className={`h-2 rounded-full transition-all duration-300 ${idx === currentPage ? 'bg-[#F97316] w-8' : 'bg-[#F97316]/30 w-2'}`}
+                  aria-label={`Go to page ${idx + 1}`}
+                />
+              ))
+            : products.map((_, idx) => (
+                <motion.button
+                  key={idx}
+                  onClick={() => setCurrentIndex(idx)}
+                  className={`h-2 rounded-full transition-all duration-300 ${idx === currentIndex ? 'bg-[#F97316] w-8' : 'bg-[#F97316]/30 w-2'}`}
+                  whileHover={{ scale: 1.2 }}
+                  aria-label={`Go to product ${idx + 1}`}
+                />
+              ))
+          }
         </div>
 
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleNext}
-          className="w-12 h-12 rounded-full bg-gradient-to-r from-[#F97316] to-[#A8430F] text-white flex items-center justify-center hover:shadow-lg transition-all duration-300 shadow-lg"
+          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-[#F97316] to-[#A8430F] text-white flex items-center justify-center hover:shadow-lg transition-all duration-300 shadow-lg"
           aria-label="Next products"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <polyline points="9 18 15 12 9 6" />
           </svg>
         </motion.button>

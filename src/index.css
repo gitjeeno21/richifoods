@@ -532,16 +532,11 @@
 
 /* ================= PRODUCTION LOW-RAM OPTIMIZATIONS ================= */
 
-@media (prefers-color-scheme: light) {
-  /* Further reduce animations on low-end devices */
-  @supports (content-visibility: auto) {
-    /* Use content-visibility to improve rendering performance */
-    section {
-      content-visibility: auto;
-      contain-intrinsic-size: auto 500px;
-    }
-  }
-}
+/* NOTE: content-visibility: auto is removed from sections.
+   It hides sections from IntersectionObserver, which breaks Framer Motion's
+   whileInView — elements stay at their initial (invisible) state.
+   Performance gains are handled per-component instead.
+*/
 
 /* ================= WILL-CHANGE OPTIMIZATION ================= */
 
@@ -619,19 +614,23 @@ html {
   }
 }
 
-/* ================= REDUCE MOTION FOR LOW-END DEVICES ================= */
+/* ================= REDUCE MOTION FOR LOW-END DEVICES =================
+   NOTE: We no longer kill animation-duration to 0s globally at 480px.
+   Framer Motion manages its own animation states — forcing duration: 0s
+   causes animated elements to stay stuck at their `initial` opacity/transform
+   because the library never detects the transition completing.
+   Instead, mobile performance is handled per-component with simplified
+   animations (opacity-only, no translateY) already in each page file.
+*/
 
-@media (max-width: 480px) {
-  /* Disable most animations on very small devices */
-  *:not(.no-reduce-animation) {
-    animation-duration: 0s !important;
-    animation-delay: 0s !important;
-  }
-
-  /* Keep only essential transitions */
-  .transition,
-  .transition-all {
-    transition-duration: 0.1s !important;
+/* ================= HORIZONTAL OVERFLOW GUARD =================
+   Belt-and-braces overflow fix — catches any element that accidentally
+   escapes its container. Using clip instead of hidden so position: sticky
+   elements (Navbar) still work correctly.
+*/
+@media (max-width: 768px) {
+  body {
+    overflow-x: clip;
   }
 }
 

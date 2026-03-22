@@ -249,12 +249,12 @@ const Gallery = () => {
                   Visual Stories
                 </span>
                 <h1
-                  className="font-black text-5xl md:text-6xl text-gray-900 mb-4 leading-tight"
+                  className="font-black text-3xl sm:text-5xl md:text-6xl text-gray-900 mb-4 leading-tight"
                   style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
                 >
                   Photo Gallery
                 </h1>
-                <p className="text-[#7A4A2A]/70 text-xl max-w-2xl mx-auto leading-relaxed">
+                <p className="text-[#7A4A2A]/70 text-base sm:text-xl max-w-2xl mx-auto leading-relaxed">
                   A glimpse into Richi Food Products' world of innovation, culture, and excellence
                 </p>
               </motion.div>

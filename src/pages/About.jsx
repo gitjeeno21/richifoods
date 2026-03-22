@@ -600,7 +600,7 @@ export default function About() {
       {/* ══════════ 5. MISSION & VISION ══════════ */}
       <section className="py-0">
         {/* Mission */}
-        <div className="grid md:grid-cols-2 min-h-[400px]">
+        <div className="grid md:grid-cols-2 min-h-[300px] sm:min-h-[400px]">
           <div className="relative overflow-hidden">
             <img
               src="/images/about/mission.jpg"
@@ -621,7 +621,7 @@ export default function About() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="bg-[#2D1608] flex items-center px-12 py-20"
+            className="bg-[#2D1608] flex items-center px-6 sm:px-12 py-16 sm:py-20"
           >
             <div>
               <span className="inline-block px-4 py-1.5 bg-white/10 text-white/80 rounded-full text-xs font-bold uppercase tracking-widest mb-6">
@@ -652,12 +652,12 @@ export default function About() {
         </div>
 
         {/* Vision */}
-        <div className="grid md:grid-cols-2 min-h-[400px]">
+        <div className="grid md:grid-cols-2 min-h-[300px] sm:min-h-[400px]">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="bg-gray-900 flex items-center px-12 py-20"
+            className="bg-gray-900 flex items-center px-6 sm:px-12 py-16 sm:py-20"
           >
             <div>
               <span className="inline-block px-4 py-1.5 bg-white/10 text-white/80 rounded-full text-xs font-bold uppercase tracking-widest mb-6">
