@@ -566,8 +566,6 @@ img {
   /* Prevent layout shift */
   display: block;
   height: auto;
-  /* Improve rendering */
-  contain: content;
 }
 
 /* Lazy loading images should start invisible */

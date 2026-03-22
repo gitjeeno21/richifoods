@@ -77,7 +77,7 @@ const ProductCard = memo(
               <img
                 src={img}
                 alt={name}
-                className="absolute left-1 right-1 top-0 bottom-0 z-10 mx-auto h-full w-auto max-w-full object-contain object-bottom transition-transform duration-500 ease-out group-hover:scale-[1.02] [filter:drop-shadow(0_10px_28px_rgba(45,22,8,0.1))] sm:left-1.5 sm:right-1.5"
+                className="absolute left-1 right-1 top-0 bottom-0 z-10 mx-auto h-full w-auto max-w-full object-contain object-center transition-transform duration-500 ease-out group-hover:scale-[1.02] [filter:drop-shadow(0_10px_28px_rgba(45,22,8,0.1))] sm:left-1.5 sm:right-1.5"
                 loading="lazy"
                 decoding="async"
                 width={300}

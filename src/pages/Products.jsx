@@ -263,7 +263,7 @@ export default function Products() {
             Flexible sizing to fit every distribution channel
           </motion.p>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5">
             {packaging.map((p, i) => (
               <motion.div
                 key={p.size}
@@ -276,16 +276,16 @@ export default function Products() {
                   in memory – not worth it on low-RAM devices.
                 */
                 transition={isMobile ? { ...mobileTransition, delay: 0 } : { delay: i * 0.1 }}
-                className="bg-white rounded-3xl p-7 text-center hover:shadow-2xl hover:border-[#F97316] transition-shadow duration-200 border-2 border-gray-200"
+                className="bg-white rounded-3xl p-4 sm:p-7 text-center hover:shadow-2xl hover:border-[#F97316] transition-shadow duration-200 border-2 border-gray-200"
                 /*
                   Mobile: transition-shadow only (not transition-all).
                   transition-all triggers style recalc on every frame; limiting
                   to shadow removes that cost entirely.
                 */
               >
-                <div className="text-4xl mb-4" aria-hidden="true">🫙</div>
+                <div className="text-3xl sm:text-4xl mb-3 sm:mb-4" aria-hidden="true">🫙</div>
                 <div
-                  className="font-black text-3xl text-[#F97316] mb-1"
+                  className="font-black text-xl sm:text-3xl text-[#F97316] mb-1"
                   style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
                 >
                   {p.size}
