@@ -60,12 +60,12 @@ const packaging = [
 ]
 
 const processSteps = [
-  { step: '01', icon: '⚙️', label: 'Preparation' },
-  { step: '02', icon: '🔄', label: 'Filling'      },
-  { step: '03', icon: '🏷️', label: 'Labelling'    },
-  { step: '04', icon: '✅', label: 'Checking'     },
-  { step: '05', icon: '📦', label: 'Packing'      },
-  { step: '06', icon: '🚚', label: 'Dispatch'     },
+  { step: '01', img: '/images/products/preparation.png', label: 'Preparation', desc: 'Carefully sourced ingredients are prepared in a highly hygienic environment.' },
+  { step: '02', img: '/images/products/filling.png', label: 'Filling',     desc: 'Automated filling machines ensure exact measurements and eliminate contamination.' },
+  { step: '03', img: '/images/products/labelling.png', label: 'Labelling',   desc: 'High-speed labeling equipment applies branding seamlessly.' },
+  { step: '04', img: '/images/products/checking.png', label: 'Checking',    desc: 'Rigorous quality control processes guarantee the integrity of every bottle.' },
+  { step: '05', img: '/images/products/packing.png', label: 'Packing',      desc: 'Finished products are safely packed for secure transit.' },
+  { step: '06', img: '/images/products/dispatch.png', label: 'Dispatch',    desc: 'Logistics coordination ensures timely delivery to all partners.' },
 ]
 
 // ─── Shared motion helpers ──────────────────────────────────────────────────────
@@ -324,27 +324,50 @@ export default function Products() {
             How We Make It
           </motion.h2>
 
-          {/*
-            Mobile: 2-col grid (matches packaging section rhythm).
-            Desktop: 3-col → 6-col as original.
-          */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {processSteps.map((s, i) => (
-              <motion.div
-                key={s.step}
-                initial={{ opacity: 0, y: isMobile ? 0 : 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={isMobile ? { ...mobileTransition, delay: 0 } : { delay: i * 0.08 }}
-                className="bg-white rounded-2xl p-5 text-center border-2 border-gray-200 hover:border-[#F97316] hover:shadow-2xl transition-shadow duration-200"
-              >
-                <div className="text-3xl mb-3" aria-hidden="true">{s.icon}</div>
-                <div className="font-black text-[#F97316] text-xs mb-1 tracking-widest uppercase">
-                  STEP {s.step}
-                </div>
-                <div className="text-gray-900 text-xs leading-snug">{s.label}</div>
-              </motion.div>
-            ))}
+          <div className="relative mt-8">
+            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 -translate-x-1/2 hidden md:block" />
+
+            <div className="space-y-16">
+              {processSteps.map((s, i) => {
+                const isLeft = i % 2 === 0
+                return (
+                  <motion.div
+                    key={s.step}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    className={`relative grid md:grid-cols-2 gap-8 items-center ${isLeft ? '' : 'md:[&>*:first-child]:order-last'}`}
+                  >
+                    <div className={`${isLeft ? 'md:text-right md:pr-12' : 'md:pl-12'}`}>
+                      <div className={`flex items-center gap-3 mb-3 ${isLeft ? 'md:justify-end' : ''}`}>
+                        <span className={`px-3 py-1 rounded-full text-white text-xs font-bold uppercase tracking-widest bg-[#F97316]`}>
+                          STEP {s.step}
+                        </span>
+                        <span
+                          className="text-4xl font-black text-[#7A4A2A]/20"
+                          style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                        >
+                          0{i + 1}
+                        </span>
+                      </div>
+                      <h3 className="text-xl font-black text-gray-900 mb-2">{s.label}</h3>
+                      <p className="text-gray-500 leading-relaxed text-sm">{s.desc}</p>
+                    </div>
+
+                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex">
+                      <div className={`w-5 h-5 rounded-full bg-[#F97316] border-4 border-white shadow-lg`} />
+                    </div>
+
+                    <div className={`${isLeft ? 'md:pl-12' : 'md:pr-12'}`}>
+                      <div className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-white border border-gray-100 shadow-xl flex items-center justify-center p-8 hover:shadow-2xl transition-shadow duration-300">
+                         <img src={s.img} alt={s.label} className="w-full h-full object-contain drop-shadow-md" loading="lazy" />
+                      </div>
+                    </div>
+                  </motion.div>
+                )
+              })}
+            </div>
           </div>
         </div>
       </section>

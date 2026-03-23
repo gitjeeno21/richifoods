@@ -227,7 +227,7 @@ export default function About() {
               // Pure CSS float — compositor thread, no JS per frame
               style={reduced ? {} : { animation: 'float-card 4s ease-in-out infinite', animationDelay: '1.4s', willChange: 'transform' }}
             >
-              <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl bg-stone-200">
+              <div className="relative w-full aspect-square rounded-3xl overflow-hidden shadow-2xl bg-stone-200">
                 <img
                   src={heroFlavour1.img}
                   alt={heroFlavour1.alt}
@@ -274,7 +274,7 @@ export default function About() {
               className="self-end mb-8"
               style={reduced ? {} : { animation: 'float-card 4.2s ease-in-out infinite', animationDelay: '1.6s', willChange: 'transform' }}
             >
-              <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl bg-stone-200">
+              <div className="relative w-full aspect-square rounded-3xl overflow-hidden shadow-2xl bg-stone-200">
                 <img
                   src={heroFlavour2.img}
                   alt={heroFlavour2.alt}
@@ -317,7 +317,7 @@ export default function About() {
               {heroFlavours.map((f) => (
                 <div
                   key={f.alt}
-                  className="relative flex-1 max-w-[140px] aspect-[3/4] rounded-2xl overflow-hidden shadow-lg bg-stone-200"
+                  className="relative flex-1 max-w-[140px] aspect-square rounded-2xl overflow-hidden shadow-lg bg-stone-200"
                 >
                   <img
                     src={f.img}
@@ -431,7 +431,7 @@ export default function About() {
 
       {/* ══════════ 3. OUR JOURNEY — TIMELINE ══════════ */}
       <section
-        className="py-28 px-6 md:px-12 lg:px-20 relative overflow-hidden"
+        className="hidden py-28 px-6 md:px-12 lg:px-20 relative overflow-hidden"
         style={{ background: 'linear-gradient(160deg, #FFF8EE 0%, #FFF1DC 100%)' }}
       >
         <Orb className="w-96 h-96 bg-gray-200/15 top-0 right-0" />

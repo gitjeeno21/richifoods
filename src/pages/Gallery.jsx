@@ -53,21 +53,19 @@ const fadeUpView = isMobile
    STATIC DATA — defined outside component to prevent
    re-creation on every render
 ══════════════════════════════════════════════════════════ */
-const categories = ['all', 'products', 'facilities', 'events', 'team']
+const categories = ['all', 'products', 'facilities']
 
 const galleryItems = [
-  { id: 1,  category: 'products',   title: 'Premium Collection', image: '🥤', color: 'from-orange-400 to-red-400'    },
-  { id: 2,  category: 'products',   title: 'Flavor Variety',     image: '🍇', color: 'from-purple-400 to-pink-400'   },
-  { id: 3,  category: 'facilities', title: 'Modern Facility',    image: '🏭', color: 'from-blue-400 to-cyan-400'     },
-  { id: 4,  category: 'facilities', title: 'Quality Control',    image: '🔬', color: 'from-green-400 to-emerald-400' },
-  { id: 5,  category: 'events',     title: 'Launch Event',       image: '🎉', color: 'from-yellow-400 to-orange-400' },
-  { id: 6,  category: 'events',     title: 'Community Drive',    image: '🎊', color: 'from-pink-400 to-rose-400'     },
-  { id: 7,  category: 'team',       title: 'Our Team',           image: '👥', color: 'from-indigo-400 to-purple-400' },
-  { id: 8,  category: 'team',       title: 'Team Spirit',        image: '🤝', color: 'from-teal-400 to-cyan-400'     },
-  { id: 9,  category: 'products',   title: 'Fresh Produce',      image: '🍊', color: 'from-orange-400 to-yellow-400' },
-  { id: 10, category: 'facilities', title: 'Packaging',          image: '📦', color: 'from-gray-400 to-blue-400'     },
-  { id: 11, category: 'events',     title: 'Award Ceremony',     image: '🏆', color: 'from-yellow-400 to-orange-400' },
-  { id: 12, category: 'team',       title: 'Leadership',         image: '👔', color: 'from-slate-400 to-gray-400'    },
+  { id: 1,  category: 'products',   title: 'Carbonated Lineup',   img: '/images/products/flavours_1.png', color: 'from-orange-400 to-red-400'    },
+  { id: 2,  category: 'products',   title: 'Juice Lineup',        img: '/images/products/flavours_2.png', color: 'from-purple-400 to-pink-400'   },
+  { id: 3,  category: 'facilities', title: 'Facility Overview',   img: '/images/products/overview.png', color: 'from-blue-400 to-cyan-400'     },
+  { id: 4,  category: 'facilities', title: 'Storage Area',        img: '/images/products/storage_area.png', color: 'from-green-400 to-emerald-400' },
+  { id: 5,  category: 'facilities', title: 'Preparation',         img: '/images/products/preparation.png', color: 'from-yellow-400 to-orange-400' },
+  { id: 6,  category: 'facilities', title: 'Filling Process',     img: '/images/products/filling.png', color: 'from-pink-400 to-rose-400'     },
+  { id: 7,  category: 'facilities', title: 'Labelling Process',   img: '/images/products/labelling.png', color: 'from-indigo-400 to-purple-400' },
+  { id: 8,  category: 'facilities', title: 'Quality Checking',    img: '/images/products/checking.png', color: 'from-teal-400 to-cyan-400'     },
+  { id: 9,  category: 'facilities', title: 'Packing Area',        img: '/images/products/packing.png', color: 'from-orange-400 to-yellow-400' },
+  { id: 10, category: 'facilities', title: 'Dispatch Area',       img: '/images/products/dispatch.png', color: 'from-gray-400 to-blue-400'     },
 ]
 
 const stats = [
@@ -119,8 +117,12 @@ const GalleryCard = memo(({ item, idx, onSelect }) => {
           style-recalc on each hover frame.
         */
       >
-        <div className="text-5xl md:text-6xl group-hover:scale-125 transition-transform duration-300" aria-hidden="true">
-          {item.image}
+        <div className="w-full h-full p-8 flex items-center justify-center group-hover:scale-110 transition-transform duration-300" aria-hidden="true">
+          {item.img ? (
+            <img src={item.img} alt={item.title} className="w-full h-full object-contain drop-shadow-xl" loading="lazy" />
+          ) : (
+            <div className="text-5xl md:text-6xl">{item.image}</div>
+          )}
         </div>
         {/* Overlay — opacity transition is compositor-only, very cheap */}
         <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity duration-300 rounded-2xl" />
@@ -177,19 +179,28 @@ const Lightbox = memo(({ item, onClose }) => {
             <X className="w-8 h-8" />
           </button>
 
-          <div className={`bg-gradient-to-br ${item.color} rounded-2xl p-16 flex items-center justify-center`}>
+          <div className={`bg-gradient-to-br ${item.color} rounded-2xl p-8 md:p-16 flex items-center justify-center min-h-[40vh]`}>
             {/*
               animate-bounce replaced with a CSS animation that uses
               transform: translateY only — no layout thrashing.
               The keyframe is defined inline to avoid a global stylesheet dep.
             */}
-            <span
-              className="text-8xl md:text-9xl"
-              aria-label={item.title}
-              style={{ display: 'inline-block', animation: 'lb-bounce 1s ease-in-out infinite' }}
-            >
-              {item.image}
-            </span>
+            {item.img ? (
+              <img
+                src={item.img}
+                alt={item.title}
+                className="max-w-full max-h-[60vh] object-contain drop-shadow-2xl z-10"
+                style={{ animation: 'lb-bounce 3s ease-in-out infinite' }}
+              />
+            ) : (
+              <span
+                className="text-8xl md:text-9xl"
+                aria-label={item.title}
+                style={{ display: 'inline-block', animation: 'lb-bounce 1s ease-in-out infinite' }}
+              >
+                {item.image}
+              </span>
+            )}
           </div>
 
           <div className="text-center mt-4 text-white">

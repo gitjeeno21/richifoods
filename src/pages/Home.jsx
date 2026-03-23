@@ -80,8 +80,8 @@ const pillars = [
 ]
 
 const storyGrid = [
-  { src: '/images/story/factory.jpg',   label: 'Our Factory', bg: 'from-white to-white',           border: 'border-gray-200'  },
-  { src: '/images/story/products.jpg',  label: 'Our Products', bg: 'from-white to-white',           border: 'border-gray-200'  },
+  { src: '/images/products/company-overview.png',   label: 'Our Factory', bg: 'from-white to-white',           border: 'border-gray-200'  },
+  { src: '/images/products/our_products.png',  label: 'Our Products', bg: 'from-white to-white',           border: 'border-gray-200'  },
   { src: '/images/story/team.jpg',      label: 'Our Team',    bg: 'from-sky-50 to-cyan-50',         border: 'border-sky-100'   },
   { src: '/images/story/community.jpg', label: 'Community',   bg: 'from-rose-50 to-pink-50',        border: 'border-rose-100'  },
 ]
@@ -756,13 +756,13 @@ export default function Home() {
                 // Simplify entry on mobile: skip rotate to avoid layout thrashing
                 transition={{ delay: isMobile ? i * 0.08 : i * 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={isMobile ? {} : { scale: 1.05, rotate: 2 }}
-                className={`bg-gradient-to-br ${item.bg} border-2 ${item.border} rounded-3xl overflow-hidden aspect-square relative group shadow-lg hover:shadow-2xl transition-all duration-500`}
+                className={`w-full bg-gradient-to-br ${item.bg} border-2 ${item.border} rounded-3xl overflow-hidden aspect-[1/1] relative group shadow-lg hover:shadow-2xl transition-all duration-500`}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-white/0 via-[#F97316]/0 to-[#F97316]/15 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
                 <img
                   src={item.src}
                   alt={item.label}
-                  className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-contain object-bottom transition-transform duration-700 group-hover:scale-110"
                   onError={e => { e.target.style.display = 'none' }}
                   loading="lazy"
                   decoding="async"
@@ -833,7 +833,7 @@ export default function Home() {
       </section>
 
       {/* ══════════ CSR ══════════ */}
-      <section className="py-32 px-6 md:px-12 lg:px-20 bg-gradient-to-b from-gray-50 via-white to-white relative overflow-hidden">
+      <section className="hidden py-32 px-6 md:px-12 lg:px-20 bg-gradient-to-b from-gray-50 via-white to-white relative overflow-hidden">
         <Orb className="w-[600px] h-[600px] bg-[#F97316]/7 -top-40 -right-48" delay={0} />
         <Orb className="w-[400px] h-[400px] bg-[#F97316]/5 bottom-10 -left-32" delay={1} />
 
