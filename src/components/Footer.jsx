@@ -126,7 +126,7 @@ const Footer = memo(function Footer() {
               <li className="flex items-start gap-3">
                 <Mail size={16} className="text-[#F97316] mt-0.5 shrink-0" aria-hidden="true" />
                 <a
-                  href="mailto:md@richifoodproducts.com"
+                  href="mailto:richifoodproduct@gmail.com"
                   style={{ touchAction: 'manipulation' }}
                   className="text-white/70 hover:text-[#F97316] transition-colors text-sm break-all"
                   /*
@@ -134,7 +134,7 @@ const Footer = memo(function Footer() {
                     the column on narrow mobile screens.
                   */
                 >
-                  md@richifoodproducts.com
+                  richifoodproduct@gmail.com
                 </a>
               </li>
               <li className="flex items-start gap-3">
@@ -146,16 +146,16 @@ const Footer = memo(function Footer() {
                   partners calling from phones).
                 */}
                 <a
-                  href="tel:+919944366592"
+                  href="tel:+919443518521"
                   style={{ touchAction: 'manipulation' }}
                   className="text-sm text-white/70 hover:text-[#F97316] transition-colors"
                 >
-                  99443 66592
+                  94435 18521 / 99443 66592
                 </a>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin size={16} className="text-[#F97316] mt-0.5 shrink-0" aria-hidden="true" />
-                <p className="text-white/70 text-sm">Namakkal, Tamil Nadu, India</p>
+                <p className="text-white/70 text-sm">Karagur Village, Piyur - 2, Krishnagari District - 635112</p>
               </li>
             </ul>
           </div>

@@ -425,13 +425,13 @@ export default function Dealership() {
               Call your regional manager directly or fill out the form above. We look forward to growing together!
             </p>
             <a
-              href="tel:1800-889-9070"
+              href="tel:+919443518521"
               style={{ touchAction: 'manipulation' }}
               className="inline-flex items-center gap-2 px-7 sm:px-8 py-4 bg-white text-[#7A4A2A]
                          font-black rounded-full hover:bg-[#FFF8EE] transition-colors duration-200
                          shadow-xl shadow-black/20 active:scale-[0.98] text-sm sm:text-base"
             >
-              <Phone size={18} /> Call: 1800-889-9070
+              <Phone size={18} /> Call: +91 94435 18521
             </a>
           </motion.div>
         </div>

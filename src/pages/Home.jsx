@@ -80,10 +80,10 @@ const pillars = [
 ]
 
 const storyGrid = [
-  { src: '/images/products/company-overview.png',   label: 'Our Factory', bg: 'from-white to-white',           border: 'border-gray-200'  },
-  { src: '/images/products/our_products.png',  label: 'Our Products', bg: 'from-white to-white',           border: 'border-gray-200'  },
-  { src: '/images/story/team.jpg',      label: 'Our Team',    bg: 'from-sky-50 to-cyan-50',         border: 'border-sky-100'   },
-  { src: '/images/story/community.jpg', label: 'Community',   bg: 'from-rose-50 to-pink-50',        border: 'border-rose-100'  },
+  { src: '/images/products/company-overview.png', label: 'Our Factory',  bg: 'from-white to-white',    border: 'border-gray-200', imageClassName: 'object-cover object-center' },
+  { src: '/images/products/our_products.png',     label: 'Our Products', bg: 'from-white to-white',    border: 'border-gray-200', imageClassName: 'object-cover object-center' },
+  { src: '/images/story/team.jpg',                label: 'Our Team',     bg: 'from-sky-50 to-cyan-50', border: 'border-sky-100',  imageClassName: 'object-cover object-center' },
+  { src: '/images/story/community.jpg',           label: 'Community',    bg: 'from-rose-50 to-pink-50', border: 'border-rose-100', imageClassName: 'object-cover object-center' },
 ]
 
 const ticker = ['Salt Lemon','Apple','Grapes','White Lemon','Green Lemon','Mango','Orange','Paneer Soda','Cola','Jeera Masala','Mango 2','Pineapple']
@@ -120,6 +120,37 @@ function ImgPlaceholder({ label, dark = false }) {
     </div>
   )
 }
+
+const StoryGridCard = memo(function StoryGridCard({ item, index, isMobile }) {
+  const [imageFailed, setImageFailed] = useState(false)
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ delay: isMobile ? index * 0.08 : index * 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={isMobile ? {} : { scale: 1.05, rotate: 2 }}
+      className={`w-full bg-gradient-to-br ${item.bg} border-2 ${item.border} rounded-3xl overflow-hidden aspect-[1/1] relative group shadow-lg hover:shadow-2xl transition-all duration-500`}
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-white/0 via-[#F97316]/0 to-[#F97316]/15 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
+      {!imageFailed && (
+        <img
+          src={item.src}
+          alt={item.label}
+          className={`w-full h-full transition-transform duration-700 group-hover:scale-110 ${item.imageClassName ?? 'object-cover object-center'}`}
+          onError={() => setImageFailed(true)}
+          loading="lazy"
+          decoding="async"
+        />
+      )}
+      {imageFailed && <ImgPlaceholder label={item.label} />}
+      <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/60 via-black/30 to-transparent flex items-end pb-3 px-4 z-30">
+        <span className="text-white text-sm font-bold tracking-wide">{item.label}</span>
+      </div>
+    </motion.div>
+  )
+})
 
 // ─── TICKER ───────────────────────────────────────────────────────────────────
 // FIX: use CSS animation instead of Framer Motion JS-driven x-translate.
@@ -748,30 +779,7 @@ export default function Home() {
             className="grid grid-cols-2 gap-4"
           >
             {storyGrid.map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                // Simplify entry on mobile: skip rotate to avoid layout thrashing
-                transition={{ delay: isMobile ? i * 0.08 : i * 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={isMobile ? {} : { scale: 1.05, rotate: 2 }}
-                className={`w-full bg-gradient-to-br ${item.bg} border-2 ${item.border} rounded-3xl overflow-hidden aspect-[1/1] relative group shadow-lg hover:shadow-2xl transition-all duration-500`}
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-white/0 via-[#F97316]/0 to-[#F97316]/15 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
-                <img
-                  src={item.src}
-                  alt={item.label}
-                  className="w-full h-full object-contain object-bottom transition-transform duration-700 group-hover:scale-110"
-                  onError={e => { e.target.style.display = 'none' }}
-                  loading="lazy"
-                  decoding="async"
-                />
-                <ImgPlaceholder label={item.label} />
-                <motion.div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/60 via-black/30 to-transparent flex items-end pb-3 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="text-white text-sm font-bold tracking-wide">{item.label}</span>
-                </motion.div>
-              </motion.div>
+              <StoryGridCard key={item.label} item={item} index={i} isMobile={isMobile} />
             ))}
           </motion.div>
         </div>
@@ -960,23 +968,23 @@ export default function Home() {
 
             <div className="pt-12 border-t border-white/10">
               <div className="flex flex-wrap gap-8 justify-center text-sm text-gray-300">
-                <a href="tel:9944366592" className="flex items-center gap-3 hover:text-[#F97316] transition-colors group">
+                <a href="tel:9443518521" className="flex items-center gap-3 hover:text-[#F97316] transition-colors group">
                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[#F97316] transition-colors">
                     <Phone size={16} />
                   </div>
-                  99443 66592
+                  94435 18521 / 99443 66592
                 </a>
-                <a href="mailto:md@richifoodproducts.com" className="flex items-center gap-3 hover:text-[#F97316] transition-colors group">
+                <a href="mailto:richifoodproduct@gmail.com" className="flex items-center gap-3 hover:text-[#F97316] transition-colors group">
                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[#F97316] transition-colors">
                     <Mail size={16} />
                   </div>
-                  md@richifoodproducts.com
+                  richifoodproduct@gmail.com
                 </a>
                 <span className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
                     <MapPin size={16} />
                   </div>
-                  Krishnagiri, Tamil Nadu
+                  Karagur Village, Piyur - 2, Krishnagari District - 635112
                 </span>
               </div>
             </div>
