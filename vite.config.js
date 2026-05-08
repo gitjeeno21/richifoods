@@ -41,35 +41,19 @@ export default defineConfig({
       robots: [],
       lastmod: new Date().toISOString(),
       dynamicRoutes: [
-        // Core pages
-        { url: '/',           changefreq: 'daily',   priority: 1.0  },
-        { url: '/about',      changefreq: 'monthly', priority: 0.8  },
-        { url: '/products',   changefreq: 'weekly',  priority: 0.9  },
-        { url: '/contact',    changefreq: 'monthly', priority: 0.7  },
-        { url: '/blog',       changefreq: 'daily',   priority: 0.8  },
-        { url: '/gallery',    changefreq: 'weekly',  priority: 0.7  },
-        { url: '/csr',        changefreq: 'monthly', priority: 0.6  },
-        { url: '/investors',  changefreq: 'monthly', priority: 0.5  },
-        { url: '/insights',   changefreq: 'weekly',  priority: 0.6  },
-        { url: '/dealership', changefreq: 'monthly', priority: 0.7  },
-        // Blog posts
-        ...blogSlugs.map(slug => ({
-          url: `/blog/${slug}`,
-          changefreq: 'monthly',
-          priority: 0.7,
-        })),
-        // Product pages
-        ...productSlugs.map(slug => ({
-          url: `/product/${slug}`,
-          changefreq: 'weekly',
-          priority: 0.8,
-        })),
-        // Location pages
-        ...locationSlugs.map(city => ({
-          url: `/location/${city}`,
-          changefreq: 'monthly',
-          priority: 0.6,
-        })),
+        '/',
+        '/about',
+        '/products',
+        '/contact',
+        '/blog',
+        '/gallery',
+        '/csr',
+        '/investors',
+        '/insights',
+        '/dealership',
+        ...blogSlugs.map(slug => `/blog/${slug}`),
+        ...productSlugs.map(slug => `/product/${slug}`),
+        ...locationSlugs.map(city => `/location/${city}`),
       ],
     }),
   ],
