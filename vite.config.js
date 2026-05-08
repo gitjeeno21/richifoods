@@ -46,7 +46,6 @@ export default defineConfig({
         '/products',
         '/contact',
         '/blog',
-        '/gallery',
         '/csr',
         '/investors',
         '/insights',
