@@ -155,7 +155,7 @@ const Footer = memo(function Footer() {
               </li>
               <li className="flex items-start gap-3">
                 <MapPin size={16} className="text-[#F97316] mt-0.5 shrink-0" aria-hidden="true" />
-                <p className="text-white/70 text-sm">Karagur Village, Piyur - 2, Krishnagari District - 635112</p>
+                <p className="text-white/70 text-sm">Karagur Village, Paiyur - 2, Krishnagari District - 635112</p>
               </li>
             </ul>
           </div>

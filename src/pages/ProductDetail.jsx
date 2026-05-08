@@ -144,6 +144,42 @@ const ProductDetail = () => {
   const rightVariants = makeSlideVariants('x', 30)
   const upVariants = makeSlideVariants('y', 20)
 
+  // Product Schema
+  const productSchema = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": product.name,
+    "image": `https://cilojuice.com/images/${product.flavor}.webp`,
+    "description": product.description,
+    "brand": {
+      "@type": "Brand",
+      "name": "CILO Juice"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": `https://cilojuice.com/product/${id}`,
+      "priceCurrency": "USD",
+      "price": product.price,
+      "availability": "https://schema.org/InStock"
+    }
+  }
+
+  // FAQ Schema
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": `Is ${product.name} made from natural ingredients?`,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our beverage is made with 100% natural ingredients and no artificial preservatives."
+        }
+      }
+    ]
+  }
+
   // Thumbnail hover — disabled on mobile to avoid janky scale repaints
   const thumbHover = deviceCapability.isMobile ? {} : { whileHover: { scale: 1.05 } }
 
@@ -153,7 +189,15 @@ const ProductDetail = () => {
     : { whileHover: { y: -12, scale: 1.02 } }
 
   return (
-    <PageWrapper>
+    <PageWrapper
+      title={`${product.name} - Premium Fresh Drink`}
+      description={product.description}
+    >
+      <div className="hidden">
+        {/* Inject Schema Data */}
+        <script type="application/ld+json">{JSON.stringify(productSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      </div>
       {/*
         ─── PERFORMANCE NOTES ────────────────────────────────────
         1. `transform: translateZ(0)` on the wrapper promotes to its own
@@ -217,15 +261,15 @@ const ProductDetail = () => {
                 unnecessary compositor layers on mobile.
               */}
               <div
-                className="bg-white rounded-3xl p-6 sm:p-8 mb-4 border-2 border-gray-200
-                            hover:border-[#F97316] hover:shadow-2xl transition-all duration-300"
-                style={{ minHeight: '280px' }}
+                className="bg-white rounded-3xl p-8 sm:p-12 mb-4 border-2 border-gray-200
+                            hover:border-[#F97316] hover:shadow-2xl transition-all duration-300 flex items-center justify-center"
+                style={{ minHeight: '350px' }}
               >
                 <LazyImg
                   src={`/images/${product.flavor}.webp`}
                   alt={product.name}
                   // Fallback handled by server; WebP served where supported
-                  className="w-full h-64 sm:h-96 object-contain"
+                  className="w-full max-h-[50vh] md:max-h-[60vh] object-contain drop-shadow-[0_20px_40px_rgba(45,22,8,0.15)]"
                   width={480}
                   height={384}
                 />
@@ -246,7 +290,7 @@ const ProductDetail = () => {
                     <LazyImg
                       src={`/images/${product.flavor}.webp`}
                       alt={`${product.name} ${size}`}
-                      className="w-12 h-12 sm:w-16 sm:h-16 object-contain"
+                      className="w-full h-full object-contain p-2 drop-shadow-md"
                       width={64}
                       height={64}
                     />

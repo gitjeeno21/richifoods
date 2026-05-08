@@ -10,6 +10,10 @@ import Investors from './pages/Investors'
 import Contact from './pages/Contact'
 import Insights from './pages/Insights'
 import Dealership from './pages/Dealership'
+import Blog from './pages/Blog'
+import BlogPost from './pages/BlogPost'
+import Location from './pages/Location'
+import ProductDetail from './pages/ProductDetail'
 
 export default function App() {
   const location = useLocation()
@@ -31,6 +35,10 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/insights" element={<Insights />} />
           <Route path="/dealership" element={<Dealership />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/location/:city" element={<Location />} />
+          <Route path="/product/:slug" element={<ProductDetail />} />
         </Routes>
       </AnimatePresence>
       <Footer />

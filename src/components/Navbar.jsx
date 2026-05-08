@@ -8,7 +8,7 @@ const navLinks = [
   { name: 'Home',       path: '/'           },
   { name: 'About',      path: '/about'      },
   { name: 'Products',   path: '/products'   },
-  { name: 'Insights',   path: '/insights'   },
+  { name: 'Blog',       path: '/blog'       },
   { name: 'Dealership', path: '/dealership' },
 ]
 
@@ -91,27 +91,13 @@ function Navbar() {
       {/* ══ NAVBAR BAR ══════════════════════════════════════════════════════ */}
       <motion.nav
         {...navEntrance}
-        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-          /*
-            Mobile: removed backdrop-blur from the transparent state.
-            backdrop-blur on a fixed element that covers the full viewport
-            forces a GPU compositing layer for the ENTIRE page underneath it
-            on every scroll frame — one of the most expensive things you can
-            do on a mobile browser.
-            Scrolled state keeps backdrop-blur-xl (element is now opaque,
-            so the blur area is tiny/negligible).
-          */
+        className={`fixed z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-white/97 backdrop-blur-xl shadow-[0_2px_24px_rgba(194,84,26,0.10)] py-3 border-b border-[#FFD9A8]'
+            ? 'top-2 inset-x-4 md:inset-x-12 bg-[#0B132B]/95 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.25)] py-3 rounded-full border border-white/10'
             : isMobile
-              ? 'bg-white/95 py-4'                        // opaque on mobile — no blur cost
-              : 'bg-white/10 backdrop-blur-md py-5'       // original on desktop
+              ? 'top-0 left-0 right-0 bg-[#0B132B] py-4'
+              : 'top-6 inset-x-6 md:inset-x-12 bg-[#0B132B]/60 backdrop-blur-md py-4 rounded-full border border-white/5'
         }`}
-        /*
-          will-change: transform keeps the navbar on its own compositor layer.
-          Without this, every scroll event that changes the className can
-          trigger a repaint of elements behind the navbar.
-        */
         style={{ willChange: 'transform' }}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
@@ -133,10 +119,10 @@ function Navbar() {
                 onError={(e) => { e.target.style.display = 'none' }}
               />
               <span
-                className={`font-black text-2xl tracking-tight leading-none transition-colors duration-300 ${
-                  scrolled ? 'text-[#F97316]' : 'text-[#2D1608]'
+                className={`font-bold text-2xl tracking-tight leading-none transition-colors duration-300 ${
+                  scrolled ? 'text-[#F97316]' : 'text-white'
                 }`}
-                style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
               >
                 Richi
               </span>
@@ -149,27 +135,18 @@ function Navbar() {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`relative px-4 py-2 rounded-full text-sm font-semibold tracking-wide transition-colors duration-200 ${
-                  /*
-                    transition-colors only (not transition-all).
-                    Desktop nav links previously used transition-all which
-                    recalculates every CSS property on hover — background,
-                    color, border, shadow, transform, etc.
-                  */
+                className={`relative px-4 py-2 rounded-full text-xs uppercase font-medium tracking-[0.15em] transition-colors duration-200 ${
                   isActive(link.path)
-                    ? scrolled ? 'text-[#F97316] bg-[#FFF8EE]' : 'text-[#F97316] bg-white/10'
-                    : scrolled
-                      ? 'text-gray-600 hover:text-[#F97316] hover:bg-[#FFF8EE]'
-                      : 'text-[#7A4A2A] hover:text-[#F97316] hover:bg-white/10'
+                    ? 'text-[#F97316] bg-white/5'
+                    : 'text-white/80 hover:text-[#F97316] hover:bg-white/5'
                 }`}
+                style={{ fontFamily: "'Satoshi', sans-serif" }}
               >
                 {link.name}
                 {isActive(link.path) && (
                   <motion.span
                     layoutId="nav-active-dot"
-                    className={`absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full ${
-                      scrolled ? 'bg-[#F97316]' : 'bg-white'
-                    }`}
+                    className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#F97316]"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -181,14 +158,15 @@ function Navbar() {
           <div className="hidden md:flex items-center gap-3">
             <Link
               to="/contact"
-              className={`relative px-6 py-2.5 rounded-full text-sm font-bold tracking-wide overflow-hidden group transition-colors duration-200 ${
+              className={`relative px-7 py-3 rounded-full text-xs uppercase font-bold tracking-[0.1em] overflow-hidden group transition-all duration-300 ${
                 scrolled
-                  ? 'bg-[#F97316] text-white shadow-lg shadow-[#F97316]/20 hover:bg-[#EA6C0A]'
-                  : 'bg-white text-[#F97316] hover:bg-[#FFF8EE] shadow-lg shadow-black/10'
+                  ? 'bg-[#F97316] text-white shadow-lg shadow-[#F97316]/30 hover:bg-[#EA6C0A] hover:shadow-[#F97316]/40 hover:-translate-y-0.5'
+                  : 'bg-white text-[#0B132B] hover:bg-[#F97316] hover:text-white shadow-lg shadow-black/20 hover:shadow-[#F97316]/30 hover:-translate-y-0.5'
               }`}
+              style={{ fontFamily: "'Satoshi', sans-serif" }}
             >
               {/* Shine sweep — transform-only, compositor-safe */}
-              <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500" />
+              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
               <span className="relative">Contact Us</span>
             </Link>
           </div>
@@ -200,8 +178,8 @@ function Navbar() {
             aria-expanded={mobileOpen}
             className={`md:hidden p-2 rounded-xl transition-colors duration-200 ${
               scrolled
-                ? 'text-[#F97316] hover:bg-[#FFF8EE]'
-                : 'text-[#2D1608] hover:bg-white/10'
+                ? 'text-white hover:bg-white/10'
+                : 'text-white hover:bg-white/10'
             }`}
           >
             <AnimatePresence mode="wait" initial={false}>
@@ -266,7 +244,7 @@ function Navbar() {
               transition={panelTransition}
               className="fixed top-0 right-0 bottom-0 z-50 w-[80vw] max-w-sm flex flex-col"
               style={{
-                background: 'linear-gradient(160deg, #1A0C04 0%, #2D1608 60%, #4A2800 100%)',
+                background: 'linear-gradient(160deg, #050B14 0%, #0B132B 60%, #1A284D 100%)',
                 willChange: 'transform',
                 contain: 'layout style',
               }}
@@ -284,8 +262,8 @@ function Navbar() {
                     onError={(e) => { e.target.style.display = 'none' }}
                   />
                   <span
-                    className="font-black text-xl text-white tracking-tight"
-                    style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                    className="font-bold text-xl text-white tracking-tight"
+                    style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
                   >
                     Richi
                   </span>
@@ -318,17 +296,18 @@ function Navbar() {
                   >
                     <Link
                       to={link.path}
-                      className={`flex items-center justify-between px-5 py-4 rounded-2xl text-lg font-bold tracking-wide transition-colors duration-150 ${
+                      className={`flex items-center justify-between px-5 py-4 rounded-2xl text-sm uppercase font-medium tracking-[0.15em] transition-colors duration-150 ${
                         isActive(link.path)
-                          ? 'bg-white/15 text-white'
-                          : 'text-white/70 hover:text-white hover:bg-white/10'
+                          ? 'bg-white/10 text-[#F97316]'
+                          : 'text-white/70 hover:text-[#F97316] hover:bg-white/5'
                       }`}
+                      style={{ fontFamily: "'Satoshi', sans-serif" }}
                     >
                       <span>{link.name}</span>
                       {isActive(link.path) && (
                         <motion.div
                           layoutId="mobile-active"
-                          className="w-2 h-2 rounded-full bg-white"
+                          className="w-1.5 h-1.5 rounded-full bg-[#F97316]"
                         />
                       )}
                     </Link>
@@ -341,7 +320,8 @@ function Navbar() {
                 <Link
                   to="/contact"
                   onClick={closeMenu}
-                  className="flex items-center justify-center w-full py-4 bg-white text-[#F97316] font-black text-base rounded-2xl hover:bg-[#FFF8EE] transition-colors duration-150 shadow-xl shadow-black/20"
+                  className="flex items-center justify-center w-full py-4 bg-[#F97316] text-white font-bold text-sm uppercase tracking-[0.1em] rounded-2xl hover:bg-[#EA6C0A] transition-colors duration-150 shadow-lg shadow-[#F97316]/20"
+                  style={{ fontFamily: "'Satoshi', sans-serif" }}
                 >
                   Contact Us
                 </Link>

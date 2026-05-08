@@ -379,7 +379,7 @@ export default function About() {
               {[
                 { label: 'GST No.',       value: '33ABJFR2254F1ZD', breakAll: true  },
                 { label: 'FSSAI License', value: '12424011000549',   breakAll: true  },
-                { label: 'Location',      value: 'Karagur Village, Piyur - 2, Krishnagari - 635112', breakAll: false },
+                { label: 'Location',      value: 'Karagur Village, Paiyur - 2, Krishnagari - 635112', breakAll: false },
                 { label: 'Capacity',      value: '100 KL/Day',       breakAll: false },
               ].map((item) => (
                 <div key={item.label} className="bg-[#FFF8EE] rounded-2xl p-3 sm:p-4 border border-[#FFD9A8] min-w-0">

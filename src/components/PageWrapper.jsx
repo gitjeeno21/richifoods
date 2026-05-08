@@ -1,5 +1,6 @@
 import { memo } from 'react'
 import { motion } from 'framer-motion'
+import SEO from './SEO'
 
 const prefersReducedMotion = () => {
   if (typeof window === 'undefined') return false
@@ -41,22 +42,31 @@ const transitionConfig = isMobile
   ? { duration: 0.28, ease: [0.22, 1, 0.36, 1] }
   : { duration: 0.5,  ease: [0.22, 1, 0.36, 1] }
 
-const PageWrapper = memo(function PageWrapper({ children }) {
+const PageWrapper = memo(function PageWrapper({ children, title, description, schema }) {
   return (
-    <motion.div
-      variants={pageVariants}
-      initial="initial"
-      animate="enter"
-      exit="exit"
-      transition={transitionConfig}
-      // FIX: hint to the browser that this element will animate opacity,
-      // so it can be promoted to a GPU compositor layer before the animation starts.
-      // Without this, the first frame of a page transition can stutter while
-      // the browser decides whether to promote the layer mid-animation.
-      style={{ willChange: 'opacity' }}
-    >
-      {children}
-    </motion.div>
+    <>
+      {(title || description) && (
+        <SEO 
+          title={title ? `${title} | CILO Juice` : 'CILO Juice | Premium Natural Beverages'} 
+          description={description || 'CILO Juice - Premium futuristic healthy beverages and natural juice brand.'} 
+          schema={schema}
+        />
+      )}
+      <motion.div
+        variants={pageVariants}
+        initial="initial"
+        animate="enter"
+        exit="exit"
+        transition={transitionConfig}
+        // FIX: hint to the browser that this element will animate opacity,
+        // so it can be promoted to a GPU compositor layer before the animation starts.
+        // Without this, the first frame of a page transition can stutter while
+        // the browser decides whether to promote the layer mid-animation.
+        style={{ willChange: 'opacity' }}
+      >
+        {children}
+      </motion.div>
+    </>
   )
 })
 

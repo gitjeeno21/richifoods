@@ -373,7 +373,7 @@ const ProductCard = memo(function ProductCard({ product, idx, isMobile }) {
           <img
             src={product.img}
             alt={product.name}
-            className="absolute left-1 right-1 top-0 bottom-0 z-10 mx-auto h-full w-auto max-w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.03] drop-shadow-[0_12px_28px_rgba(45,22,8,0.12)] sm:left-1.5 sm:right-1.5"
+            className="absolute inset-0 z-10 mx-auto h-full w-full object-contain p-6 sm:p-8 transition-transform duration-500 ease-out group-hover:scale-[1.03] drop-shadow-[0_12px_28px_rgba(45,22,8,0.12)]"
             onError={e => { e.target.style.display = 'none' }}
             loading="lazy"
             decoding="async"
@@ -537,7 +537,18 @@ export default function Home() {
                                         : { y: cardsY, position: 'relative', left: '50%', marginLeft: '-50vw', width: '100vw' }
 
   return (
-    <PageWrapper>
+    <PageWrapper
+      title="Home"
+      description="CILO Juice - Premium futuristic healthy beverages and natural juice brand. Experience freshness with our wide variety of flavours."
+      schema={{
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "CILO Juice",
+        "url": "https://cilojuice.com",
+        "logo": "https://cilojuice.com/logo.png",
+        "description": "Premium futuristic healthy beverages and natural juice brand."
+      }}
+    >
 
       {/* ══════════ HERO ══════════ */}
       <section
@@ -984,7 +995,7 @@ export default function Home() {
                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
                     <MapPin size={16} />
                   </div>
-                  Karagur Village, Piyur - 2, Krishnagari District - 635112
+                  Karagur Village, Paiyur - 2, Krishnagari District - 635112
                 </span>
               </div>
             </div>

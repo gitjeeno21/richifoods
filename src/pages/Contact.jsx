@@ -45,7 +45,7 @@ const contactChannels = [
   { icon: Mail,    label: 'Email',          value: 'richifoodproduct@gmail.com',                desc: 'Response within 24 hours',  link: 'mailto:richifoodproduct@gmail.com' },
   { icon: Phone,   label: 'Mr. Velmurukan', value: '+91 94435 18521 / +91 99443 66592',         desc: 'Founder & Director',        link: 'tel:+919443518521' },
   { icon: Phone,   label: 'Mr. Bharath',    value: '+91 99443 66592',                            desc: 'Operations & Marketing',    link: 'tel:+919944366592' },
-  { icon: MapPin,  label: 'Head Office',    value: 'Karagur Village, Piyur - 2',                 desc: 'Krishnagari District - 635112', link: 'https://maps.google.com/?q=489%2F1%2CKaragur+Village%2CPiyur+-+2%2CKrishnagari+District+-+635112' },
+  { icon: MapPin,  label: 'Head Office',    value: 'Karagur Village, Paiyur - 2',                 desc: 'Krishnagari District - 635112', link: 'https://maps.google.com/?q=489%2F1%2CKaragur+Village%2CPaiyur+-+2%2CKrishnagari+District+-+635112' },
 ]
 
 const reasons = [
@@ -275,7 +275,7 @@ export default function Contact() {
                   <div className="font-black text-gray-900 text-base mb-2">Head Office</div>
                   <div className="text-gray-700 text-sm leading-relaxed font-semibold">
                     489/1, Karagur Village<br />
-                    Piyur - 2<br />
+                    Paiyur - 2<br />
                     Krishnagari District - 635112, Tamil Nadu, India<br />
                     <br />
                     <span className="text-xs text-gray-500 font-normal">GST: 33ABJFR2254F1ZD</span><br />
