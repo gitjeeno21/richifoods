@@ -2,6 +2,7 @@
 # robots.txt — CILO Juice | Richi Food Products
 # Domain: richifoodproducts.com
 # Updated: 2026
+# Local SEO: Krishnagiri, Hosur, Dharmapuri, Salem, Tamil Nadu
 # ═══════════════════════════════════════════════════════════
 
 # ── Standard search bots ─────────────────────────────────
@@ -10,6 +11,21 @@ Allow: /
 Disallow: /api/
 Disallow: /*.json$
 Disallow: /admin/
+
+# ── Priority local SEO pages ─────────────────────────────
+# Ensure full crawl of all location & local landing pages
+Allow: /location/
+Allow: /best-juice-krishnagiri
+Allow: /fresh-juice-hosur
+Allow: /healthy-juice-tamil-nadu
+Allow: /premium-juice-dharmapuri
+Allow: /summer-drinks-krishnagiri
+Allow: /juice-distributor-krishnagiri
+Allow: /blog/best-juice-in-krishnagiri
+Allow: /blog/fresh-juice-hosur-guide
+Allow: /blog/summer-drinks-krishnagiri-2026
+Allow: /blog/healthy-juice-tamil-nadu-brand
+Allow: /blog/juice-dealership-krishnagiri-opportunity
 
 # ── Google ───────────────────────────────────────────────
 User-agent: Googlebot
