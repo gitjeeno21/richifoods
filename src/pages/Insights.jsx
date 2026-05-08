@@ -103,6 +103,9 @@ function PulseDot() {
 /* ══════════════════════════════════════════════════════════
    INSIGHTS PAGE
 ══════════════════════════════════════════════════════════ */
+export default function Insights() {
+  const [selectedEvent, setSelectedEvent] = useState(null)
+
   const seo = PAGE_SEO.insights
   const schema = buildBreadcrumbSchema([
     { name: 'Home', path: '/' },

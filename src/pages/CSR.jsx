@@ -72,6 +72,7 @@ const visionPillars = [
 /* ══════════════════════════════════════════════════════════
    CSR PAGE
 ══════════════════════════════════════════════════════════ */
+export default function CSR() {
   const seo = PAGE_SEO.csr
   const schema = buildBreadcrumbSchema([
     { name: 'Home', path: '/' },

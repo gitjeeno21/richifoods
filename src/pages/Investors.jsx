@@ -91,6 +91,7 @@ const whyRichi = [
 /* ══════════════════════════════════════════════════════════
    INVESTORS PAGE
 ══════════════════════════════════════════════════════════ */
+export default function Investors() {
   const seo = PAGE_SEO.investors
   const schema = buildBreadcrumbSchema([
     { name: 'Home', path: '/' },
