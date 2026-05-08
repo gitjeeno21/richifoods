@@ -38,7 +38,7 @@ export default defineConfig({
       hostname: 'https://richifoodproducts.com',
       changefreq: 'weekly',
       priority: 0.7,
-      robots: false,
+      robots: [],
       lastmod: new Date().toISOString(),
       dynamicRoutes: [
         // Core pages
