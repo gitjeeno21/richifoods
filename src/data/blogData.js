@@ -179,46 +179,7 @@ export const blogPosts = [
     category: 'Local Spotlight',
     tags: ['Jeera', 'Masala', 'Digestive', 'Spicy']
   },
-  {
-    slug: 'salt-lemon-the-ultimate-hydrator',
-    title: 'Salt Lemon: The Ultimate Hydrator for Hot Days',
-    excerpt: 'Replenish your electrolytes naturally with our Salt Lemon beverage, combining tart citrus with a savory, salty edge.',
-    content: `
-      <h2>The Perfect Balance</h2>
-      <p>When you're sweating under the hot Indian sun, sweet drinks aren't always enough. Our Salt Lemon beverage offers the perfect combination of tart lemon and savory salt to instantly quench your thirst.</p>
-      
-      <h2>Natural Electrolytes</h2>
-      <p>The addition of salt helps replenish electrolytes lost through sweat, making this drink an excellent choice for quick hydration and recovery during hot days.</p>
-      
-      <h2>Sharp and Clean</h2>
-      <p>With no heavy sweetness, this drink offers a sharp, clean finish that leaves your mouth feeling refreshed and completely hydrated.</p>
-    `,
-    image: '/images/products/salt_lemon.png',
-    date: '2026-04-29',
-    author: 'CILO Wellness Team',
-    category: 'Health & Wellness',
-    tags: ['Salt Lemon', 'Hydration', 'Electrolytes']
-  },
-  {
-    slug: 'mango-2-double-the-mango-magic',
-    title: 'Mango 2: Double the Mango Magic',
-    excerpt: 'For the true mango lovers. Explore our alternate mango blend that offers a different, bolder take on the king of fruits.',
-    content: `
-      <h2>A Different Mango Experience</h2>
-      <p>Because one type of mango juice isn't enough for true fans, we created an alternate blend. Mango 2 offers a deeper, more robust flavor profile, highlighting different mango varieties.</p>
-      
-      <h2>Rich and Thick</h2>
-      <p>This blend focuses on a thicker, more pulpy texture, providing a deeply satisfying, dessert-like drinking experience that feels incredibly premium.</p>
-      
-      <h2>For the Connoisseur</h2>
-      <p>If you take your mango juice seriously, this bold, intense flavor profile is designed exactly for you.</p>
-    `,
-    image: '/images/products/mango_2.png',
-    date: '2026-04-28',
-    author: 'CILO Tastemakers',
-    category: 'Product Spotlight',
-    tags: ['Mango', 'Premium', 'Thick Juice']
-  },
+
   {
     slug: 'tropical-escape-pineapple-juice',
     title: 'Tropical Escape: Refreshing Pineapple Juice',
@@ -259,7 +220,7 @@ export const blogPosts = [
       <h2>Available Across Krishnagiri</h2>
       <p>Find CILO at grocery stores, supermarkets, and local shops across Krishnagiri District. For bulk orders or to inquire about a dealership, call us at +91 94435 18521 or email richifoodproduct@gmail.com.</p>
     `,
-    image: '/images/products/mango.png',
+    image: '/images/products/salt_lemon.png',
     date: '2026-05-08',
     author: 'CILO Local Team',
     category: 'Local Spotlight',
@@ -282,7 +243,7 @@ export const blogPosts = [
       <h2>Healthy Juice Near Me — Available in Hosur</h2>
       <p>CILO is expanding its distribution across Hosur rapidly. Contact us to find your nearest retailer or to enquire about stocking CILO at your store. Bulk orders and B2B supply available.</p>
     `,
-    image: '/images/products/apple.png',
+    image: '/images/products/mango_2.png',
     date: '2026-05-07',
     author: 'CILO Local Team',
     category: 'Local Spotlight',
@@ -309,7 +270,7 @@ export const blogPosts = [
       <h2>Order in Bulk for the Season</h2>
       <p>Stocking up for summer? CILO offers bulk ordering for homes, offices, events, and businesses in Krishnagiri. Call +91 94435 18521 for bulk summer pricing.</p>
     `,
-    image: '/images/products/mango.png',
+    image: '/images/products/flavours_1.png',
     date: '2026-05-06',
     author: 'CILO Local Team',
     category: 'Local Spotlight',
@@ -338,30 +299,5 @@ export const blogPosts = [
     category: 'Local Spotlight',
     tags: ['Tamil Nadu', 'Healthy Juice', 'Local Brand', 'FSSAI', 'Premium Beverage']
   },
-  {
-    slug: 'juice-dealership-krishnagiri-opportunity',
-    title: 'Juice Dealership in Krishnagiri: The Business Opportunity You\'ve Been Waiting For',
-    excerpt: 'Become a CILO juice distributor in Krishnagiri. Attractive margins, strong brand, local support — the ideal FMCG business for Tamil Nadu entrepreneurs.',
-    content: `
-      <h2>The Beverage Market is Booming</h2>
-      <p>The Indian packaged beverage market is growing at over 20% annually, and Krishnagiri is no exception. As the district's economy expands with industrial and agricultural activity, demand for premium beverages is surging. This is the right time to enter the market.</p>
 
-      <h2>Why Partner with CILO?</h2>
-      <p>CILO offers everything a first-time or experienced FMCG distributor needs: a well-established brand, FSSAI certification, 12+ flavors, competitive pricing, and a manufacturing facility right in Krishnagiri. You're not just distributing — you're representing the local pride of the district.</p>
-
-      <h2>Attractive Margins & Full Support</h2>
-      <p>CILO dealership partners enjoy industry-competitive trade margins, co-branding marketing materials, logistics assistance, and a dedicated regional manager for support. We succeed when you succeed.</p>
-
-      <h2>Flexible Terms to Suit Your Scale</h2>
-      <p>Whether you're starting small or scaling fast, CILO offers flexible MOQ and payment cycles. We accommodate new businesses and established distributors alike.</p>
-
-      <h2>Apply for Dealership Today</h2>
-      <p>Ready to start your juice dealership journey in Krishnagiri? Apply online through our Dealership page or call Mr. Bharath at +91 99443 66592. Our team is ready to discuss how we can build a profitable partnership together.</p>
-    `,
-    image: '/images/products/flavours_1.png',
-    date: '2026-05-04',
-    author: 'CILO Business Team',
-    category: 'Business Insights',
-    tags: ['Dealership', 'Krishnagiri', 'Juice Distributor', 'FMCG Business', 'Tamil Nadu Entrepreneur']
-  }
 ];
