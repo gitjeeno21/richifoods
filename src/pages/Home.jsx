@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ChevronRight, ArrowRight, MapPin, Phone, Mail, Star, Droplets, Leaf, Zap, Award } from 'lucide-react'
 import PageWrapper from '../components/PageWrapper'
+import { PAGE_SEO, buildOrganizationSchema, buildLocalBusinessSchema } from '../seo/seoConfig'
 
 // ─── PERFORMANCE DETECTION HELPERS ───────────────────────────────────────────
 
@@ -536,18 +537,20 @@ export default function Home() {
   const parallaxCardsStyle   = isMobile ? { position: 'relative', left: '50%', marginLeft: '-50vw', width: '100vw' }
                                         : { y: cardsY, position: 'relative', left: '50%', marginLeft: '-50vw', width: '100vw' }
 
+  const seo = PAGE_SEO.home
+  const schema = [
+    buildOrganizationSchema(),
+    buildLocalBusinessSchema(),
+  ]
+
   return (
     <PageWrapper
-      title="Home"
-      description="CILO Juice - Premium futuristic healthy beverages and natural juice brand. Experience freshness with our wide variety of flavours."
-      schema={{
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "CILO Juice",
-        "url": "https://cilojuice.com",
-        "logo": "https://cilojuice.com/logo.png",
-        "description": "Premium futuristic healthy beverages and natural juice brand."
-      }}
+      title="CILO Juice | Premium Natural Refreshment"
+      description={seo.description}
+      url="/"
+      keywords={seo.keywords}
+      type="website"
+      schema={schema}
     >
 
       {/* ══════════ HERO ══════════ */}

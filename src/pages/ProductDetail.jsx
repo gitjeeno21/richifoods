@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import PageWrapper from '../components/PageWrapper'
 import { ShoppingCart, Heart, Share2, Star, Check } from 'lucide-react'
+import { buildProductSchema, buildFAQSchema, buildBreadcrumbSchema, SITE } from '../seo/seoConfig'
 
 /* ══════════════════════════════════════════════════════════
    PERFORMANCE HELPERS
@@ -144,41 +145,28 @@ const ProductDetail = () => {
   const rightVariants = makeSlideVariants('x', 30)
   const upVariants = makeSlideVariants('y', 20)
 
-  // Product Schema
-  const productSchema = {
-    "@context": "https://schema.org/",
-    "@type": "Product",
-    "name": product.name,
-    "image": `https://cilojuice.com/images/${product.flavor}.webp`,
-    "description": product.description,
-    "brand": {
-      "@type": "Brand",
-      "name": "CILO Juice"
+  // Build schemas via seoConfig helpers
+  const productSchema = buildProductSchema({
+    name: product.name,
+    description: product.description,
+    image: `/images/${product.flavor}.webp`,
+    category: 'Beverages',
+  })
+  const faqSchema = buildFAQSchema([
+    {
+      question: `Is ${product.name} made from natural ingredients?`,
+      answer: 'Yes, our beverage is made with 100% natural ingredients and no artificial preservatives.',
     },
-    "offers": {
-      "@type": "Offer",
-      "url": `https://cilojuice.com/product/${id}`,
-      "priceCurrency": "USD",
-      "price": product.price,
-      "availability": "https://schema.org/InStock"
-    }
-  }
-
-  // FAQ Schema
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": `Is ${product.name} made from natural ingredients?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, our beverage is made with 100% natural ingredients and no artificial preservatives."
-        }
-      }
-    ]
-  }
+    {
+      question: `What sizes is ${product.name} available in?`,
+      answer: 'CILO juices are available in 200ml, 500ml, 1L, and 2L sizes to suit every occasion.',
+    },
+  ])
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Products', path: '/products' },
+    { name: product.name, path: `/product/${id}` },
+  ])
 
   // Thumbnail hover — disabled on mobile to avoid janky scale repaints
   const thumbHover = deviceCapability.isMobile ? {} : { whileHover: { scale: 1.05 } }
@@ -190,14 +178,14 @@ const ProductDetail = () => {
 
   return (
     <PageWrapper
-      title={`${product.name} - Premium Fresh Drink`}
+      title={`${product.name} | Premium CILO Juice`}
       description={product.description}
+      url={`/product/${id}`}
+      keywords={`${product.name}, CILO juice, premium beverage, fresh juice India, Richi Food Products`}
+      image={`${SITE.domain}/images/${product.flavor}.webp`}
+      type="website"
+      schema={[productSchema, faqSchema, breadcrumbSchema]}
     >
-      <div className="hidden">
-        {/* Inject Schema Data */}
-        <script type="application/ld+json">{JSON.stringify(productSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
-      </div>
       {/*
         ─── PERFORMANCE NOTES ────────────────────────────────────
         1. `transform: translateZ(0)` on the wrapper promotes to its own

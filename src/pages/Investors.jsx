@@ -4,6 +4,7 @@ import { TrendingUp, Building, Handshake, ArrowRight, Package, Globe, CheckCircl
 import PageWrapper from '../components/PageWrapper'
 import SectionHeading from '../components/SectionHeading'
 import StatsCounter from '../components/StatsCounter'
+import { PAGE_SEO, buildBreadcrumbSchema } from '../seo/seoConfig'
 
 /* ══════════════════════════════════════════════════════════
    PERFORMANCE HELPERS
@@ -90,9 +91,21 @@ const whyRichi = [
 /* ══════════════════════════════════════════════════════════
    INVESTORS PAGE
 ══════════════════════════════════════════════════════════ */
-export default function Investors() {
+  const seo = PAGE_SEO.investors
+  const schema = buildBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Investors', path: '/investors' },
+  ])
+
   return (
-    <PageWrapper>
+    <PageWrapper
+      title="Investor Relations | Growth & Vision — Richi Food Products"
+      description={seo.description}
+      url="/investors"
+      keywords={seo.keywords}
+      type="website"
+      schema={schema}
+    >
 
       {/* ══════════ HERO ══════════ */}
       <section className="relative pt-32 pb-20 bg-emerald-900 overflow-hidden">

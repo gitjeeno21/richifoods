@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { MapPin, Phone, Send, CheckCircle } from 'lucide-react'
 import PageWrapper from '../components/PageWrapper'
 import SectionHeading from '../components/SectionHeading'
+import { PAGE_SEO, buildBreadcrumbSchema, buildFAQSchema } from '../seo/seoConfig'
 
 /* ══════════════════════════════════════════════════════════
    PERFORMANCE HELPERS  (cached once, never recalculated)
@@ -124,8 +125,29 @@ export default function Dealership() {
     }
   }
 
+  const seo = PAGE_SEO.dealership
+  const schema = [
+    buildBreadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Dealership', path: '/dealership' },
+    ]),
+    buildFAQSchema([
+      { question: 'How do I become a CILO Juice dealer?', answer: 'Fill out the inquiry form on this page or call our regional manager. Our team will contact you within 24 hours.' },
+      { question: 'What regions does CILO Juice serve?', answer: 'We currently serve Tamil Nadu and Karnataka, with expansion plans across South India.' },
+      { question: 'What are the margins for CILO Juice dealerships?', answer: 'We offer competitive, industry-leading margins. Contact us for a detailed proposal.' },
+    ]),
+  ]
+
   return (
-    <PageWrapper>
+    <PageWrapper
+      title="Dealership Opportunities | Become a CILO Juice Distributor"
+      description={seo.description}
+      url={seo.url}
+      keywords={seo.keywords}
+      type="website"
+      schema={schema}
+    >
+
 
       {/* ══════════ 1. HERO ══════════ */}
       <section

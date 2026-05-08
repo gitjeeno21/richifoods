@@ -23,7 +23,9 @@ const quickLinks = [
   { name: 'Home',       path: '/' },
   { name: 'About Us',   path: '/about' },
   { name: 'Products',   path: '/products' },
-  { name: 'Contact Us', path: '/contact' },
+  { name: 'Gallery',    path: '/gallery'  },
+  { name: 'CSR',        path: '/csr'      },
+  { name: 'Contact Us', path: '/contact'  },
 ]
 
 const Footer = memo(function Footer() {

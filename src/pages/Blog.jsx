@@ -4,20 +4,35 @@ import { Link } from 'react-router-dom'
 import PageWrapper from '../components/PageWrapper'
 import { ArrowRight, Calendar, Tag } from 'lucide-react'
 import { blogPosts } from '../data/blogData'
+import { PAGE_SEO, buildBreadcrumbSchema, buildOrganizationSchema } from '../seo/seoConfig'
 
 export default function Blog() {
   const [activeCategory, setActiveCategory] = useState('All')
   const categories = ['All', ...new Set(blogPosts.map(post => post.category))]
 
-  const filteredPosts = activeCategory === 'All' 
-    ? blogPosts 
+  const filteredPosts = activeCategory === 'All'
+    ? blogPosts
     : blogPosts.filter(post => post.category === activeCategory)
+
+  const seo = PAGE_SEO.blog
+  const schema = [
+    buildBreadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Journal', path: '/blog' },
+    ]),
+    buildOrganizationSchema(),
+  ]
 
   return (
     <PageWrapper
-      title="Blog & Insights"
-      description="Read the latest articles about premium healthy beverages, fresh juices, and organic drinks from CILO Juice."
+      title="The CILO Journal | Juice & Beverage Insights"
+      description={seo.description}
+      url={seo.url}
+      keywords={seo.keywords}
+      type="website"
+      schema={schema}
     >
+
       <div className="pt-32 pb-20 px-6 md:px-12 lg:px-20 max-w-7xl mx-auto min-h-screen">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

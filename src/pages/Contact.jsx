@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Mail, Phone, MapPin, Send, CheckCircle, Clock, Building, Globe } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import PageWrapper from '../components/PageWrapper'
+import { PAGE_SEO, buildBreadcrumbSchema, buildLocalBusinessSchema } from '../seo/seoConfig'
 
 /* ══════════════════════════════════════════════════════════
    PERFORMANCE HELPERS
@@ -112,8 +113,24 @@ export default function Contact() {
     ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.6 } }
     : { initial: { opacity: 0, x: 40 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true }, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
 
+  const seo = PAGE_SEO.contact
+  const schema = [
+    buildBreadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Contact', path: '/contact' },
+    ]),
+    buildLocalBusinessSchema(),
+  ]
+
   return (
-    <PageWrapper>
+    <PageWrapper
+      title="Contact Us | CILO Juice South India Inquiries"
+      description={seo.description}
+      url="/contact"
+      keywords={seo.keywords}
+      type="website"
+      schema={schema}
+    >
 
       {/* ══════════ 1. HERO ══════════ */}
       <section

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { X } from 'lucide-react'
 import PageWrapper from '../components/PageWrapper'
+import { PAGE_SEO, buildBreadcrumbSchema } from '../seo/seoConfig'
 
 /* ══════════════════════════════════════════════════════════
    DEVICE DETECTION — computed once at module level
@@ -228,8 +229,21 @@ const Gallery = () => {
   const handleSelect = useCallback((item) => setSelectedImage(item), [])
   const handleClose  = useCallback(() => setSelectedImage(null), [])
 
+  const seo = PAGE_SEO.gallery
+  const schema = buildBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Gallery', path: '/gallery' },
+  ])
+
   return (
-    <PageWrapper>
+    <PageWrapper
+      title="Photo Gallery | Visual World of CILO Juice & Facilities"
+      description={seo.description}
+      url="/gallery"
+      keywords={seo.keywords}
+      type="website"
+      schema={schema}
+    >
       <main className="flex-grow pt-20">
 
         {/* ── Hero ── */}

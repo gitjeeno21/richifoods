@@ -1,16 +1,111 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- ═══════════ FAVICON & BRAND ═══════════ -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png" />
     <link rel="manifest" href="/manifest.json" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#FF6B00" />
-    <meta name="description" content="CILO Juice - Premium futuristic healthy beverages and natural juice brand." />
-    <link rel="canonical" href="https://cilojuice.com/" />
-    <title>CILO Juice | Premium Natural Beverages</title>
+    <meta name="theme-color" content="#F97316" />
+    <meta name="msapplication-TileColor" content="#F97316" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="CILO Juice" />
+
+    <!-- ═══════════ DEFAULT SEO (overridden per-page by react-helmet-async) ═══════════ -->
+    <title>CILO Juice | Premium Natural Beverages &amp; Fresh Juices — Tamil Nadu</title>
+    <meta name="description" content="CILO by Richi Food Products — Tamil Nadu's premium fruit juice and carbonated beverage brand. 12+ flavors, 100 KL/day capacity. B2B contract manufacturing &amp; white-label solutions." />
+    <meta name="keywords" content="CILO juice, Richi Food Products, premium juice Tamil Nadu, mango juice, orange juice, carbonated beverages, fresh juice India" />
+    <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+    <meta name="googlebot" content="index,follow" />
+    <meta name="bingbot" content="index,follow" />
+    <meta name="GPTBot" content="index,follow" />
+    <meta name="Claude-Web" content="index,follow" />
+    <meta name="PerplexityBot" content="index,follow" />
+    <link rel="canonical" href="https://richifoodproducts.com/" />
+
+    <!-- ═══════════ OPENGRAPH ═══════════ -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="CILO Juice" />
+    <meta property="og:title" content="CILO Juice | Premium Natural Beverages — Tamil Nadu" />
+    <meta property="og:description" content="Tamil Nadu's premium fruit juice brand. CILO by Richi Food Products — 12+ flavors, FSSAI certified, 100 KL/day." />
+    <meta property="og:url" content="https://richifoodproducts.com/" />
+    <meta property="og:image" content="https://richifoodproducts.com/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_IN" />
+
+    <!-- ═══════════ TWITTER / X CARD ═══════════ -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@cilojuice" />
+    <meta name="twitter:title" content="CILO Juice | Premium Natural Beverages" />
+    <meta name="twitter:description" content="Tamil Nadu's premium fruit juice brand — 12+ flavors, FSSAI certified." />
+    <meta name="twitter:image" content="https://richifoodproducts.com/og-image.jpg" />
+
+    <!-- ═══════════ PERFORMANCE: PRECONNECT ═══════════ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+
+    <!-- ═══════════ GLOBAL JSON-LD (Organization + Website) ═══════════ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://richifoodproducts.com/#organization",
+          "name": "Richi Food Products Private Limited",
+          "alternateName": "CILO Juice",
+          "url": "https://richifoodproducts.com",
+          "logo": { "@type": "ImageObject", "url": "https://richifoodproducts.com/images/logo.png" },
+          "description": "Tamil Nadu's premium FMCG juice and carbonated beverage manufacturer. FSSAI certified, 100 KL/day capacity, B2B contract manufacturing.",
+          "foundingDate": "2020",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "489/1, Karagur Village, Paiyur - 2",
+            "addressLocality": "Krishnagiri",
+            "addressRegion": "Tamil Nadu",
+            "postalCode": "635112",
+            "addressCountry": "IN"
+          },
+          "contactPoint": [{
+            "@type": "ContactPoint",
+            "telephone": "+91-94435-18521",
+            "contactType": "sales",
+            "availableLanguage": ["English", "Tamil"]
+          }],
+          "vatID": "33ABJFR2254F1ZD"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://richifoodproducts.com/#website",
+          "url": "https://richifoodproducts.com",
+          "name": "CILO Juice | Richi Food Products",
+          "publisher": { "@id": "https://richifoodproducts.com/#organization" },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": { "@type": "EntryPoint", "urlTemplate": "https://richifoodproducts.com/products?q={search_term_string}" },
+            "query-input": "required name=search_term_string"
+          },
+          "inLanguage": "en-IN"
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
+    <!-- Accessible no-JS fallback (helps crawlers) -->
+    <noscript>
+      <div style="font-family:sans-serif;padding:2rem;text-align:center;">
+        <h1>CILO Juice | Richi Food Products</h1>
+        <p>Premium natural beverages and fresh juices from Tamil Nadu, India.</p>
+        <p>Please enable JavaScript for the full experience.</p>
+      </div>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

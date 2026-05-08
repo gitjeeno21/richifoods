@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { ArrowLeft, Calendar, User, Tag } from 'lucide-react'
 import PageWrapper from '../components/PageWrapper'
 import { blogPosts } from '../data/blogData'
+import { buildArticleSchema, buildBreadcrumbSchema, SITE } from '../seo/seoConfig'
 
 export default function BlogPost() {
   const { slug } = useParams()
@@ -10,7 +11,11 @@ export default function BlogPost() {
 
   if (!post) {
     return (
-      <PageWrapper title="Post Not Found">
+      <PageWrapper
+        title="Post Not Found"
+        url="/blog"
+        robots="noindex,nofollow"
+      >
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-4xl font-bold mb-4">Post Not Found</h1>
@@ -21,39 +26,25 @@ export default function BlogPost() {
     )
   }
 
-  // Schema Markup for Article
-  const articleSchema = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `https://cilojuice.com/blog/${slug}`
-    },
-    "headline": post.title,
-    "description": post.excerpt,
-    "image": `https://cilojuice.com${post.image}`,  
-    "author": {
-      "@type": "Organization",
-      "name": post.author
-    },  
-    "publisher": {
-      "@type": "Organization",
-      "name": "CILO Juice",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://cilojuice.com/logo.png"
-      }
-    },
-    "datePublished": post.date,
-    "dateModified": post.date
-  }
+  const articleSchema = buildArticleSchema(post)
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Journal', path: '/blog' },
+    { name: post.title, path: `/blog/${post.slug}` },
+  ])
 
   return (
     <PageWrapper
       title={post.title}
       description={post.excerpt}
-      schema={articleSchema}
+      url={`/blog/${post.slug}`}
+      keywords={post.tags ? post.tags.join(', ') : ''}
+      image={`${SITE.domain}${post.image}`}
+      type="article"
+      schema={[articleSchema, breadcrumbSchema]}
+      publishedAt={post.date}
     >
+
       <article className="pt-32 pb-20 px-6 md:px-12 lg:px-20 max-w-4xl mx-auto min-h-screen">
         <Link to="/blog" className="inline-flex items-center gap-2 text-[#7A4A2A]/70 hover:text-[#F97316] transition-colors mb-10 font-semibold text-sm">
           <ArrowLeft size={16} /> Back to Journal

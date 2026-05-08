@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { MapPin, ArrowRight, Droplets, Leaf, Star } from 'lucide-react'
 import PageWrapper from '../components/PageWrapper'
+import { PAGE_SEO, buildBreadcrumbSchema } from '../seo/seoConfig'
 
 const locationsData = {
   'chennai': {
@@ -37,28 +38,36 @@ export default function Location() {
     )
   }
 
-  // LocalBusiness Schema
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "FoodEstablishment",
-    "name": `CILO Juice ${locationInfo.city}`,
-    "image": "https://cilojuice.com/logo.png",
-    "description": locationInfo.description,
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": locationInfo.city,
-      "addressRegion": "Tamil Nadu",
-      "addressCountry": "IN"
-    },
-    "telephone": "+918000000000",
-    "servesCuisine": "Beverages, Juices"
-  }
+  const schema = [
+    buildBreadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Locations', path: '/location' },
+      { name: locationInfo.city, path: `/location/${slug}` },
+    ]),
+    {
+      "@context": "https://schema.org",
+      "@type": "FoodEstablishment",
+      "name": `CILO Juice ${locationInfo.city}`,
+      "image": "https://richifoodproducts.com/logo.png",
+      "description": locationInfo.description,
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": locationInfo.city,
+        "addressRegion": "Tamil Nadu",
+        "addressCountry": "IN"
+      },
+      "telephone": "+91 94435 18521",
+      "servesCuisine": "Beverages, Juices"
+    }
+  ]
 
   return (
     <PageWrapper
       title={locationInfo.title}
       description={locationInfo.description}
-      schema={localBusinessSchema}
+      url={`/location/${slug}`}
+      keywords={`${locationInfo.city} juice, premium drinks ${locationInfo.city}, best juice brand ${locationInfo.city}, CILO ${locationInfo.city}`}
+      schema={schema}
     >
       <div className="min-h-screen pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">

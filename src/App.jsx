@@ -14,6 +14,8 @@ import Blog from './pages/Blog'
 import BlogPost from './pages/BlogPost'
 import Location from './pages/Location'
 import ProductDetail from './pages/ProductDetail'
+import CSR from './pages/CSR'
+import Gallery from './pages/Gallery'
 
 export default function App() {
   const location = useLocation()
@@ -39,6 +41,8 @@ export default function App() {
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/location/:city" element={<Location />} />
           <Route path="/product/:slug" element={<ProductDetail />} />
+          <Route path="/csr" element={<CSR />} />
+          <Route path="/gallery" element={<Gallery />} />
         </Routes>
       </AnimatePresence>
       <Footer />

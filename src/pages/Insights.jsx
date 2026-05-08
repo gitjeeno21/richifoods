@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { X } from 'lucide-react'
 import PageWrapper from '../components/PageWrapper'
+import { PAGE_SEO, buildBreadcrumbSchema } from '../seo/seoConfig'
 
 /* ══════════════════════════════════════════════════════════
    PERFORMANCE HELPERS
@@ -102,11 +103,21 @@ function PulseDot() {
 /* ══════════════════════════════════════════════════════════
    INSIGHTS PAGE
 ══════════════════════════════════════════════════════════ */
-export default function Insights() {
-  const [selectedEvent, setSelectedEvent] = useState(null)
+  const seo = PAGE_SEO.insights
+  const schema = buildBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Insights', path: '/insights' },
+  ])
 
   return (
-    <PageWrapper>
+    <PageWrapper
+      title="Industry Insights | Beverage Trends & Innovation"
+      description={seo.description}
+      url="/insights"
+      keywords={seo.keywords}
+      type="website"
+      schema={schema}
+    >
 
       {/* ══════════ HERO ══════════ */}
       <section

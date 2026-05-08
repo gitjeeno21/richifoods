@@ -7,6 +7,7 @@ import {
   HeartHandshake, BadgeCheck
 } from 'lucide-react'
 import PageWrapper from '../components/PageWrapper'
+import { PAGE_SEO, buildBreadcrumbSchema } from '../seo/seoConfig'
 import heroPicFlavours1 from '../../pic assets/FLAVOURS 1.png'
 import heroPicFlavours2 from '../../pic assets/flavours 2.png'
 
@@ -183,8 +184,21 @@ export default function About() {
     ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.6 } }
     : { initial: { opacity: 0, x: 40 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true }, transition: { duration: 0.8 } }
 
+  const seo = PAGE_SEO.about
+  const schema = buildBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'About Us', path: '/about' },
+  ])
+
   return (
-    <PageWrapper>
+    <PageWrapper
+      title="Our Story | CILO Juice Heritage & Vision"
+      description={seo.description}
+      url="/about"
+      keywords={seo.keywords}
+      type="website"
+      schema={schema}
+    >
 
       {/* ══════════ 1. HERO ══════════ */}
       <section

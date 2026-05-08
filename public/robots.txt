@@ -1,4 +1,55 @@
+# ═══════════════════════════════════════════════════════════
+# robots.txt — CILO Juice | Richi Food Products
+# Domain: richifoodproducts.com
+# Updated: 2026
+# ═══════════════════════════════════════════════════════════
+
+# ── Standard search bots ─────────────────────────────────
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /admin/
 
-Sitemap: https://cilojuice.com/sitemap.xml
+# ── Google ───────────────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Googlebot-Image
+Allow: /images/
+
+# ── Bing ─────────────────────────────────────────────────
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+# ── AI Search Engines (2026) ─────────────────────────────
+# Allow ChatGPT / OpenAI
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Allow Claude / Anthropic
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Allow Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Allow Google AI (Bard / Gemini)
+User-agent: Google-Extended
+Allow: /
+
+# Allow Meta AI
+User-agent: meta-externalagent
+Allow: /
+
+# ── Sitemaps ─────────────────────────────────────────────
+Sitemap: https://richifoodproducts.com/sitemap.xml

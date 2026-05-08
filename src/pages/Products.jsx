@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import PageWrapper from '../components/PageWrapper'
 import ProductCard from '../components/ProductCard'
+import { PAGE_SEO, buildBreadcrumbSchema } from '../seo/seoConfig'
 
 // ─── Mobile / low-end detection ────────────────────────────────────────────────
 // Runs once at module level so every component can share the result.
@@ -109,8 +110,21 @@ export default function Products() {
   const [active, setActive] = useState('All')
   const filtered = active === 'All' ? products : products.filter((p) => p.category === active)
 
+  const seo = PAGE_SEO.products
+  const schema = buildBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Products', path: '/products' },
+  ])
+
   return (
-    <PageWrapper>
+    <PageWrapper
+      title="Our Premium Range | Fruit Juices & Carbonated Drinks"
+      description={seo.description}
+      url="/products"
+      keywords={seo.keywords}
+      type="website"
+      schema={schema}
+    >
       {/* ── Hero ── */}
       <section className="relative pt-32 pb-20 bg-white overflow-hidden">
         {/* Static background element – no animation, avoids repaint on mobile */}

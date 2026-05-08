@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Heart, TreePine, Users, Zap, GraduationCap, ArrowRight, Award, Leaf, Droplet } from 'lucide-react'
 import PageWrapper from '../components/PageWrapper'
 import SectionHeading from '../components/SectionHeading'
+import { PAGE_SEO, buildBreadcrumbSchema } from '../seo/seoConfig'
 
 /* ══════════════════════════════════════════════════════════
    PERFORMANCE HELPERS
@@ -71,9 +72,21 @@ const visionPillars = [
 /* ══════════════════════════════════════════════════════════
    CSR PAGE
 ══════════════════════════════════════════════════════════ */
-export default function CSR() {
+  const seo = PAGE_SEO.csr
+  const schema = buildBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'CSR', path: '/csr' },
+  ])
+
   return (
-    <PageWrapper>
+    <PageWrapper
+      title="CSR & Sustainability | Our Commitment to the Community"
+      description={seo.description}
+      url="/csr"
+      keywords={seo.keywords}
+      type="website"
+      schema={schema}
+    >
 
       {/* ══════════ 1. HERO ══════════ */}
       <section
