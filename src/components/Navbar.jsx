@@ -93,10 +93,10 @@ function Navbar() {
         {...navEntrance}
         className={`fixed z-50 transition-all duration-300 ${
           scrolled
-            ? 'top-2 inset-x-4 md:inset-x-12 bg-[#0B132B]/95 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.25)] py-3 rounded-full border border-white/10'
+            ? 'top-2 inset-x-4 md:inset-x-12 bg-white/95 backdrop-blur-xl shadow-[0_8px_32px_rgba(249,115,22,0.15)] py-3 rounded-full border border-[#FFD9A8]/50'
             : isMobile
-              ? 'top-0 left-0 right-0 bg-[#0B132B] py-4'
-              : 'top-6 inset-x-6 md:inset-x-12 bg-[#0B132B]/60 backdrop-blur-md py-4 rounded-full border border-white/5'
+              ? 'top-0 left-0 right-0 bg-white py-4 shadow-sm'
+              : 'top-6 inset-x-6 md:inset-x-12 bg-white/80 backdrop-blur-md py-4 rounded-full border border-white shadow-lg shadow-black/5'
         }`}
         style={{ willChange: 'transform' }}
       >
@@ -119,9 +119,7 @@ function Navbar() {
                 onError={(e) => { e.target.style.display = 'none' }}
               />
               <span
-                className={`font-bold text-2xl tracking-tight leading-none transition-colors duration-300 ${
-                  scrolled ? 'text-[#F97316]' : 'text-white'
-                }`}
+                className="font-bold text-2xl tracking-tight leading-none text-[#F97316]"
                 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
               >
                 Richi
@@ -137,8 +135,8 @@ function Navbar() {
                 to={link.path}
                 className={`relative px-4 py-2 rounded-full text-xs uppercase font-medium tracking-[0.15em] transition-colors duration-200 ${
                   isActive(link.path)
-                    ? 'text-[#F97316] bg-white/5'
-                    : 'text-white/80 hover:text-[#F97316] hover:bg-white/5'
+                    ? 'text-[#F97316] bg-[#FFF8EE]'
+                    : 'text-gray-700 hover:text-[#F97316] hover:bg-[#FFF8EE]'
                 }`}
                 style={{ fontFamily: "'Satoshi', sans-serif" }}
               >
@@ -158,11 +156,7 @@ function Navbar() {
           <div className="hidden md:flex items-center gap-3">
             <Link
               to="/contact"
-              className={`relative px-7 py-3 rounded-full text-xs uppercase font-bold tracking-[0.1em] overflow-hidden group transition-all duration-300 ${
-                scrolled
-                  ? 'bg-[#F97316] text-white shadow-lg shadow-[#F97316]/30 hover:bg-[#EA6C0A] hover:shadow-[#F97316]/40 hover:-translate-y-0.5'
-                  : 'bg-white text-[#0B132B] hover:bg-[#F97316] hover:text-white shadow-lg shadow-black/20 hover:shadow-[#F97316]/30 hover:-translate-y-0.5'
-              }`}
+              className="relative px-7 py-3 rounded-full text-xs uppercase font-bold tracking-[0.1em] overflow-hidden group transition-all duration-300 bg-[#F97316] text-white shadow-lg shadow-[#F97316]/20 hover:bg-[#EA6C0A] hover:shadow-[#F97316]/30 hover:-translate-y-0.5"
               style={{ fontFamily: "'Satoshi', sans-serif" }}
             >
               {/* Shine sweep — transform-only, compositor-safe */}
@@ -178,8 +172,8 @@ function Navbar() {
             aria-expanded={mobileOpen}
             className={`md:hidden p-2 rounded-xl transition-colors duration-200 ${
               scrolled
-                ? 'text-white hover:bg-white/10'
-                : 'text-white hover:bg-white/10'
+                ? 'text-[#F97316] hover:bg-[#FFF8EE]'
+                : 'text-[#F97316] hover:bg-[#FFF8EE]'
             }`}
           >
             <AnimatePresence mode="wait" initial={false}>
@@ -244,7 +238,7 @@ function Navbar() {
               transition={panelTransition}
               className="fixed top-0 right-0 bottom-0 z-50 w-[80vw] max-w-sm flex flex-col"
               style={{
-                background: 'linear-gradient(160deg, #050B14 0%, #0B132B 60%, #1A284D 100%)',
+                background: 'linear-gradient(160deg, #FFFFFF 0%, #FFF8F3 60%, #FFF1E6 100%)',
                 willChange: 'transform',
                 contain: 'layout style',
               }}
@@ -255,14 +249,14 @@ function Navbar() {
                   <img
                     src="/images/logo.png"
                     alt="Richi Food Products"
-                    className="h-8 w-auto object-contain brightness-0 invert"
+                    className="h-8 w-auto object-contain"
                     width={64}
                     height={32}
                     decoding="async"
                     onError={(e) => { e.target.style.display = 'none' }}
                   />
                   <span
-                    className="font-bold text-xl text-white tracking-tight"
+                    className="font-bold text-xl text-[#F97316] tracking-tight"
                     style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
                   >
                     Richi
@@ -271,7 +265,7 @@ function Navbar() {
                 <button
                   onClick={closeMenu}
                   aria-label="Close menu"
-                  className="p-2 rounded-xl text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-150"
+                  className="p-2 rounded-xl text-[#7A4A2A]/70 hover:text-[#F97316] hover:bg-[#F97316]/10 transition-colors duration-150"
                 >
                   <X size={22} />
                 </button>
@@ -298,8 +292,8 @@ function Navbar() {
                       to={link.path}
                       className={`flex items-center justify-between px-5 py-4 rounded-2xl text-sm uppercase font-medium tracking-[0.15em] transition-colors duration-150 ${
                         isActive(link.path)
-                          ? 'bg-white/10 text-[#F97316]'
-                          : 'text-white/70 hover:text-[#F97316] hover:bg-white/5'
+                          ? 'bg-[#F97316]/10 text-[#F97316]'
+                          : 'text-[#7A4A2A]/70 hover:text-[#F97316] hover:bg-[#F97316]/5'
                       }`}
                       style={{ fontFamily: "'Satoshi', sans-serif" }}
                     >
