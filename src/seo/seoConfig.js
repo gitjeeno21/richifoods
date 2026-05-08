@@ -322,3 +322,35 @@ export function buildLocalBusinessSchema() {
     areaServed: ['Tamil Nadu', 'Karnataka', 'South India'],
   }
 }
+
+/** City-specific Location Schema */
+export function buildLocationSchema(cityInfo) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FoodEstablishment',
+    name: `CILO Juice ${cityInfo.city}`,
+    image: `${SITE.domain}/images/logo.png`,
+    description: cityInfo.description,
+    url: `${SITE.domain}/location/${cityInfo.city.toLowerCase()}`,
+    telephone: SITE.contacts.phone,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: cityInfo.city,
+      addressRegion: 'Tamil Nadu',
+      addressCountry: 'IN',
+    },
+    geo: cityInfo.geo || {
+      '@type': 'GeoCoordinates',
+      latitude: 12.5257,
+      longitude: 78.2143,
+    },
+    servesCuisine: 'Beverages, Healthy Juices, Fruit Drinks',
+    priceRange: '₹',
+    hasMap: `https://www.google.com/maps/search/CILO+Juice+${cityInfo.city}`,
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '1250'
+    }
+  }
+}

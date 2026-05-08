@@ -15,6 +15,7 @@ import BlogPost from './pages/BlogPost'
 import Location from './pages/Location'
 import ProductDetail from './pages/ProductDetail'
 import CSR from './pages/CSR'
+import LocalSEOPage from './pages/LocalSEOPage'
 
 export default function App() {
   const location = useLocation()
@@ -41,6 +42,13 @@ export default function App() {
           <Route path="/location/:city" element={<Location />} />
           <Route path="/product/:slug" element={<ProductDetail />} />
           <Route path="/csr" element={<CSR />} />
+          {/* ── Local SEO Landing Pages ── */}
+          <Route path="/best-juice-krishnagiri" element={<LocalSEOPage pageSlug="best-juice-krishnagiri" />} />
+          <Route path="/fresh-juice-hosur" element={<LocalSEOPage pageSlug="fresh-juice-hosur" />} />
+          <Route path="/healthy-juice-tamil-nadu" element={<LocalSEOPage pageSlug="healthy-juice-tamil-nadu" />} />
+          <Route path="/premium-juice-dharmapuri" element={<LocalSEOPage pageSlug="premium-juice-dharmapuri" />} />
+          <Route path="/summer-drinks-krishnagiri" element={<LocalSEOPage pageSlug="summer-drinks-krishnagiri" />} />
+          <Route path="/juice-distributor-krishnagiri" element={<LocalSEOPage pageSlug="juice-distributor-krishnagiri" />} />
         </Routes>
       </AnimatePresence>
       <Footer />

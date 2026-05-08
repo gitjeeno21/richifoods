@@ -17,6 +17,12 @@ const blogSlugs = [
   'salt-lemon-the-ultimate-hydrator',
   'mango-2-double-the-mango-magic',
   'tropical-escape-pineapple-juice',
+  // Local SEO blog posts
+  'best-juice-in-krishnagiri',
+  'fresh-juice-hosur-guide',
+  'summer-drinks-krishnagiri-2026',
+  'healthy-juice-tamil-nadu-brand',
+  'juice-dealership-krishnagiri-opportunity',
 ]
 
 const productSlugs = [
@@ -26,7 +32,16 @@ const productSlugs = [
 ]
 
 const locationSlugs = [
-  'krishnagiri', 'bangalore', 'chennai', 'salem', 'coimbatore',
+  'krishnagiri', 'hosur', 'dharmapuri', 'chennai', 'salem', 'coimbatore', 'tamil-nadu',
+]
+
+const localSEORoutes = [
+  '/best-juice-krishnagiri',
+  '/fresh-juice-hosur',
+  '/healthy-juice-tamil-nadu',
+  '/premium-juice-dharmapuri',
+  '/summer-drinks-krishnagiri',
+  '/juice-distributor-krishnagiri',
 ]
 
 // https://vite.dev/config/
@@ -53,6 +68,7 @@ export default defineConfig({
         ...blogSlugs.map(slug => `/blog/${slug}`),
         ...productSlugs.map(slug => `/product/${slug}`),
         ...locationSlugs.map(city => `/location/${city}`),
+        ...localSEORoutes,
       ],
     }),
   ],

@@ -238,5 +238,130 @@ export const blogPosts = [
     author: 'CILO Wellness Team',
     category: 'Product Spotlight',
     tags: ['Pineapple', 'Tropical', 'Tangy']
+  },
+  {
+    slug: 'best-juice-in-krishnagiri',
+    title: 'Best Juice in Krishnagiri: Why CILO is the #1 Local Choice',
+    excerpt: 'Discover why CILO by Richi Food Products is the most trusted premium juice brand in Krishnagiri District — manufactured right here in Tamil Nadu.',
+    content: `
+      <h2>A Juice Brand Born in Krishnagiri</h2>
+      <p>When you're looking for the best juice in Krishnagiri, you don't have to look far. CILO by Richi Food Products is proudly manufactured in Karagur Village, Paiyur-2, right in the heart of Krishnagiri District. We're not just a brand — we're your neighbors.</p>
+
+      <h2>12+ Premium Flavors for Every Taste</h2>
+      <p>From our luscious Mango Juice and crisp Apple Drink to our unique Paneer Soda and cooling Jeera Masala, CILO offers over 12 premium flavors crafted for the Tamil Nadu palate. Whether you prefer sweet, tangy, or fizzy — there's a CILO for you.</p>
+
+      <h2>FSSAI Certified Quality You Can Trust</h2>
+      <p>Every bottle of CILO juice is manufactured under strict FSSAI-certified quality standards. Our state-of-the-art facility has a production capacity of 100 KL per day, ensuring consistent freshness and taste in every batch.</p>
+
+      <h2>Supporting Local — Choose CILO</h2>
+      <p>When you choose CILO, you're choosing a locally made product that supports the Krishnagiri economy. Our brand employs local talent, sources from regional farms, and reinvests in the community. Buy local, drink premium — buy CILO.</p>
+
+      <h2>Available Across Krishnagiri</h2>
+      <p>Find CILO at grocery stores, supermarkets, and local shops across Krishnagiri District. For bulk orders or to inquire about a dealership, call us at +91 94435 18521 or email richifoodproduct@gmail.com.</p>
+    `,
+    image: '/images/products/mango.png',
+    date: '2026-05-08',
+    author: 'CILO Local Team',
+    category: 'Local Spotlight',
+    tags: ['Krishnagiri', 'Local Brand', 'Premium Juice', 'Tamil Nadu', 'Best Juice Krishnagiri']
+  },
+  {
+    slug: 'fresh-juice-hosur-guide',
+    title: 'Fresh Juice in Hosur: Your Complete Guide to Healthy Beverages',
+    excerpt: 'Looking for fresh, healthy juice in Hosur? CILO brings premium natural beverages crafted just 30 minutes away in Krishnagiri to the Hosur market.',
+    content: `
+      <h2>Why Fresh Juice Matters in Hosur's Climate</h2>
+      <p>Hosur's warm climate demands premium hydration. Regular water isn't always enough — you need vitamins, minerals, and natural energy. That's where CILO's fresh fruit juice range comes in, offering a delicious and healthy alternative to sugary sodas and artificial drinks.</p>
+
+      <h2>CILO — Made Close to Home</h2>
+      <p>Manufactured just 30 minutes from Hosur in our Krishnagiri facility, CILO juice arrives at peak freshness. You're getting locally made, naturally crafted beverages without the long supply chains that compromise quality.</p>
+
+      <h2>Top CILO Picks for Hosur Residents</h2>
+      <p>For the health-conscious Hosur resident, we recommend: Apple Drink for morning energy, Mango Juice for afternoon refreshment, Green Lemon for a cooling midday drink, and Jeera Masala for digestive support after meals.</p>
+
+      <h2>Healthy Juice Near Me — Available in Hosur</h2>
+      <p>CILO is expanding its distribution across Hosur rapidly. Contact us to find your nearest retailer or to enquire about stocking CILO at your store. Bulk orders and B2B supply available.</p>
+    `,
+    image: '/images/products/apple.png',
+    date: '2026-05-07',
+    author: 'CILO Local Team',
+    category: 'Local Spotlight',
+    tags: ['Hosur', 'Fresh Juice', 'Healthy Drink', 'Near Me', 'Tamil Nadu Beverage']
+  },
+  {
+    slug: 'summer-drinks-krishnagiri-2026',
+    title: 'Best Summer Drinks in Krishnagiri 2026 | Beat the Heat with CILO',
+    excerpt: 'Krishnagiri summers are intense. Discover CILO\'s best cooling, refreshing summer drinks perfect for the Tamil Nadu climate.',
+    content: `
+      <h2>Surviving the Krishnagiri Summer</h2>
+      <p>If you've spent a summer in Krishnagiri, you know how intense the heat can be. Staying hydrated isn't just comfort — it's essential. And nothing does the job better than a cold, natural, premium juice from CILO.</p>
+
+      <h2>Top 5 CILO Summer Picks for Krishnagiri</h2>
+      <p><strong>1. Mango Juice</strong> — The king of summer fruits in a bottle. Rich, sweet, and deeply refreshing.</p>
+      <p><strong>2. Green Lemon</strong> — A cooling citrus blast that instantly cools you down on a hot afternoon.</p>
+      <p><strong>3. Salt Lemon</strong> — The ultimate hydrator, replenishing electrolytes naturally.</p>
+      <p><strong>4. Pineapple Juice</strong> — Tangy, tropical, and incredibly refreshing.</p>
+      <p><strong>5. Jeera Masala</strong> — India's favorite digestive summer drink, crafted to CILO's premium standard.</p>
+
+      <h2>Natural & Healthy — No Compromise</h2>
+      <p>All CILO beverages are crafted without artificial preservatives. Our FSSAI-certified manufacturing ensures that what you drink is safe, healthy, and delicious. Perfect for children, adults, and seniors alike.</p>
+
+      <h2>Order in Bulk for the Season</h2>
+      <p>Stocking up for summer? CILO offers bulk ordering for homes, offices, events, and businesses in Krishnagiri. Call +91 94435 18521 for bulk summer pricing.</p>
+    `,
+    image: '/images/products/mango.png',
+    date: '2026-05-06',
+    author: 'CILO Local Team',
+    category: 'Local Spotlight',
+    tags: ['Summer Drinks', 'Krishnagiri', 'Cool Drinks', 'Mango Juice', 'Healthy Summer']
+  },
+  {
+    slug: 'healthy-juice-tamil-nadu-brand',
+    title: 'The Healthiest Juice Brand in Tamil Nadu | CILO by Richi Food Products',
+    excerpt: 'Explore why CILO is Tamil Nadu\'s most trusted healthy juice brand — naturally made, FSSAI certified, and proudly local.',
+    content: `
+      <h2>Tamil Nadu Deserves Premium</h2>
+      <p>Tamil Nadu has a rich tradition of fresh, natural beverages. From raw mango drinks to fresh coconut water, the state values authenticity. CILO by Richi Food Products is built on this same philosophy — premium quality, natural ingredients, no shortcuts.</p>
+
+      <h2>What Makes CILO the Healthiest Choice in Tamil Nadu?</h2>
+      <p>Unlike imported brands or artificially flavored drinks, CILO is manufactured locally in Krishnagiri with ingredients sourced from Tamil Nadu and South India. Our FSSAI certification guarantees food safety at every step of production.</p>
+
+      <h2>Across Tamil Nadu — Growing Every Day</h2>
+      <p>From Krishnagiri and Hosur in the north to Chennai on the coast, CILO's presence is growing rapidly. Our 100 KL/day production capacity ensures that supply never outstrips demand, and freshness is never compromised.</p>
+
+      <h2>B2B & Wholesale for Tamil Nadu Businesses</h2>
+      <p>Restaurant owners, event planners, caterers, and retailers across Tamil Nadu can partner with CILO for wholesale pricing and consistent supply. Reach out at richifoodproduct@gmail.com or call +91 99443 66592.</p>
+    `,
+    image: '/images/products/pineapple.png',
+    date: '2026-05-05',
+    author: 'CILO Local Team',
+    category: 'Local Spotlight',
+    tags: ['Tamil Nadu', 'Healthy Juice', 'Local Brand', 'FSSAI', 'Premium Beverage']
+  },
+  {
+    slug: 'juice-dealership-krishnagiri-opportunity',
+    title: 'Juice Dealership in Krishnagiri: The Business Opportunity You\'ve Been Waiting For',
+    excerpt: 'Become a CILO juice distributor in Krishnagiri. Attractive margins, strong brand, local support — the ideal FMCG business for Tamil Nadu entrepreneurs.',
+    content: `
+      <h2>The Beverage Market is Booming</h2>
+      <p>The Indian packaged beverage market is growing at over 20% annually, and Krishnagiri is no exception. As the district's economy expands with industrial and agricultural activity, demand for premium beverages is surging. This is the right time to enter the market.</p>
+
+      <h2>Why Partner with CILO?</h2>
+      <p>CILO offers everything a first-time or experienced FMCG distributor needs: a well-established brand, FSSAI certification, 12+ flavors, competitive pricing, and a manufacturing facility right in Krishnagiri. You're not just distributing — you're representing the local pride of the district.</p>
+
+      <h2>Attractive Margins & Full Support</h2>
+      <p>CILO dealership partners enjoy industry-competitive trade margins, co-branding marketing materials, logistics assistance, and a dedicated regional manager for support. We succeed when you succeed.</p>
+
+      <h2>Flexible Terms to Suit Your Scale</h2>
+      <p>Whether you're starting small or scaling fast, CILO offers flexible MOQ and payment cycles. We accommodate new businesses and established distributors alike.</p>
+
+      <h2>Apply for Dealership Today</h2>
+      <p>Ready to start your juice dealership journey in Krishnagiri? Apply online through our Dealership page or call Mr. Bharath at +91 99443 66592. Our team is ready to discuss how we can build a profitable partnership together.</p>
+    `,
+    image: '/images/products/flavours_1.png',
+    date: '2026-05-04',
+    author: 'CILO Business Team',
+    category: 'Business Insights',
+    tags: ['Dealership', 'Krishnagiri', 'Juice Distributor', 'FMCG Business', 'Tamil Nadu Entrepreneur']
   }
 ];
