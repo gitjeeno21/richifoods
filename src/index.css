@@ -563,7 +563,7 @@
 img {
   /* Prevent layout shift */
   display: block;
-  height: auto;
+  max-width: 100%;
 }
 
 /* Lazy loading images should start invisible */
