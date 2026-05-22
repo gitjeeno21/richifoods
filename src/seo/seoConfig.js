@@ -1,11 +1,13 @@
 /**
- * CILO / Richi Food Products — Central SEO Configuration
- * 2026-level: OpenGraph, Twitter, Schema.org JSON-LD, AI-optimized metadata
+ * CILO / Richi Food Products - Central SEO configuration.
  */
 
 export const SITE = {
-  name: 'CILO Juice | Richi Food Products',
+  name: 'Richi Food Products | CILO Juice',
+  companyName: 'Richi Food Products',
   shortName: 'CILO Juice',
+  brandName: 'CILO Juice',
+  alternateBrandNames: ['Richi Juice', 'CILO'],
   tagline: 'Premium Natural Beverages & Fresh Juices',
   domain: 'https://richifoodproducts.com',
   defaultImage: 'https://richifoodproducts.com/og-image.jpg',
@@ -36,23 +38,23 @@ export const SITE = {
 /** Page-level SEO metadata map */
 export const PAGE_SEO = {
   home: {
-    title: "CILO Juice | Premium Natural Beverages & Fresh Juices — Tamil Nadu",
+    title: 'Richi Food Products | CILO Juice & Richi Juice Manufacturer in Tamil Nadu',
     description:
-      "CILO by Richi Food Products — Tamil Nadu's premium fruit juice and carbonated beverage brand. 12+ flavors, 100 KL/day capacity. B2B contract manufacturing & white-label solutions.",
+      "Richi Food Products is the company behind CILO Juice and the beverage range many customers search for as Richi Juice. Premium fruit juices and carbonated drinks from Tamil Nadu with 12+ flavors and 100 KL/day capacity.",
     keywords:
-      'CILO juice, Richi Food Products, premium juice Tamil Nadu, fresh fruit juice India, mango juice, orange juice, carbonated beverages, B2B juice manufacturer, wholesale beverages South India',
+      'Richi Food Products, Richi juice, CILO Juice, CILO drinks, juice manufacturer Tamil Nadu, premium juice India, fresh fruit juice India, mango juice, orange juice, carbonated beverages, wholesale beverages South India',
     url: '/',
   },
   about: {
-    title: 'About CILO Juice | Richi Food Products — Krishnagiri, Tamil Nadu',
+    title: 'About Richi Food Products | CILO Juice Brand Story',
     description:
-      'Founded in 2020 in Krishnagiri District, Tamil Nadu, Richi Food Products manufactures premium CILO juices and carbonated beverages with 100 KL/day capacity. FSSAI certified, GST registered.',
+      'Learn how Richi Food Products built CILO Juice in Krishnagiri, Tamil Nadu. Discover the story behind the beverage line many customers also search for as Richi Juice.',
     keywords:
-      'Richi Food Products, CILO juice company, Tamil Nadu beverage manufacturer, juice factory India, FSSAI certified, food manufacturer Krishnagiri',
+      'Richi Food Products, Richi juice, CILO Juice company, Tamil Nadu beverage manufacturer, juice factory India, FSSAI certified, food manufacturer Krishnagiri',
     url: '/about',
   },
   products: {
-    title: 'Products | Premium Juice & Carbonated Drinks — CILO Juice',
+    title: 'Products | Premium Juice & Carbonated Drinks - CILO Juice',
     description:
       "Explore CILO's full range of premium beverages: Mango, Apple, Orange, Grape, Pineapple, Cola, Paneer Soda, Jeera Masala, and more. Available in 200ml, 500ml, 1L, 2L.",
     keywords:
@@ -86,7 +88,7 @@ export const PAGE_SEO = {
   gallery: {
     title: 'Photo Gallery | Visual World of CILO Juice & Facilities',
     description:
-      'Explore the visual world of CILO Juice — from our premium fruit juice lineup to our state-of-the-art manufacturing facilities in Krishnagiri, Tamil Nadu.',
+      'Explore the visual world of CILO Juice - from our premium fruit juice lineup to our state-of-the-art manufacturing facilities in Krishnagiri, Tamil Nadu.',
     keywords:
       'CILO juice gallery, juice factory photos, beverage manufacturing India, product photography, Krishnagiri factory, food production visuals',
     url: '/gallery',
@@ -100,7 +102,7 @@ export const PAGE_SEO = {
     url: '/csr',
   },
   investors: {
-    title: 'Investor Relations | Growth & Vision — Richi Food Products',
+    title: 'Investor Relations | Growth & Vision - Richi Food Products',
     description:
       'Explore the growth story and future vision of Richi Food Products. Information for partners and investors looking to join our journey in the premium beverage market.',
     keywords:
@@ -110,7 +112,7 @@ export const PAGE_SEO = {
   insights: {
     title: 'Industry Insights | Beverage Trends & Innovation',
     description:
-      'Deep dives into the beverage industry: market trends, consumer behavior, and CILO\'s approach to innovation in the healthy refreshment space.',
+      "Deep dives into the beverage industry: market trends, consumer behavior, and CILO's approach to innovation in the healthy refreshment space.",
     keywords:
       'beverage market trends, juice industry analysis, consumer health trends, food innovation India, beverage sector insights',
     url: '/insights',
@@ -125,14 +127,15 @@ export const PAGE_SEO = {
   },
 }
 
-/** Organization JSON-LD Schema */
+/** Organization JSON-LD schema */
 export function buildOrganizationSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     '@id': `${SITE.domain}/#organization`,
-    name: 'Richi Food Products Private Limited',
-    alternateName: 'CILO Juice',
+    name: SITE.companyName,
+    legalName: SITE.companyName,
+    alternateName: [SITE.brandName, ...SITE.alternateBrandNames],
     url: SITE.domain,
     logo: {
       '@type': 'ImageObject',
@@ -141,7 +144,7 @@ export function buildOrganizationSchema() {
       height: 80,
     },
     description:
-      'CILO by Richi Food Products — A premium fruit juice and carbonated beverage manufacturer in Tamil Nadu, India. Established 2020. FSSAI certified, 100 KL/day production capacity.',
+      'Richi Food Products is the Tamil Nadu beverage manufacturer behind CILO Juice and the range many customers search for as Richi Juice. Established 2020 with FSSAI-certified production and 100 KL/day capacity.',
     foundingDate: '2020',
     foundingLocation: 'Krishnagiri, Tamil Nadu, India',
     address: {
@@ -162,8 +165,15 @@ export function buildOrganizationSchema() {
       },
     ],
     sameAs: [SITE.social.instagram, SITE.social.facebook],
-    vatID: SITE.gst,
-    leiCode: SITE.fssai,
+    taxID: SITE.gst,
+    identifier: [
+      { '@type': 'PropertyValue', name: 'GST Number', value: SITE.gst },
+      { '@type': 'PropertyValue', name: 'FSSAI License', value: SITE.fssai },
+    ],
+    brand: [
+      { '@type': 'Brand', name: SITE.brandName },
+      { '@type': 'Brand', name: 'Richi Juice' },
+    ],
     numberOfEmployees: { '@type': 'QuantitativeValue', value: 50 },
     knowsAbout: [
       'Fruit Juice Manufacturing',
@@ -175,7 +185,7 @@ export function buildOrganizationSchema() {
   }
 }
 
-/** Website JSON-LD Schema */
+/** Website JSON-LD schema */
 export function buildWebsiteSchema() {
   return {
     '@context': 'https://schema.org',
@@ -194,7 +204,7 @@ export function buildWebsiteSchema() {
   }
 }
 
-/** Product JSON-LD Schema */
+/** Product JSON-LD schema */
 export function buildProductSchema(product) {
   return {
     '@context': 'https://schema.org',
@@ -204,7 +214,7 @@ export function buildProductSchema(product) {
     image: `${SITE.domain}${product.image}`,
     brand: {
       '@type': 'Brand',
-      name: 'CILO Juice',
+      name: SITE.brandName,
     },
     manufacturer: { '@id': `${SITE.domain}/#organization` },
     category: product.category || 'Beverages',
@@ -222,7 +232,7 @@ export function buildProductSchema(product) {
   }
 }
 
-/** Article / Blog Post JSON-LD Schema */
+/** Article / blog post JSON-LD schema */
 export function buildArticleSchema(post) {
   return {
     '@context': 'https://schema.org',
@@ -240,7 +250,7 @@ export function buildArticleSchema(post) {
     },
     publisher: {
       '@type': 'Organization',
-      name: 'CILO Juice | Richi Food Products',
+      name: SITE.name,
       logo: { '@type': 'ImageObject', url: SITE.logo },
     },
     datePublished: post.date,
@@ -255,7 +265,7 @@ export function buildArticleSchema(post) {
   }
 }
 
-/** BreadcrumbList JSON-LD Schema */
+/** BreadcrumbList JSON-LD schema */
 export function buildBreadcrumbSchema(crumbs) {
   return {
     '@context': 'https://schema.org',
@@ -269,7 +279,7 @@ export function buildBreadcrumbSchema(crumbs) {
   }
 }
 
-/** FAQ JSON-LD Schema */
+/** FAQ JSON-LD schema */
 export function buildFAQSchema(faqs) {
   return {
     '@context': 'https://schema.org',
@@ -285,17 +295,24 @@ export function buildFAQSchema(faqs) {
   }
 }
 
-/** LocalBusiness JSON-LD Schema */
+/** LocalBusiness JSON-LD schema */
 export function buildLocalBusinessSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'FoodEstablishment',
     '@id': `${SITE.domain}/#localbusiness`,
-    name: 'Richi Food Products Private Limited (CILO Juice)',
+    name: SITE.companyName,
+    alternateName: [SITE.brandName, ...SITE.alternateBrandNames],
+    description:
+      'Richi Food Products manufactures CILO Juice and a wide range of fruit juices and carbonated beverages in Krishnagiri, Tamil Nadu.',
     image: SITE.logo,
     url: SITE.domain,
     telephone: '+91-94435-18521',
     email: SITE.contacts.email,
+    brand: [
+      { '@type': 'Brand', name: SITE.brandName },
+      { '@type': 'Brand', name: 'Richi Juice' },
+    ],
     address: {
       '@type': 'PostalAddress',
       streetAddress: '489/1, Karagur Village, Paiyur - 2',
@@ -318,12 +335,12 @@ export function buildLocalBusinessSchema() {
       },
     ],
     servesCuisine: 'Beverages',
-    priceRange: 'Rs.Rs.',
+    priceRange: 'Rs',
     areaServed: ['Tamil Nadu', 'Karnataka', 'South India'],
   }
 }
 
-/** City-specific Location Schema */
+/** City-specific location schema */
 export function buildLocationSchema(cityInfo) {
   return {
     '@context': 'https://schema.org',
@@ -345,12 +362,12 @@ export function buildLocationSchema(cityInfo) {
       longitude: 78.2143,
     },
     servesCuisine: 'Beverages, Healthy Juices, Fruit Drinks',
-    priceRange: '₹',
+    priceRange: 'Rs',
     hasMap: `https://www.google.com/maps/search/CILO+Juice+${cityInfo.city}`,
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.9',
-      reviewCount: '1250'
-    }
+      reviewCount: '1250',
+    },
   }
 }

@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ChevronRight, ArrowRight, MapPin, Phone, Mail, Star, Droplets, Leaf, Zap, Award } from 'lucide-react'
 import PageWrapper from '../components/PageWrapper'
-import { PAGE_SEO, buildOrganizationSchema, buildLocalBusinessSchema } from '../seo/seoConfig'
+import { PAGE_SEO, buildOrganizationSchema, buildLocalBusinessSchema, buildFAQSchema } from '../seo/seoConfig'
 
 // ─── PERFORMANCE DETECTION HELPERS ───────────────────────────────────────────
 
@@ -88,6 +88,21 @@ const storyGrid = [
 ]
 
 const ticker = ['Salt Lemon','Apple','Grapes','White Lemon','Green Lemon','Mango','Orange','Paneer Soda','Cola','Jeera Masala','Mango 2','Pineapple']
+
+const brandSearchFaqs = [
+  {
+    question: 'Is Richi Food Products the company behind CILO Juice?',
+    answer: 'Yes. Richi Food Products is the Tamil Nadu beverage manufacturer behind CILO Juice and our premium fruit juice and carbonated drink range.',
+  },
+  {
+    question: 'Is Richi Juice the same as CILO Juice?',
+    answer: 'Many customers search for Richi Juice when looking for the beverages made by Richi Food Products. CILO Juice is the flagship brand on the same company website.',
+  },
+  {
+    question: 'Where is Richi Food Products located?',
+    answer: 'Richi Food Products operates from Krishnagiri District, Tamil Nadu, and supplies CILO Juice across South India through retailers, distributors, and B2B partners.',
+  },
+]
 
 // ─── UTILITY COMPONENTS ───────────────────────────────────────────────────────
 
@@ -541,11 +556,12 @@ export default function Home() {
   const schema = [
     buildOrganizationSchema(),
     buildLocalBusinessSchema(),
+    buildFAQSchema(brandSearchFaqs),
   ]
 
   return (
     <PageWrapper
-      title="CILO Juice | Premium Natural Refreshment"
+      title={seo.title}
       description={seo.description}
       url="/"
       keywords={seo.keywords}
@@ -587,7 +603,7 @@ export default function Home() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/70 backdrop-blur border border-[#FFD9A8] shadow-sm text-[#7A4A2A] text-xs font-bold mb-7"
           >
             <span className="w-2 h-2 rounded-full bg-[#D4622A] animate-pulse" />
-            Refreshing India Since 2008
+            CILO Juice by Richi Food Products
           </motion.div>
 
           <motion.h1
@@ -600,9 +616,9 @@ export default function Home() {
               fontSize: 'clamp(2.4rem, 6vw, 5rem)',
             }}
           >
-            Where every sip is
+            Richi Food Products
             <br />
-            <span className="text-[#F97316]">a flavor-filled experience</span>
+            <span className="text-[#F97316]">home of CILO Juice and Richi Juice</span>
           </motion.h1>
 
           <motion.p
@@ -612,8 +628,9 @@ export default function Home() {
             className="text-[#7A4A2A]/55 max-w-lg leading-relaxed mb-9"
             style={{ fontSize: 'clamp(1rem, 2vw, 1.15rem)' }}
           >
-            Refine your beverage enjoyment with Richi's superior selection of drinks,
-            offering a burst of flavours that will leave you desiring more.
+            Richi Food Products is the Tamil Nadu beverage manufacturer behind CILO Juice,
+            with a product line many customers also search for as Richi Juice. Explore 12+
+            fruit juice and carbonated drink variants crafted for South India.
           </motion.p>
 
           <motion.div
@@ -627,7 +644,7 @@ export default function Home() {
               className="px-9 py-3.5 bg-[#F97316] text-white font-bold rounded-full shadow-xl shadow-[#F97316]/20
                 hover:bg-[#F97316] hover:shadow-[#F97316]/25 transition-all duration-300 flex items-center gap-2"
             >
-              Explore <ChevronRight size={16} />
+              Explore CILO Juice <ChevronRight size={16} />
             </Link>
             <Link
               to="/about"
@@ -774,8 +791,8 @@ export default function Home() {
             </h2>
             <p className="text-gray-500 leading-relaxed text-lg mb-8">
               Richi Food Products has been crafting refreshing beverages with
-              care and passion from Tamil Nadu. Our Richi range is made with the highest quality
-              ingredients, each sip an expression of the finest taste.
+              care and passion from Tamil Nadu. Our CILO Juice and Richi Juice range is made with
+              high-quality ingredients for families, retailers, and distributors across South India.
             </p>
             <Link
               to="/about"
@@ -800,6 +817,66 @@ export default function Home() {
       </section>
 
       {/* ══════════ PILLARS ══════════ */}
+      <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#FFF9F3] relative overflow-hidden">
+        <div className="max-w-6xl mx-auto relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            className="text-center mb-14"
+          >
+            <span className="inline-block px-4 py-1.5 bg-white text-[#7A4A2A] rounded-full text-xs font-bold uppercase tracking-widest mb-4 border border-[#FFD9A8] shadow-sm">
+              Brand Search
+            </span>
+            <h2
+              className="text-4xl md:text-5xl font-black text-gray-900 mb-5"
+              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+            >
+              Looking for Richi Food Products,
+              <br />
+              <span className="text-[#F97316]">Richi Juice, or CILO Juice?</span>
+            </h2>
+            <p className="text-gray-600 text-lg leading-relaxed max-w-3xl mx-auto">
+              They all lead back to the same Tamil Nadu manufacturer. CILO Juice is the flagship
+              beverage line from Richi Food Products, and many customers refer to the range as
+              Richi Juice when searching online.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {brandSearchFaqs.map((item, index) => (
+              <motion.div
+                key={item.question}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-100px' }}
+                transition={{ delay: index * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={isMobile ? {} : { y: -8 }}
+                className="rounded-3xl border border-[#FFD9A8] bg-white p-8 shadow-sm hover:shadow-xl transition-all duration-300"
+              >
+                <h3 className="text-xl font-black text-gray-900 mb-3">{item.question}</h3>
+                <p className="text-gray-600 leading-relaxed">{item.answer}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="mt-10 flex flex-wrap justify-center gap-4">
+            <Link
+              to="/about"
+              className="inline-flex items-center gap-2 px-7 py-3 bg-[#F97316] text-white font-bold rounded-full hover:shadow-xl hover:shadow-[#F97316]/25 transition-all duration-300"
+            >
+              About Richi Food Products <ArrowRight size={16} />
+            </Link>
+            <Link
+              to="/products"
+              className="inline-flex items-center gap-2 px-7 py-3 bg-white text-[#7A4A2A] font-bold rounded-full border border-[#FFD9A8] hover:border-[#F97316] hover:text-[#F97316] transition-all duration-300"
+            >
+              Browse CILO Juice Range
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section className="py-32 px-6 md:px-12 lg:px-20 bg-white relative overflow-hidden">
         <Orb className="w-[600px] h-[600px] bg-[#F97316]/6 top-1/2 left-1/4 -translate-y-1/2" delay={0} />
         <Orb className="w-[500px] h-[500px] bg-[#F97316]/5 -bottom-32 right-1/4"               delay={2} />
@@ -998,7 +1075,7 @@ export default function Home() {
                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
                     <MapPin size={16} />
                   </div>
-                  Karagur Village, Paiyur - 2, Krishnagari District - 635112
+                  Karagur Village, Paiyur - 2, Krishnagiri District - 635112
                 </span>
               </div>
             </div>

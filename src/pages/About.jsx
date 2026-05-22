@@ -22,7 +22,7 @@ const heroFlavours = [
 ]
 
 const timeline = [
-  { year: '2020', title: 'Founded',                desc: 'Richi Food Products founded in Krishnagari District, Tamil Nadu.',                 img: '/images/about/timeline/2020.jpg', tag: 'Founded',    color: 'bg-[#C2641F]'  },
+  { year: '2020', title: 'Founded',                desc: 'Richi Food Products founded in Krishnagiri District, Tamil Nadu.',                img: '/images/about/timeline/2020.jpg', tag: 'Founded',    color: 'bg-[#C2641F]'  },
   { year: '2021', title: 'FSSAI License',           desc: 'FSSAI license obtained, first product lines launched.',                            img: '/images/about/timeline/2021.jpg', tag: 'Compliance', color: 'bg-sky-500'    },
   { year: '2022', title: 'Karnataka Expansion',     desc: 'Expanded to 10+ drink variants, entered Karnataka market.',                        img: '/images/about/timeline/2022.jpg', tag: 'Expansion',  color: 'bg-purple-500' },
   { year: '2023', title: 'Plant Upgrade',           desc: 'Scaled to 100 KL/day capacity with new plant upgrades.',                           img: '/images/about/timeline/2023.jpg', tag: 'Scale-up',   color: 'bg-[#FB923C]'  },
@@ -192,7 +192,7 @@ export default function About() {
 
   return (
     <PageWrapper
-      title="Our Story | CILO Juice Heritage & Vision"
+      title={seo.title}
       description={seo.description}
       url="/about"
       keywords={seo.keywords}
@@ -269,7 +269,7 @@ export default function About() {
               >
                 Richi Food Products
                 <br />
-                <span className="text-[#F97316]">Private Limited</span>
+                <span className="text-[#F97316]">CILO Juice & Richi Juice</span>
               </h1>
               <p className="text-[#4A2800]/60 max-w-xl mx-auto leading-relaxed text-lg mb-4">
                 Born in Krishnagari District, Tamil Nadu — a modern beverage manufacturer specialising in
@@ -318,7 +318,7 @@ export default function About() {
             >
               Richi Food Products
               <br />
-              <span className="text-[#F97316]">Private Limited</span>
+              <span className="text-[#F97316]">CILO Juice & Richi Juice</span>
             </h1>
             <p className="text-[#4A2800]/60 leading-relaxed text-base mb-3">
               Born in Krishnagari District, Tamil Nadu — a modern beverage manufacturer for B2B partners across South India.
@@ -380,7 +380,7 @@ export default function About() {
               Crafting Beverages That <span className="text-[#F97316]">Delight Every Sip</span>
             </h2>
             <p className="text-gray-600 text-lg leading-relaxed mb-4">
-              Richi Food Products is a modern beverage manufacturer located in Krishnagari District, Tamil Nadu.
+              Richi Food Products is a modern beverage manufacturer located in Krishnagiri District, Tamil Nadu.
               We specialise in high-quality fruit juices and carbonated drinks for B2B partners — from
               contract manufacturing to white-label solutions.
             </p>
@@ -393,7 +393,7 @@ export default function About() {
               {[
                 { label: 'GST No.',       value: '33ABJFR2254F1ZD', breakAll: true  },
                 { label: 'FSSAI License', value: '12424011000549',   breakAll: true  },
-                { label: 'Location',      value: 'Karagur Village, Paiyur - 2, Krishnagari - 635112', breakAll: false },
+                { label: 'Location',      value: 'Karagur Village, Paiyur - 2, Krishnagiri - 635112', breakAll: false },
                 { label: 'Capacity',      value: '100 KL/Day',       breakAll: false },
               ].map((item) => (
                 <div key={item.label} className="bg-[#FFF8EE] rounded-2xl p-3 sm:p-4 border border-[#FFD9A8] min-w-0">
@@ -435,7 +435,7 @@ export default function About() {
                 </div>
                 <div className="text-right">
                   <div className="text-white/50 text-xs">Location</div>
-                  <div className="font-semibold text-white text-sm">Krishnagari District - 635112</div>
+                  <div className="font-semibold text-white text-sm">Krishnagiri District - 635112</div>
                 </div>
               </div>
             </div>
