@@ -104,12 +104,12 @@ function Navbar() {
 
           {/* ── LOGO ── */}
           <Link to="/" className="flex items-center shrink-0">
-            <div className="relative h-12 w-[170px] overflow-hidden">
+            <div className="relative h-12 w-[205px] overflow-hidden">
               <img
                 src="/images/logo.png"
                 alt="Richi Food Products"
                 className="h-12 w-auto object-contain"
-                style={{ height: 48, width: 'auto', transform: 'translateX(28px) scale(2.25)', transformOrigin: 'center' }}
+                style={{ height: 48, width: 'auto', transform: 'translateX(42px) scale(2.9)', transformOrigin: 'center' }}
                 /*
                   width + height prevent layout shift (CLS) while the image loads.
                   decoding="async" moves image decode off the main thread.
@@ -241,12 +241,12 @@ function Navbar() {
               {/* Panel header */}
               <div className="flex items-center justify-between px-8 pt-8 pb-6 border-b border-white/10">
                 <Link to="/" onClick={closeMenu} className="flex items-center">
-                  <span className="relative h-10 w-[145px] overflow-hidden">
+                  <span className="relative h-10 w-[178px] overflow-hidden">
                     <img
                       src="/images/logo.png"
                       alt="Richi Food Products"
                       className="h-10 w-auto object-contain"
-                      style={{ height: 40, width: 'auto', transform: 'translateX(24px) scale(2.25)', transformOrigin: 'center' }}
+                      style={{ height: 40, width: 'auto', transform: 'translateX(38px) scale(2.9)', transformOrigin: 'center' }}
                       width={64}
                       height={32}
                       decoding="async"
