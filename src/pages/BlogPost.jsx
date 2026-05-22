@@ -61,7 +61,7 @@ export default function BlogPost() {
           </h1>
           <div className="flex flex-wrap items-center gap-6 text-sm text-stone-500 font-medium">
             <span className="flex items-center gap-2"><User size={16} /> {post.author}</span>
-            <span className="flex items-center gap-2"><Calendar size={16} /> {new Date(post.date).toLocaleDateString()}</span>
+            <span className="flex items-center gap-2"><Calendar size={16} /> {new Date(post.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
           </div>
         </header>
 

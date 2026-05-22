@@ -90,7 +90,7 @@ export default function Blog() {
               </Link>
               <div className="p-6 flex-1 flex flex-col">
                 <div className="flex items-center gap-4 text-xs font-semibold text-stone-400 mb-4">
-                  <span className="flex items-center gap-1"><Calendar size={14} /> {new Date(post.date).toLocaleDateString()}</span>
+                  <span className="flex items-center gap-1"><Calendar size={14} /> {new Date(post.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
                 </div>
                 <Link to={`/blog/${post.slug}`}>
                   <h3 className="text-xl font-bold text-[#2D1608] mb-3 leading-tight group-hover:text-[#F97316] transition-colors line-clamp-2">

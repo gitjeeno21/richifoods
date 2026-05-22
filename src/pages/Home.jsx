@@ -789,9 +789,9 @@ export default function Home() {
               <span className="text-[#F97316]">since 2008</span>
             </h2>
             <p className="text-gray-500 leading-relaxed text-lg mb-8">
-              Richi Food Products has been crafting refreshing beverages with
-              care and passion from Tamil Nadu. Our CILO Juice and Richi Juice range is made with
-              high-quality ingredients for families, retailers, and distributors across South India.
+              Based in Tamil Nadu, Richi Food Products crafts premium, refreshing beverages with
+              absolute care and passion. Our signature CILO Juice and Richi Juice ranges are made using
+              high-quality ingredients, bringing authentic taste and delight to families, retailers, and distributors across South India.
             </p>
             <Link
               to="/about"
