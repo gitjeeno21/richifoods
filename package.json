@@ -9,6 +9,7 @@
     "build:ssr": "vite build --ssr src/entry-server.jsx --outDir .prerender --emptyOutDir",
     "prerender": "node scripts/prerender.mjs",
     "build": "npm run build:client && npm run build:ssr && npm run prerender",
+    "deploy": "npm run build && wrangler deploy",
     "lint": "eslint .",
     "preview": "vite preview"
   },
