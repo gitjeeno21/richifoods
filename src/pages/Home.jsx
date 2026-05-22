@@ -603,7 +603,7 @@ export default function Home() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/70 backdrop-blur border border-[#FFD9A8] shadow-sm text-[#7A4A2A] text-xs font-bold mb-7"
           >
             <span className="w-2 h-2 rounded-full bg-[#D4622A] animate-pulse" />
-            CILO Juice by Richi Food Products
+            Premium beverages from Krishnagiri, Tamil Nadu
           </motion.div>
 
           <motion.h1
@@ -616,9 +616,9 @@ export default function Home() {
               fontSize: 'clamp(2.4rem, 6vw, 5rem)',
             }}
           >
-            Richi Food Products
+            CILO Juice
             <br />
-            <span className="text-[#F97316]">home of CILO Juice and Richi Juice</span>
+            <span className="text-[#F97316]">crafted by Richi Food Products</span>
           </motion.h1>
 
           <motion.p
@@ -628,9 +628,8 @@ export default function Home() {
             className="text-[#7A4A2A]/55 max-w-lg leading-relaxed mb-9"
             style={{ fontSize: 'clamp(1rem, 2vw, 1.15rem)' }}
           >
-            Richi Food Products is the Tamil Nadu beverage manufacturer behind CILO Juice,
-            with a product line many customers also search for as Richi Juice. Explore 12+
-            fruit juice and carbonated drink variants crafted for South India.
+            From vibrant fruit juices to refreshing fizzy favorites, we craft every bottle
+            with trusted quality, bold flavor, and a taste made for South India.
           </motion.p>
 
           <motion.div
