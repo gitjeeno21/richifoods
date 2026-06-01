@@ -40,7 +40,7 @@ const Footer = memo(function Footer() {
       style={{ contain: 'layout style' }}
     >
       {/* ── Decorative top line ── */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#F97316]/50 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#F97316]/50 to-transparent" />
 
       {/*
         Orb blur: on mobile this is clipped by overflow-hidden anyway and
@@ -58,7 +58,7 @@ const Footer = memo(function Footer() {
           <div className="sm:col-span-2 md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
               <div
-                className="font-black text-2xl tracking-tight bg-gradient-to-r from-[#F97316] to-[#A8430F] bg-clip-text text-transparent"
+                className="font-black text-2xl tracking-tight bg-linear-to-r from-[#F97316] to-[#A8430F] bg-clip-text text-transparent"
                 style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
               >
                 Richi
@@ -110,7 +110,7 @@ const Footer = memo(function Footer() {
                     style={{ touchAction: 'manipulation' }}
                     className="text-white/70 hover:text-[#F97316] transition-colors duration-200 text-sm flex items-center gap-2 group"
                   >
-                    <span className="w-1 h-1 rounded-full bg-[#F97316] group-hover:w-3 transition-[width] duration-300 flex-shrink-0" />
+                    <span className="w-1 h-1 rounded-full bg-[#F97316] group-hover:w-3 transition-[width] duration-300 shrink-0" />
                     {link.name}
                   </Link>
                 </li>
